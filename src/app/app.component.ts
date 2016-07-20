@@ -1,22 +1,25 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ApiService } from './services/api.service';
-import { HTTP_PROVIDERS}    from '@angular/http';
+import { HTTP_PROVIDERS}                        from '@angular/http';
+
+import { ApiService }                           from './services/api.service';
 
 @Component({
   moduleId: module.id,
-  //encapsulate: ViewEncapsulation.Emulated,
-  selector: 'angular2-online-store-app',
-  templateUrl: 'angular2-online-store.component.html',
+  encapsulation: ViewEncapsulation.Emulated,
+  selector: 'app',
+  templateUrl: 'app.component.html',
   styleUrls: [
-    'angular2-online-store.component.css'
+    'app.component.css'
   ],
   providers: [
-    HTTP_PROVIDERS, ApiService
+    HTTP_PROVIDERS,
+      ApiService
   ]
 })
-export class Angular2OnlineStoreAppComponent implements OnInit{
+export class AppComponent implements OnInit{
 
   title = 'angular2-online-store works!';
+
   private computers = [];
 
   constructor(private apiService: ApiService){}
