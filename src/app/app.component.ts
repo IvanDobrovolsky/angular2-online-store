@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HTTP_PROVIDERS}                        from '@angular/http';
 
-import { ApiService }                           from './services/api.service';
+import { ApiService } from './services/api.service';
+
+import { Computer } from './models/computer.model';
 
 @Component({
   moduleId: module.id,
@@ -20,14 +22,17 @@ export class AppComponent implements OnInit{
 
   title = 'angular2-online-store works!';
 
-  private computers = [];
+  private computers: Array<Computer>;
 
   constructor(private apiService: ApiService){}
 
   ngOnInit(){
     this.apiService
       .getPosts()
-      .subscribe(computers => this.computers = computers,
+      .subscribe(response => {
+              this.computers = response.data;
+              console.log(this.computers);
+          },
         error => console.error(`An error has occurred! ${error}`));
   }
 }
