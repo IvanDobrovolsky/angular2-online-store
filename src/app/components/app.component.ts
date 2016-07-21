@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { HTTP_PROVIDERS}                        from '@angular/http';
+import { HTTP_PROVIDERS }                       from '@angular/http';
+import { ROUTER_DIRECTIVES }                    from '@angular/router';
 
-import { ApiService } from './services/api.service';
+import { ApiService } from './../services/api.service';
 
-import { Computer } from './models/computer.model';
+import { Computer } from './../models/computer.model';
 
 @Component({
   moduleId: module.id,
@@ -13,9 +14,12 @@ import { Computer } from './models/computer.model';
   styleUrls: [
     'app.component.css'
   ],
+  directives: [
+    ROUTER_DIRECTIVES
+  ],
   providers: [
     HTTP_PROVIDERS,
-      ApiService
+    ApiService
   ]
 })
 export class AppComponent implements OnInit{
