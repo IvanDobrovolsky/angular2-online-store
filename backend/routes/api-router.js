@@ -32,7 +32,7 @@ module.exports = (app, express) => {
               response.json({
                   success: false,
                   message: `Couldn't fetch data:  ${error}`,
-                  data: null
+                  data: []
               });
           });
     });
@@ -65,7 +65,7 @@ module.exports = (app, express) => {
                 response.json({
                     success: false,
                     message: `Couldn't fetch data ${error}`,
-                    data: null
+                    data: []
                 });
             });
 
@@ -83,14 +83,13 @@ module.exports = (app, express) => {
             response.json({
                 success: true,
                 message: "New computer was successfully created!",
-                data: null
+                data: []
             });
-
         } else {
             response.json({
                 success: false,
                 message: "Couldn't create a computer!",
-                data: null
+                data: []
             });
         }
     });
@@ -106,14 +105,14 @@ module.exports = (app, express) => {
               response.json({
                   success: true,
                   message: "The data was successfully retrieved",
-                  data: computer
+                  data: [computer]
               });
           })
           .catch(error => {
               response.json({
                   success: false,
                   message: `The data wasn't found! ${error}`,
-                  data: null
+                  data: []
               });
           });
     });
@@ -130,14 +129,14 @@ module.exports = (app, express) => {
               response.json({
                   success: true,
                   message: "Successfully updated!",
-                  data: null
+                  data: []
               });
           })
           .catch(error => {
               response.json({
                   success: false,
                   message: `Cannot update the computer ${error}`,
-                  data: null
+                  data: []
               });
           });
     });
@@ -153,14 +152,14 @@ module.exports = (app, express) => {
                 response.json({
                     success: true,
                     message: "Successfully deleted!",
-                    data: null
+                    data: []
                 });
             })
             .catch(error => {
                 response.json({
                     success: false,
                     message: `Cannot delete the computer! ${error}`,
-                    data: null
+                    data: []
                 });
             });
     });
@@ -182,7 +181,7 @@ module.exports = (app, express) => {
                 response.json({
                     success: false,
                     message: `Couldn't fetch data! ${error}`,
-                    data: null
+                    data: []
                 });
             });
     });
