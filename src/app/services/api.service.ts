@@ -13,7 +13,7 @@ interface IApiResponse<T>{
 }
 
 interface IComputersApiService{
-  getAllComputers(): IApiResponse <Computer>;
+  getAllComputers(): Observable<IApiResponse<Computer>>;
   getComputerById(id: string): IApiResponse <Computer>;
   getAllBrandNames(): IApiResponse <string>;
   findComputers(filters: any): IApiResponse <Computer>; //TODO add filters model
@@ -25,11 +25,35 @@ interface IComputersApiService{
 @Injectable()
 export class ApiService implements IComputersApiService{
 
-  //TODO implement all methods properly
-  getAllComputers():IApiResponse<Computer> {
-    return undefined;
+  private apiResources = {
+    getAll: 'http://localhost:7777/api/computers'
+  };
+
+  constructor(private http: Http){}
+
+  //Success handler
+  private extractData(response: Response){
+    if(response.status < 200 || response.status >= 300){
+      throw new Error(`Bad response status: ${response.status}`);
+    }
+
+    return response.json();
   }
 
+  //Error handler
+  private handleError(error: any = 'Server Error'){
+    console.error(error.message);
+    console.log("Something went wrong while trying to access the url provided");
+    return Observable.throw(error.message);
+  }
+
+  getAllComputers(): Observable<IApiResponse<Computer>> {
+    return this.http.get(this.apiResources.getAll)
+        .map(this.extractData)
+        .catch(this.handleError)
+  }
+
+  //TODO implement all other methods properly
   getComputerById(id:string):IApiResponse<Computer> {
     return undefined;
   }
@@ -54,29 +78,5 @@ export class ApiService implements IComputersApiService{
     return undefined;
   }
 
-  private apiUrl = 'http://localhost:7777/api/computers';
 
-  constructor(private http: Http){}
-
-  //just test for now
-  public getData(){
-    //noinspection TypeScriptUnresolvedFunction
-    return this.http.get(this.apiUrl)
-      .map(this.extractData)
-      .catch(this.handleError)
-  }
-
-  private extractData(response: Response){
-    if(response.status < 200 || response.status >= 300){
-      throw new Error(`Bad response status: ${response.status}`);
-    }
-
-    return response.json();
-  }
-
-  private handleError(error: any = 'Server Error'){
-    console.error(error.message);
-    console.log("Something went wrong while trying to access the url provided");
-    return Observable.throw(error.message);
-  }
 }

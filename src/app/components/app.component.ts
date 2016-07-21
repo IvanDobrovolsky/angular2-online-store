@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { HTTP_PROVIDERS }                       from '@angular/http';
-import { ROUTER_DIRECTIVES }                    from '@angular/router';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { HTTP_PROVIDERS }                                  from '@angular/http';
+import { ROUTER_DIRECTIVES }                               from '@angular/router';
 
 import { NavigationComponent } from './common/navigation/navigation.component';
 
@@ -25,19 +25,26 @@ import { Computer } from './../models/computer.model';
     ApiService
   ]
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy{
 
   private computers: Array<Computer>;
 
   constructor(private apiService: ApiService){}
 
-  ngOnInit(){
+  ngOnInit(): void {
     this.apiService
-      .getData()
+      .getAllComputers()
       .subscribe(response => {
-              this.computers = response.data;
-              console.log(this.computers);
+              if(response.success){
+                this.computers = response.data;
+                console.log(this.computers);
+              }
           },
         error => console.error(`An error has occurred! ${error}`));
   }
+
+  ngOnDestroy(): void {
+    this.computers = [];
+  }
+
 }
