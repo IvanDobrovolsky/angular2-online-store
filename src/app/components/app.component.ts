@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HTTP_PROVIDERS }                       from '@angular/http';
 import { ROUTER_DIRECTIVES }                    from '@angular/router';
 
+import { NavigationComponent } from './common/navigation/navigation.component';
+
 import { ApiService } from './../services/api.service';
 
 import { Computer } from './../models/computer.model';
@@ -15,7 +17,8 @@ import { Computer } from './../models/computer.model';
     'app.component.css'
   ],
   directives: [
-    ROUTER_DIRECTIVES
+    ROUTER_DIRECTIVES,
+    NavigationComponent
   ],
   providers: [
     HTTP_PROVIDERS,
@@ -23,8 +26,6 @@ import { Computer } from './../models/computer.model';
   ]
 })
 export class AppComponent implements OnInit{
-
-  title = 'angular2-online-store works!';
 
   private computers: Array<Computer>;
 

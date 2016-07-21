@@ -1,0 +1,18 @@
+.navigation {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+}
+.navigation-items {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+.navigation-item {
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 17px;
+}
+.navigation-item-active {
+    color: #f0ad4e;
+}
