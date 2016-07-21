@@ -26,6 +26,10 @@ export class CatalogPageComponent implements OnInit, OnDestroy{
 
     constructor(private apiService: ApiService){}
 
+    isEmptyCatalog(): boolean{
+        return !!this.computers && this.computers.length === 0;
+    }
+
     ngOnInit(): void {
         this.apiService
             .getAllComputers()

@@ -1,0 +1,11 @@
+.page_catalog {
+    text-align: center;
+}
+.page_catalog-title {
+    padding: 15px 0;
+    color: #f0ad4e;
+}
+.page_catalog-list {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}

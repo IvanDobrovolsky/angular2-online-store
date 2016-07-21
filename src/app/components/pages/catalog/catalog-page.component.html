@@ -1,3 +1,13 @@
-<div>
-    {{computers | json}}
+<div class="page_catalog">
+    <h1 class="page_catalog-title">Computers catalog</h1>
+
+    <div class="page_catalog-list">
+
+        <h2 *ngIf="isEmptyCatalog()">No computers in the catalog</h2>
+        <div *ngIf="!isEmptyCatalog()">
+           <h1>Computers are here!</h1>
+            {{computers | json}}
+        </div>
+
+    </div>
 </div>
