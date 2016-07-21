@@ -28,7 +28,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(){
     this.apiService
-      .getPosts()
+      .getData()
       .subscribe(response => {
               this.computers = response.data;
               console.log(this.computers);

@@ -4,15 +4,62 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { Computer } from './../models/computer.model';
+
+interface IApiResponse<T>{
+  success: boolean;
+  message: string;
+  data: Array<T>;
+}
+
+interface IComputersApiService{
+  getAllComputers(): IApiResponse <Computer>;
+  getComputerById(id: string): IApiResponse <Computer>;
+  getAllBrandNames(): IApiResponse <string>;
+  findComputers(filters: any): IApiResponse <Computer>; //TODO add filters model
+  removeComputer(id: string): IApiResponse <Computer>;
+  createNewComputer(): IApiResponse <Computer>;
+  updateComputer(updatedComputer: Computer): IApiResponse<Computer>;
+}
+
 @Injectable()
-export class ApiService{
+export class ApiService implements IComputersApiService{
+
+  //TODO implement all methods properly
+  getAllComputers():IApiResponse<Computer> {
+    return undefined;
+  }
+
+  getComputerById(id:string):IApiResponse<Computer> {
+    return undefined;
+  }
+
+  getAllBrandNames():IApiResponse<string> {
+    return undefined;
+  }
+
+  findComputers(filters:any):IApiResponse<Computer> {
+    return undefined;
+  }
+
+  removeComputer(id:string):IApiResponse<Computer> {
+    return undefined;
+  }
+
+  createNewComputer():IApiResponse<Computer> {
+    return undefined;
+  }
+
+  updateComputer(updatedComputer:Computer):IApiResponse<Computer> {
+    return undefined;
+  }
 
   private apiUrl = 'http://localhost:7777/api/computers';
 
   constructor(private http: Http){}
 
   //just test for now
-  public getPosts(){
+  public getData(){
     //noinspection TypeScriptUnresolvedFunction
     return this.http.get(this.apiUrl)
       .map(this.extractData)
