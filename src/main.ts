@@ -5,9 +5,12 @@ import { AppComponent }   from './app/components/app.component';
 import { environment}     from './app/environment';
 
 import { appRouterProviders } from './app/routes/app.routes';
+
 if (environment.production) {
   enableProdMode();
 }
 
-bootstrap(AppComponent, [appRouterProviders]);
+bootstrap(AppComponent, [
+    appRouterProviders
+]);
 
