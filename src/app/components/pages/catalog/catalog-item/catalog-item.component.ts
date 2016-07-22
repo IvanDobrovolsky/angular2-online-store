@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, Input, OnInit, OnDestroy } from '@angular/core';
+import { Router }                                                 from '@angular/router';
 
 import { Computer } from './../../../../models/computer.model';
 
@@ -30,7 +31,9 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
 
     @Input() private item: Computer;
 
-    constructor(){}
+    constructor(private router: Router){
+
+    }
 
     ngOnInit():any {
         this.brand = this.item.brand;
@@ -44,11 +47,12 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
         delete this;
     }
 
-    preview(id:string):void {
+    preview(id: string):void {
+        this.router.navigate(['/catalog', id])
         console.log("Toggled preview for " + id);
     }
 
-    addToCart(id:string):void {
+    addToCart(id: string):void {
         console.log(id + " Added to cart!");
     }
 }
