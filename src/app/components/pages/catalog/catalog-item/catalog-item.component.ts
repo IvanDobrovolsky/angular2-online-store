@@ -7,7 +7,7 @@ interface ICatalogItem {
     brand: string;
     title: string;
     price: number;
-    imageUrl: string;
+    image: string;
     description: string;
     preview(id: string): void;
     addToCart(id: string): void;
@@ -26,7 +26,7 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
     brand: string;
     title: string;
     price: number;
-    imageUrl: string;
+    image: string;
     description: string;
 
     @Input() private item: Computer;
@@ -35,12 +35,8 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
 
     }
 
-    ngOnInit():any {
-        this.brand = this.item.brand;
-        this.title = this.item.title;
-        this.price = this.item.price;
-        this.imageUrl = this.item.image;
-        this.description = this.item.description;
+    ngOnInit(): void {
+        Object.assign(this, this.item);
     }
 
     ngOnDestroy():any {

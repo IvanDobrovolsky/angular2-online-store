@@ -1,7 +1,7 @@
 <div class="page_catalog-list-item">
     <h2 class="page_catalog-list-item--title">{{brand}} {{title}} -- {{price}}</h2>
     <div  class="page_catalog-list-item--image">
-        <img src={{imageUrl}}/>
+        <img src={{image}}/>
     </div>
     <p class="page_catalog-list-item--description">{{description.split('.').shift() + "..."}}</p>
     <a class="page_catalog-list-item--more" (click)="preview(item._id)">View</a>
