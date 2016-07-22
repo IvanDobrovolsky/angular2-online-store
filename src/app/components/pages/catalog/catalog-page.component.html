@@ -5,8 +5,7 @@
 
         <h2 *ngIf="isEmptyCatalog()">No computers in the catalog</h2>
         <div *ngIf="!isEmptyCatalog()">
-           <h1>Computers are here!</h1>
-            {{computers | json}}
+            <catalog-item *ngFor="let computer of computers" [item]="computer"></catalog-item>
         </div>
 
     </div>

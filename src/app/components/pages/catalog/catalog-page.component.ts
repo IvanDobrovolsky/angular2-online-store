@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { NgIf, NgFor }                                     from '@angular/common';
 import { HTTP_PROVIDERS }                                  from '@angular/http';
 
 //Computer model
@@ -7,6 +8,8 @@ import { Computer } from './../../../models/computer.model';
 //Api service
 import { ApiService } from './../../../services/api.service';
 
+import { CatalogItemComponent } from './catalog-item/catalog-item.component';
+
 @Component({
     moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
@@ -14,6 +17,11 @@ import { ApiService } from './../../../services/api.service';
     templateUrl: 'catalog-page.component.html',
     styleUrls: [
         'catalog-page.component.css'
+    ],
+    directives: [
+        NgIf,
+        NgFor,
+        CatalogItemComponent
     ],
     providers: [
         HTTP_PROVIDERS,
