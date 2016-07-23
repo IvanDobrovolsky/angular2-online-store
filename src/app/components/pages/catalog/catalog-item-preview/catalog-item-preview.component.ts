@@ -36,7 +36,7 @@ interface ICatalogItemPreview {
         ApiService
     ]
 })
-export class CatalogItemPreview implements OnInit, OnDestroy, ICatalogItemPreview{
+export class CatalogItemPreviewComponent implements OnInit, OnDestroy, ICatalogItemPreview{
     brand: string;
     title: string;
     price: number;
