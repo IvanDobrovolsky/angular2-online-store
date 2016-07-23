@@ -9,7 +9,7 @@
         <h2 class="catalog-filters--category">Filter by brand:</h2>
         <ul>
             <li *ngFor="let brand of brandNames">
-                <input type="checkbox" (click)="handleCheckBoxCheck(brand)">
+                <input type="checkbox" (click)="handleCheckBoxCheck(brand)" checked>
                 {{brand}}
             </li>
         </ul>

@@ -48,6 +48,7 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
             .subscribe(response => {
                     if(response.success){
                         this.brandNames = response.data;
+                        this.filters.brands = this.brandNames;
                     }
                 },
                 error => console.error(`An error has occurred! ${error}`));
