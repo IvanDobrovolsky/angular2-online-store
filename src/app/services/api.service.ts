@@ -1,10 +1,11 @@
-import { Injectable }     from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable }     from 'rxjs/Observable';
+import { Injectable }              from '@angular/core';
+import { Http, Response, Headers } from '@angular/http';
+import { Observable }              from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Computer } from './../models/computer.model';
+import { IFilters } from './../models/filters.model';
 
 interface IApiResponse<T>{
   success: boolean;
@@ -16,7 +17,7 @@ interface IComputersApiService{
   getAllComputers():                         Observable<IApiResponse<Computer>>;
   getComputerById(id: string):               Observable<IApiResponse<Computer>>;
   getAllBrandNames():                        Observable<IApiResponse<string>>;
-  findComputers(filters: any):               IApiResponse <Computer>; //TODO add filters model
+  findComputers(filters: IFilters):          Observable<IApiResponse<Computer>>; //TODO add filters model
   removeComputer(id: string):                IApiResponse <Computer>;
   createNewComputer():                       IApiResponse <Computer>;
   updateComputer(updatedComputer: Computer): IApiResponse<Computer>;
@@ -27,8 +28,11 @@ export class ApiService implements IComputersApiService{
 
   private apiResources = {
     getAll: 'http://localhost:7777/api/computers',
-    brands: 'http://localhost:7777/api/brands'
+    brands: 'http://localhost:7777/api/brands',
+    filters: 'http://localhost:7777/api/computers/filter',
   };
+
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http){}
 
@@ -68,8 +72,11 @@ export class ApiService implements IComputersApiService{
   }
 
 
-  findComputers(filters:any):IApiResponse<Computer> {
-    return undefined;
+  findComputers(filters: IFilters): Observable<IApiResponse<Computer>> {
+    console.log(filters);
+    return this.http.post(this.apiResources.getAll + '/filter', JSON.stringify(filters), {headers: this.headers})
+        .map(this.extractData)
+        .catch(this.handleError)
   }
 
   removeComputer(id:string):IApiResponse<Computer> {

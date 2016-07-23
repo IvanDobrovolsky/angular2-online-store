@@ -47,7 +47,6 @@ export class CatalogPageComponent implements OnInit, OnDestroy{
             .subscribe(response => {
                     if(response.success){
                         this.computers = response.data;
-                        console.log(this.computers);
                     }
                 },
                 error => console.error(`An error has occurred! ${error}`));
@@ -55,6 +54,10 @@ export class CatalogPageComponent implements OnInit, OnDestroy{
 
     ngOnDestroy(): void {
         this.computers = [];
+    }
+
+    filterCatalogItems(updatedData){
+        this.computers = updatedData;
     }
 
 }

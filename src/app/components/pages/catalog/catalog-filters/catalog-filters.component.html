@@ -2,14 +2,14 @@
 <form (submit)="filterComputers()">
     <div class="catalog-filters-price">
         <h2 class="catalog-filters--category">Filter by price:</h2>
-        From: <input type="number" name="from" required/>
-        To:   <input type="number" name="to"   required/>
+        From: <input type="number" name="from" [(ngModel)]="filters.price.from" required/>
+        To:   <input type="number" name="to"   [(ngModel)]="filters.price.to"   required/>
     </div>
     <div class="catalog-filters-brand">
         <h2 class="catalog-filters--category">Filter by brand:</h2>
         <ul>
             <li *ngFor="let brand of brandNames">
-                <input type="checkbox">
+                <input type="checkbox" (click)="handleCheckBoxCheck(brand)">
                 {{brand}}
             </li>
         </ul>
