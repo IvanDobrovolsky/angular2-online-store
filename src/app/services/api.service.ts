@@ -15,7 +15,7 @@ interface IApiResponse<T>{
 interface IComputersApiService{
   getAllComputers():                         Observable<IApiResponse<Computer>>;
   getComputerById(id: string):               Observable<IApiResponse<Computer>>;
-  getAllBrandNames():                        IApiResponse <string>;
+  getAllBrandNames():                        Observable<IApiResponse<string>>;
   findComputers(filters: any):               IApiResponse <Computer>; //TODO add filters model
   removeComputer(id: string):                IApiResponse <Computer>;
   createNewComputer():                       IApiResponse <Computer>;
@@ -26,7 +26,8 @@ interface IComputersApiService{
 export class ApiService implements IComputersApiService{
 
   private apiResources = {
-    getAll: 'http://localhost:7777/api/computers'
+    getAll: 'http://localhost:7777/api/computers',
+    brands: 'http://localhost:7777/api/brands'
   };
 
   constructor(private http: Http){}
@@ -59,11 +60,13 @@ export class ApiService implements IComputersApiService{
         .catch(this.handleError)
   }
 
-  //TODO implement all other methods properly
 
-  getAllBrandNames():IApiResponse<string> {
-    return undefined;
+  getAllBrandNames(): Observable<IApiResponse<string>> {
+    return this.http.get(this.apiResources.brands)
+        .map(this.extractData)
+        .catch(this.handleError)
   }
+
 
   findComputers(filters:any):IApiResponse<Computer> {
     return undefined;

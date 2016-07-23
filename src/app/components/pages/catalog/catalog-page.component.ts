@@ -8,7 +8,9 @@ import { Computer } from './../../../models/computer.model';
 //Api service
 import { ApiService } from './../../../services/api.service';
 
-import { CatalogItemComponent } from './catalog-item/catalog-item.component';
+//Application catalog components
+import { CatalogItemComponent }    from './catalog-item/catalog-item.component';
+import { CatalogFiltersComponent } from './catalog-filters/catalog-filters.component';
 
 @Component({
     moduleId: module.id,
@@ -21,7 +23,8 @@ import { CatalogItemComponent } from './catalog-item/catalog-item.component';
     directives: [
         NgIf,
         NgFor,
-        CatalogItemComponent
+        CatalogItemComponent,
+        CatalogFiltersComponent
     ],
     providers: [
         HTTP_PROVIDERS,
