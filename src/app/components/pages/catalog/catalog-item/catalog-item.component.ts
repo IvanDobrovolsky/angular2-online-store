@@ -3,14 +3,16 @@ import { Router }                                                 from '@angular
 
 import { Computer } from './../../../../models/computer.model';
 
+import { ShoppingCartService } from "../../../../services/shopping-cart-service";
+
 interface ICatalogItem {
     brand: string;
     title: string;
     price: number;
     image: string;
     description: string;
-    preview(id: string): void;
-    addToCart(id: string): void;
+    preview(id: number): void;
+    addToCart(id: number): void;
 }
 
 @Component({
@@ -20,6 +22,9 @@ interface ICatalogItem {
     templateUrl: 'catalog-item.component.html',
     styleUrls: [
         'catalog-item.component.css'
+    ],
+    providers: [
+        ShoppingCartService
     ]
 })
 export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
@@ -31,7 +36,7 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
 
     @Input() private item: Computer;
 
-    constructor(private router: Router){
+    constructor(private router: Router, private shoppingCartService: ShoppingCartService){
 
     }
 
@@ -43,12 +48,12 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
         delete this;
     }
 
-    preview(id: string):void {
-        this.router.navigate(['/catalog', id])
-        console.log("Toggled preview for " + id);
+    preview(id: number):void {
+        this.router.navigate(['/catalog', id]);
     }
 
-    addToCart(id: string):void {
+    addToCart(id: number):void {
+        this.shoppingCartService.addToCart(id);
         console.log(id + " Added to cart!");
     }
 }
