@@ -1,0 +1,5 @@
+<div class="page_cart">
+    <h1 class="page_cart-title">Shopping cart</h1>
+    <shopping-cart-item *ngFor="let computer of computers" [item]="computer"></shopping-cart-item>
+</div>
+<div class="page_cart-total">Buy {{total}} total</div>

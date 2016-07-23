@@ -1,0 +1,23 @@
+.page_cart-title {
+    text-align: center;
+    padding: 15px 0;
+    color: #f0ad4e;
+}
+.page_cart-total {
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    margin: 30px auto 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: #f0ad4e;
+    color: #fff;
+    -webkit-box-shadow: -2px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    transition: 0.3s ease-in;
+    width: 200px;
+}
+.page_cart-total:active {
+    box-shadow: none;
+}
