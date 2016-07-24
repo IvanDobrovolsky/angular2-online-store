@@ -7,7 +7,6 @@ import { Computer } from './../../../../models/computer.model';
 
 import { ApiService } from './../../../../services/api.service';
 
-
 interface ICatalogItemPreview {
     brand: string;
     title: string;

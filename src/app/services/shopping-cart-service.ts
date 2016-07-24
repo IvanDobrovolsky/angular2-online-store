@@ -3,14 +3,9 @@ import { Http, Response, Headers } from '@angular/http';
 import { Observable }              from 'rxjs/Observable';
 
 
-/**
- Interface for an item in the cart:
- _id         - unique key,
- quantity    - quantity of these computers in the cart
- */
 interface IShoppingCartItem {
-    _id: number;
-    quantity: number;
+    _id: number;        //unique key,
+    quantity: number;   //quantity of these computers in the cart
 }
 
 interface IShoppingCartService {
