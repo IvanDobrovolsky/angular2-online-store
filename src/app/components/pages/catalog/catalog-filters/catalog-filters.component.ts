@@ -24,9 +24,7 @@ interface ICatalogFilters {
         NgFor,
         NgModel
     ],
-    providers: [
-        HTTP_PROVIDERS
-    ]
+    providers: []
 })
 export class CatalogFiltersComponent implements OnInit, OnDestroy{
 

@@ -27,8 +27,7 @@ import { CatalogFiltersComponent } from './catalog-filters/catalog-filters.compo
         CatalogFiltersComponent
     ],
     providers: [
-        HTTP_PROVIDERS,
-        ApiService
+        HTTP_PROVIDERS
     ]
 })
 export class CatalogPageComponent implements OnInit, OnDestroy{

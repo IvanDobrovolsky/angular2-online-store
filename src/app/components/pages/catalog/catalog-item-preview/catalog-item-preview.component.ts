@@ -30,10 +30,7 @@ interface ICatalogItemPreview {
         ROUTER_DIRECTIVES,
         NgFor
     ],
-    providers: [
-        HTTP_PROVIDERS,
-        ApiService
-    ]
+    providers: []
 })
 export class CatalogItemPreviewComponent implements OnInit, OnDestroy, ICatalogItemPreview{
     brand: string;
