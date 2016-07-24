@@ -7,9 +7,12 @@ import { Computer } from './../../../models/computer.model';
 
 import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-item.component';
 
+import { ApiService } from './../../../services/api.service';
+import { ShoppingCartService } from './../../../services/shopping-cart-service';
+
 interface IShoppingCart {
     calculateTotal(): number;
-    increaseQuantity(id: number): void;
+    changeQuantity(id: number, newQuantity): void;
     removeFromShoppingCart(id: number): void;
 }
 
@@ -29,28 +32,41 @@ interface IShoppingCart {
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy, IShoppingCart{
 
-    private items: Computer[];
+    private items: Array<Computer> = [];
 
-    constructor() {
+    constructor(private apiService: ApiService, private shoppingCartService: ShoppingCartService) {
 
     }
 
-    ngOnInit():any {
-        return undefined;
+    ngOnInit(): void {
+        const cartItems = this.shoppingCartService.getCartItems();
+
+        //TODO Think how to use RxJs methods instead
+        cartItems.forEach(item => {
+                this.apiService
+                    .getComputerById(item._id)
+                    .subscribe(response => {
+                        if (response.success) {
+                            this.items.push(response.data[0]);
+                        }
+                    }, error => console.error(`An error has occurred! ${error}`));
+            });
     }
 
-    ngOnDestroy():any {
-        return undefined;
+    ngOnDestroy(): void {
+        this.items = null;
     }
 
     calculateTotal():number {
         return undefined;
     }
 
-    increaseQuantity(id:number): void {
+    changeQuantity(id:number, newQuantity): void {
+        this.shoppingCartService.changeQuantity(id, newQuantity);
     }
 
-    removeFromShoppingCart(id:number):void {
+    removeFromShoppingCart(id: number): void {
+        this.shoppingCartService.removeFromCart(id);
     }
 
 }

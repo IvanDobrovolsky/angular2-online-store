@@ -9,8 +9,11 @@ interface IShoppingCartItem {
 }
 
 interface IShoppingCartService {
-    addToCart(id: number): void;
+    getCartItems(): IShoppingCartItem[];
     getCartSize(): number;
+    addToCart(id: number): void;
+    removeFromCart(id: number): void;
+    changeQuantity(id: number, newQuantity: number): void;
 }
 
 @Injectable()
@@ -22,6 +25,10 @@ export class ShoppingCartService implements IShoppingCartService {
         if(localStorage.getItem('items')){
             this.cart = JSON.parse(localStorage.getItem('items'));
         }
+    }
+
+    getCartItems(): IShoppingCartItem[]{
+        return this.cart;
     }
 
     public addToCart(_id: number): void{
