@@ -25,13 +25,15 @@ interface IShoppingCart {
         NgFor,
         ShoppingCartItemComponent
     ],
-    providers: [
-        HTTP_PROVIDERS
-    ]
+    providers: []
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy, IShoppingCart{
 
     private items: Computer[];
+
+    constructor() {
+
+    }
 
     ngOnInit():any {
         return undefined;

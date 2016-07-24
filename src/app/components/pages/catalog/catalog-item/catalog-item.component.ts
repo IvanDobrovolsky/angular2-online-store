@@ -23,9 +23,7 @@ interface ICatalogItem {
     styleUrls: [
         'catalog-item.component.css'
     ],
-    providers: [
-        ShoppingCartService
-    ]
+    providers: []
 })
 export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
     brand: string;

@@ -1,10 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ROUTER_DIRECTIVES }            from '@angular/router';
-import { HTTP_PROVIDERS } from '@angular/http';
+import { HTTP_PROVIDERS }               from '@angular/http';
 
 import { NavigationComponent } from './common/navigation/navigation.component';
 
-import { ApiService } from './../services/api.service';
+import { ApiService }          from './../services/api.service';
+import { ShoppingCartService } from './../services/shopping-cart-service';
+
 
 @Component({
   moduleId: module.id,
@@ -20,7 +22,8 @@ import { ApiService } from './../services/api.service';
   ],
   providers: [
       HTTP_PROVIDERS,
-      ApiService
+      ApiService,
+      ShoppingCartService
   ]
 })
 export class AppComponent{
