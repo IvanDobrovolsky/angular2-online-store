@@ -15,6 +15,7 @@ interface IShoppingCartItem {
     quantity: number;
     preview(id: number): void;
     removeFromCart(id: number): void;
+    changeQuantity(id: number, newQuantity: number): void;
 }
 
 @Component({
@@ -36,7 +37,7 @@ export class ShoppingCartItemComponent implements OnInit, OnDestroy, IShoppingCa
     price: number;
     image: string;
     description: string;
-    quantity: number;
+    quantity = 1;
 
     @Input() private item: Computer;
 
@@ -59,6 +60,11 @@ export class ShoppingCartItemComponent implements OnInit, OnDestroy, IShoppingCa
     preview(id: number): void {
         this.router.navigate(['/catalog', id]);
         console.log("Toggled preview for " + id);
+    }
+
+    changeQuantity(id:number, newQuantity): void {
+        this.quantity = newQuantity;
+        this.shoppingCartService.changeQuantity(id, newQuantity);
     }
 }
 

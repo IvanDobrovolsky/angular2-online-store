@@ -2,4 +2,4 @@
     <h1 class="page_cart-title">Shopping cart</h1>
     <shopping-cart-item *ngFor="let item of items" [item]="item"></shopping-cart-item>
 </div>
-<div class="page_cart-total">Buy {{total}} total</div>
+<div class="page_cart-total">Buy {{total | currency:'USD'}} total</div>

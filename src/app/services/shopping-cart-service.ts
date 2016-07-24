@@ -27,7 +27,7 @@ export class ShoppingCartService implements IShoppingCartService {
         }
     }
 
-    getCartItems(): IShoppingCartItem[]{
+    public getCartItems(): IShoppingCartItem[]{
         return this.cart;
     }
 
