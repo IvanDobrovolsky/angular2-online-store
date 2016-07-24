@@ -7,8 +7,8 @@
     <div class="page_cart-item--price">{{price}}</div>
 </div>
 <div class="page_cart-item--quantity">
-    <input type="number" [(ngModel)]={{quantity}} min="1" max="10" />
+    <input type="number" [(ngModel)]="quantity" min="1" max="10" />
 </div>
-<div class="page_cart-item--total">{{price * quantity | currency:'USD'}}</div>
+<div class="page_cart-item--total">{{(price * quantity) | currency:'USD'}}</div>
 <div class="page_cart-item--remove">x</div>
 </div>
