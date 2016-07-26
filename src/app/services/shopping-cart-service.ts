@@ -2,7 +2,7 @@ import { Injectable }              from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable }              from 'rxjs/Observable';
 
-
+//TODO add caching
 interface IShoppingCartItem {
     _id: number;        //unique key,
     quantity: number;   //quantity of these computers in the cart

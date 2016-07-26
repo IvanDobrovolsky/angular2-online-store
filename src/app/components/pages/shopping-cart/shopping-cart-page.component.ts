@@ -38,9 +38,11 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
     }
 
     public ngOnInit(): void {
+
+        //RX, subject
         const cartItems = this.shoppingCartService.getCartItems();
 
-        //TODO Think how to use RxJs methods instead
+        //TODO Think how to use RxJs methods instead, flatMap -> Reduce
         cartItems.forEach(item => {
                 this.apiService
                     .getComputerById(item._id)
@@ -51,6 +53,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
                         }
                     }, error => console.error(`An error has occurred! ${error}`));
             });
+
         //TODO Use Observable function instead
         setTimeout(() => this.total = this.calculateTotal(), 500);
 
@@ -58,6 +61,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
 
     public ngOnDestroy(): void {
         this.items = null;
+
+        //TODO find out whether to remove Observables?
     }
 
     private calculateTotal(): number {
