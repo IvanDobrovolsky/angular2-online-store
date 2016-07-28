@@ -1,1 +1,42 @@
-<h1>Admin create</h1>
+<div class="page_admin-add">
+    <h1 class="page_admin-title"> Add new computer</h1>
+
+    <!--TODO Add validation-->
+    <div class="page_admin-form">
+        <form class="ui form" [formGroup]="computerForm" novalidate (ngSubmit)="add()">
+
+            <div class="field"  [ngClass]="{error: isValidFormField('title')}">
+                <label>Title: {{isValidFormField('title') ? "is required" : ""}}</label>
+                <input type="text" formControlName="title"><br/><br/>
+            </div>
+
+            <div class="field"  [ngClass]="{error: isValidFormField('brand')}">
+                <label>Brand: {{isValidFormField('brand') ? "is required" : ""}}</label>
+                <input type="text" formControlName="brand"><br/><br/>
+            </div>
+
+            <div class="field"  [ngClass]="{error: isValidFormField('price')}">
+                <label>Price: {{isValidFormField('price') ? "is required" : ""}}</label>
+                <input type="number" formControlName="price"><br/><br/>
+            </div>
+
+            <div class="field"  [ngClass]="{error: isValidFormField('image')}">
+                <label>Image: {{isValidFormField('image') ? "is required" : ""}}</label>
+                <input type="text" formControlName="image"><br/><br/>
+            </div>
+
+            <div class="field"  [ngClass]="{error: isValidFormField('description')}">
+                <label>Description: {{isValidFormField('description') ? "is required" : ""}}</label>
+                <input type="text" formControlName="description"><br/><br/>
+            </div>
+
+            <div class="field"  [ngClass]="{error: isValidFormField('details')}">
+                <label>Details(*CSV):: {{isValidFormField('details') ? "is required" : ""}}</label>
+                <input type="text" formControlName="details"><br/><br/>
+            </div>
+
+            <input class="ui button page_admin-add--button-confirm" type="submit" value="Add"/>
+            <a class="ui button page_admin-add--button-cancel" href="#" >Cancel</a>
+        </form>
+    </div>
+</div>
