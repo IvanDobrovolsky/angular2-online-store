@@ -9,7 +9,7 @@
         </div>
         <div>
             <h1 *ngIf="isEmptyStore()">There are no computers!</h1>
-            <store-item *ngFor="let storeItem of storeItems" [item]="storeItem"></store-item>
+            <store-item *ngFor="let storeItem of storeItems" (onRemove)="removeFromStore($event)" [item]="storeItem"></store-item>
         </div>
         <a class="page_admin--add-new-button">Create new</a>
     </div>

@@ -1,6 +1,6 @@
-import { Injectable }              from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
-import { Observable }              from 'rxjs/Observable';
+import { Injectable }                             from '@angular/core';
+import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
+import { Observable }                             from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -12,13 +12,13 @@ interface IApiResponse<T>{
   message: string;
   data: Array<T>;
 }
-
+//TODO Refactor api methods implementation
 interface IComputersApiService{
   getAllComputers():                         Observable<IApiResponse<Computer>>;
   getComputerById(id: number):               Observable<IApiResponse<Computer>>;
   getAllBrandNames():                        Observable<IApiResponse<string>>;
   findComputers(filters: IFilters):          Observable<IApiResponse<Computer>>; //TODO add filters model
-  removeComputer(id: string):                IApiResponse <Computer>;
+  removeComputer(id: number):                Observable<IApiResponse<Computer>>;
   createNewComputer():                       IApiResponse <Computer>;
   updateComputer(updatedComputer: Computer): IApiResponse<Computer>;
 }
@@ -32,7 +32,11 @@ export class ApiService implements IComputersApiService{
     filters: 'http://localhost:7777/api/computers/filter',
   };
 
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private headers = new Headers({
+    'Content-Type': 'application/json'
+  });
+  
+  private options = new RequestOptions({headers: this.headers});
 
   constructor(private http: Http){}
 
@@ -79,10 +83,12 @@ export class ApiService implements IComputersApiService{
         .catch(this.handleError)
   }
 
-  removeComputer(id:string):IApiResponse<Computer> {
-    return undefined;
+  removeComputer(id: number): Observable<IApiResponse<Computer>> {
+    return this.http.delete(this.apiResources.getAll + '/' + id, this.options)
+        .map(this.extractData)
+        .catch(this.handleError);
   }
-
+  
   createNewComputer():IApiResponse<Computer> {
     return undefined;
   }

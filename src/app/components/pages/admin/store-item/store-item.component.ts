@@ -1,5 +1,11 @@
-import { Component, ViewEncapsulation, Input, OnInit, OnDestroy } from '@angular/core';
-import { Router }                                                 from '@angular/router';
+import { Component,
+    ViewEncapsulation,
+    Input,
+    Output,
+    OnInit,
+    OnDestroy,
+    EventEmitter} from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Computer } from './../../../../models/computer.model';
 
@@ -25,10 +31,11 @@ export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
     title: string;
     price: number;
     
-    @Input() private item: Computer;
+    @Input()  private item: Computer;
+    @Output() private onRemove = new EventEmitter<Computer>();
 
     constructor(private router: Router){
-        console.log(this.item);
+        
     }
 
     ngOnInit(): void {
@@ -39,7 +46,11 @@ export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
         delete this;
     }
 
-    preview(id: number):void {
+    private removeStoreItem() {
+        this.onRemove.emit(this.item);
+    }
+
+    public preview(id: number):void {
         this.router.navigate(['/catalog', id]);
     }
 }

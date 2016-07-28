@@ -34,10 +34,6 @@ export class AdminPageComponent implements OnInit, OnDestroy{
 
     constructor(private apiService: ApiService){}
 
-    isEmptyStore(): boolean{
-        return !!this.storeItems && this.storeItems.length === 0;
-    }
-
     ngOnInit(): void {
         this.apiService
             .getAllComputers()
@@ -51,5 +47,25 @@ export class AdminPageComponent implements OnInit, OnDestroy{
 
     ngOnDestroy(): void {
         this.storeItems = [];
+    }
+
+    private isEmptyStore(): boolean {
+        return !!this.storeItems && this.storeItems.length === 0;
+    }
+
+    private removeFromStore(storeItem: Computer): void {
+        let index = this.storeItems.indexOf(storeItem);
+        
+        //Removing the item not mutating the data
+        this.storeItems = [...this.storeItems.slice(0, index), ...this.storeItems.slice(index+1)];
+
+        //Removing from backend
+        this.apiService.removeComputer(storeItem._id)
+            .subscribe(response => {
+                    if(response.success){
+                        console.log("Removed from DB!");
+                    }
+                },
+                error => console.error(`An error has occurred! ${error}`));
     }
 }
