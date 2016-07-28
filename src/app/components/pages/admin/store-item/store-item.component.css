@@ -1,0 +1,7 @@
+.page_admin-computers-list-item div {
+    outline: 1px solid #fff;
+    padding: 15px;
+}
+.page_admin-computers-list-item div:first-child {
+    text-align: left;
+}
