@@ -7,6 +7,11 @@ import { NavigationComponent } from './common/navigation/navigation.component';
 import { ApiService }          from './../services/api.service';
 import { ShoppingCartService } from './../services/shopping-cart-service';
 
+//TODO add route guards
+//TODO rename common->shared
+//TODO rewrite the code according to the styleguide
+//TODO Think how to optimize the code using ChangeDetectionStrategy.OnPush
+//TODO Use ngAnimate for
 
 @Component({
   moduleId: module.id,
