@@ -47,7 +47,9 @@ export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
     }
 
     private removeStoreItem() {
-        this.onRemove.emit(this.item);
+        if(confirm("Do you want to delete the item from store?")) {
+            this.onRemove.emit(this.item);
+        }
     }
 
     public preview(id: number):void {
