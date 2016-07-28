@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
 import { Computer } from './../../../../../models/computer.model';
 
 interface IStoreItem {
+    _id:   number;
     brand: string;
     title: string;
     price: number;
-    preview(id: number): void;
+    navigateTo(route: string, id: number): void;
 }
 
 @Component({
@@ -27,6 +28,7 @@ interface IStoreItem {
     providers: []
 })
 export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
+    _id: number;
     brand: string;
     title: string;
     price: number;
@@ -52,7 +54,7 @@ export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
         }
     }
 
-    public preview(id: number):void {
-        this.router.navigate(['/catalog', id]);
+    public navigateTo(route: string, id): void {
+        this.router.navigate([`/${route}`, id]);
     }
 }

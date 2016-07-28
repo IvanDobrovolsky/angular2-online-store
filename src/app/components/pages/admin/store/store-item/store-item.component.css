@@ -5,3 +5,6 @@
 .page_admin-computers-list-item div:first-child {
     text-align: left;
 }
+.page_admin-computers-list-item--title{
+    cursor: pointer;
+}
