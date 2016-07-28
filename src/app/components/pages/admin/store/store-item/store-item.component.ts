@@ -7,7 +7,7 @@ import { Component,
     EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Computer } from './../../../../models/computer.model';
+import { Computer } from './../../../../../models/computer.model';
 
 interface IStoreItem {
     brand: string;
