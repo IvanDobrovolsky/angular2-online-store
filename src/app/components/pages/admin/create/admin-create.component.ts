@@ -56,7 +56,7 @@ export class AdminCreateComponent{
     }
 
     private isValidFormField(field): boolean {
-        return !(this.computerForm.controls[field].valid || (this.computerForm.controls[field].pristine && !this.isSubmitted))
+        return this.computerForm.controls[field].valid || (this.computerForm.controls[field].pristine && !this.isSubmitted);
     }
 
     private add(): void {
