@@ -1,18 +1,6 @@
-import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    OnDestroy
-}  from '@angular/core';
-
-import {
-    FormGroup,
-    FormBuilder,
-    REACTIVE_FORM_DIRECTIVES,
-    Validators
-} from '@angular/forms';
-
-import { NgClass } from '@angular/common';
+import {Component, ViewEncapsulation, OnInit, OnDestroy}              from '@angular/core';
+import {FormGroup, FormBuilder, REACTIVE_FORM_DIRECTIVES, Validators} from '@angular/forms';
+import { NgClass }                                                    from '@angular/common';
 
 @Component({
     moduleId: module.id,
@@ -33,19 +21,20 @@ export class AdminCreateComponent{
 
     private computerForm: FormGroup;
     private isSubmitted = false;
-    pristine;
 
+    private static pricePattern = "^([1-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9])$";
+    private static imageUrlPattern = "^http?:\/\/[^\s]+(?=.(jpe?g|png|gif)).(jpe?g|png|gif)$";
+    
     constructor(private formBuilder: FormBuilder) {
 
     }
-
-    //TODO Add some more validation rules
+    
     ngOnInit(): void {
         this.computerForm = this.formBuilder.group({
             title:       ['', Validators.required],
             brand:       ['', Validators.required],
-            price:       ['', Validators.required],
-            image:       ['', Validators.required],
+            price:       ['', [Validators.required, Validators.pattern(AdminCreateComponent.pricePattern)]],
+            image:       ['', [Validators.required, Validators.pattern(AdminCreateComponent.imageUrlPattern)]],
             description: ['', Validators.required],
             details:     ['', Validators.required]
         });

@@ -1,7 +1,6 @@
 <div class="page_admin-add">
-    <h1 class="page_admin-title"> Add new computer</h1>
+    <h1 class="page_admin-add-title"> Adding new computer</h1>
 
-    <!--TODO Add validation-->
     <div class="page_admin-form">
         <form class="ui form" [formGroup]="computerForm" novalidate (ngSubmit)="add()">
 
@@ -16,27 +15,29 @@
             </div>
 
             <div class="field"  [ngClass]="{error: !isValidFormField('price')}">
-                <label>Price: {{!isValidFormField('price') ? "is required" : ""}}</label>
+                <label>Price: {{!isValidFormField('price') ? "is required and has to be a valid number from 0 to 9999" : ""}}</label>
                 <input type="number" formControlName="price"><br/><br/>
             </div>
 
             <div class="field"  [ngClass]="{error: !isValidFormField('image')}">
-                <label>Image: {{!isValidFormField('image') ? "is required" : ""}}</label>
-                <input type="text" formControlName="image"><br/><br/>
+                <label>Image url: {{!isValidFormField('image') ? "is required and has to be an image url" : ""}}</label>
+                <input type="url" formControlName="image"><br/><br/>
             </div>
 
             <div class="field"  [ngClass]="{error: !isValidFormField('description')}">
                 <label>Description: {{!isValidFormField('description') ? "is required" : ""}}</label>
-                <input type="text" formControlName="description"><br/><br/>
+                <textarea type="text" formControlName="description" rows="5"></textarea><br/><br/>
             </div>
 
             <div class="field"  [ngClass]="{error: !isValidFormField('details')}">
-                <label>Details(*CSV):: {{!isValidFormField('details') ? "is required" : ""}}</label>
-                <input type="text" formControlName="details"><br/><br/>
+                <label>Details(*CSV) {{!isValidFormField('details') ? "is required" : ""}}</label>
+                <textarea type="text" formControlName="details" rows="5"></textarea><br/><br/>
             </div>
 
-            <input class="ui button page_admin-add--button-confirm" type="submit" value="Add"/>
-            <a class="ui button page_admin-add--button-cancel" href="#" >Cancel</a>
+            <div class="ui centered header">
+                <input class="ui button page_admin-add--button-confirm" type="submit" value="Add"/>
+                <a class="ui button page_admin-add--button-cancel" href="#" >Cancel</a>
+            </div>
         </form>
     </div>
 </div>
