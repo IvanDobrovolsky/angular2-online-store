@@ -1,6 +1,7 @@
 import {Component, ViewEncapsulation, OnInit, OnDestroy}              from '@angular/core';
 import {FormGroup, FormBuilder, REACTIVE_FORM_DIRECTIVES, Validators} from '@angular/forms';
 import { NgClass }                                                    from '@angular/common';
+import { Router }                                                     from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -25,7 +26,7 @@ export class AdminCreateComponent{
     private static pricePattern = "^([1-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9])$";
     private static imageUrlPattern = "^http?:\/\/[^\s]+(?=.(jpe?g|png|gif)).(jpe?g|png|gif)$";
     
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, private router: Router) {
 
     }
     
@@ -55,6 +56,10 @@ export class AdminCreateComponent{
             //TODO make api call here
         }
     }
-
-    //TODO implement cancel method
+    
+    private cancel() {
+        if (this.computerForm.pristine || confirm("Are you sure that you want to quit? All the data will be lost.")) {
+            this.router.navigate(['/admin']);
+        }
+    }
 }
