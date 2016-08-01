@@ -7,6 +7,7 @@ import { Computer }   from './../../../../models/computer.model';
 import { ApiService } from './../../../../services/api.service';
 
 //TODO Add active link to navigation component
+//TODO Add Allow deactivation only if the form is submitted
 
 @Component({
     moduleId: module.id,
@@ -29,7 +30,8 @@ export class AdminCreateComponent{
     private isSubmitted = false;
 
     private static pricePattern = "^([1-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9])$";
-    private static imageUrlPattern = "^http?:\/\/[^\s]+(?=.(jpe?g|png|gif)).(jpe?g|png|gif)$";
+    private static imageUrlPattern = "(https?:\/\/.*\.(?:png|jpg|jpeg|gif))";
+    private static CSVPattern = `(?:'[^']*')|(?:[^, ]+)`;
     
     constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) {
 
@@ -42,7 +44,7 @@ export class AdminCreateComponent{
             price:       ['', [Validators.required, Validators.pattern(AdminCreateComponent.pricePattern)]],
             image:       ['', [Validators.required, Validators.pattern(AdminCreateComponent.imageUrlPattern)]],
             description: ['', Validators.required],
-            details:     ['', Validators.required]
+            details:     ['', [Validators.required, Validators.pattern(AdminCreateComponent.CSVPattern)]]
         });
     }
 

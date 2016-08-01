@@ -5,12 +5,12 @@
         <form class="ui form" [formGroup]="computerForm" novalidate (ngSubmit)="add()">
 
             <div class="field"  [ngClass]="{error: !isValidFormField('title')}">
-                <label>Title: {{!isValidFormField('title') ? "is required" : ""}}</label>
+                <label>Title: {{!isValidFormField('title') ? "is required, cannot be empty" : ""}}</label>
                 <input type="text" formControlName="title"><br/><br/>
             </div>
 
             <div class="field"  [ngClass]="{error: !isValidFormField('brand')}">
-                <label>Brand: {{!isValidFormField('brand') ? "is required" : ""}}</label>
+                <label>Brand: {{!isValidFormField('brand') ? "is required, cannot be empty" : ""}}</label>
                 <input type="text" formControlName="brand"><br/><br/>
             </div>
 
@@ -25,12 +25,12 @@
             </div>
 
             <div class="field"  [ngClass]="{error: !isValidFormField('description')}">
-                <label>Description: {{!isValidFormField('description') ? "is required" : ""}}</label>
+                <label>Description: {{!isValidFormField('description') ? "is required, cannot be empty" : ""}}</label>
                 <textarea type="text" formControlName="description" rows="5"></textarea><br/><br/>
             </div>
 
             <div class="field"  [ngClass]="{error: !isValidFormField('details')}">
-                <label>Details(*CSV) {{!isValidFormField('details') ? "is required" : ""}}</label>
+                <label>Details(CSV) {{!isValidFormField('details') ? "is required and has to be a Comma Separated Value format" : ""}}</label>
                 <textarea type="text" formControlName="details" rows="5"></textarea><br/><br/>
             </div>
 
