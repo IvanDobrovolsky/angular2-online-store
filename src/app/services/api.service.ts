@@ -14,13 +14,13 @@ interface IApiResponse<T>{
 }
 //TODO Refactor api methods implementation
 interface IComputersApiService{
-  getAllComputers():                         Observable<IApiResponse<Computer>>;
-  getComputerById(id: number):               Observable<IApiResponse<Computer>>;
-  getAllBrandNames():                        Observable<IApiResponse<string>>;
-  findComputers(filters: IFilters):          Observable<IApiResponse<Computer>>; //TODO add filters model
-  removeComputer(id: number):                Observable<IApiResponse<Computer>>;
-  createNewComputer(newComputer: Computer):  Observable<IApiResponse<Computer>>;
-  updateComputer(updatedComputer: Computer): IApiResponse<Computer>;
+  getAllComputers():                                     Observable<IApiResponse<Computer>>;
+  getComputerById(id: number):                           Observable<IApiResponse<Computer>>;
+  getAllBrandNames():                                    Observable<IApiResponse<string>>;
+  findComputers(filters: IFilters):                      Observable<IApiResponse<Computer>>;
+  removeComputer(id: number):                            Observable<IApiResponse<Computer>>;
+  createNewComputer(newComputer: Computer):              Observable<IApiResponse<Computer>>;
+  updateComputer(id: number, updatedComputer: Computer): Observable<IApiResponse<Computer>>;
 }
 
 @Injectable()
@@ -95,9 +95,9 @@ export class ApiService implements IComputersApiService{
         .catch(this.handleError);
   }
 
-  updateComputer(updatedComputer:Computer):IApiResponse<Computer> {
-    return undefined;
+  updateComputer(id: number, updatedComputer:Computer): Observable<IApiResponse<Computer>> {
+    return this.http.put(this.apiResources.getAll + '/' + id, JSON.stringify(updatedComputer),  this.options)
+        .map(this.extractData)
+        .catch(this.handleError);
   }
-
-
 }

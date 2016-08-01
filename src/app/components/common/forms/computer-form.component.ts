@@ -1,18 +1,5 @@
-import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    OnDestroy,
-    Input,
-    Output,
-    EventEmitter
-}   from '@angular/core';
-import {
-    FormGroup,
-    FormBuilder,
-    REACTIVE_FORM_DIRECTIVES,
-    Validators
-}   from '@angular/forms';
+import {Component, ViewEncapsulation, OnInit, OnDestroy, Input, Output, EventEmitter}   from '@angular/core';
+import {FormGroup, FormBuilder, REACTIVE_FORM_DIRECTIVES, Validators}                   from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Router }  from '@angular/router';
 
@@ -68,9 +55,9 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
     constructor(private formBuilder: FormBuilder, private router: Router) {
 
     }
-    
+
     ngOnInit(): void {
- 
+
         switch (this.action) {
             case 'update': //Setting initial values
                 if(!!this.itemToUpdate) {
@@ -99,7 +86,6 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
             description: [this.initialFormValues.description, Validators.required],
             details:     [this.initialFormValues.details,     [Validators.required, Validators.pattern(ComputerFormComponent.CSVPattern)]]
         });
-        
     }
 
     ngOnDestroy(): void {
@@ -117,10 +103,14 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
 
             const formData = this.computerForm.value;
 
-            const newComputer: Computer = Object.assign(formData, {details: formData.details.split(','), date: Date.now(), _id: Date.now()});
+            const newComputer: Computer = Object.assign({}, formData, {
+                details: formData.details.split(','),
+                _id: this.action === 'update' ? this.itemToUpdate._id : Date.now(),
+                date: Date.now()
+            });
 
             //Emitting the event in here
-            this.onSubmit.emit(newComputer)
+            this.onSubmit.emit(newComputer);
         }
     }
 
