@@ -3,32 +3,32 @@
 
         <div class="field"  [ngClass]="{error: !isValidFormField('title')}">
             <label>Title: {{!isValidFormField('title') ? "is required, cannot be empty" : ""}}</label>
-            <input type="text" formControlName="title"><br/><br/>
+            <input type="text" formControlName="title">
         </div>
 
         <div class="field"  [ngClass]="{error: !isValidFormField('brand')}">
             <label>Brand: {{!isValidFormField('brand') ? "is required, cannot be empty" : ""}}</label>
-            <input type="text" formControlName="brand"><br/><br/>
+            <input type="text" formControlName="brand">
         </div>
 
         <div class="field"  [ngClass]="{error: !isValidFormField('price')}">
             <label>Price: {{!isValidFormField('price') ? "is required and has to be a valid number from 0 to 9999" : ""}}</label>
-            <input type="number" formControlName="price"><br/><br/>
+            <input type="number" formControlName="price">
         </div>
 
         <div class="field"  [ngClass]="{error: !isValidFormField('image')}">
             <label>Image url: {{!isValidFormField('image') ? "is required and has to be an image url" : ""}}</label>
-            <input type="url" formControlName="image"><br/><br/>
+            <input type="url" formControlName="image">
         </div>
 
         <div class="field"  [ngClass]="{error: !isValidFormField('description')}">
             <label>Description: {{!isValidFormField('description') ? "is required, cannot be empty" : ""}}</label>
-            <textarea type="text" formControlName="description" rows="5"></textarea><br/><br/>
+            <textarea type="text" formControlName="description" rows="7"></textarea>
         </div>
 
         <div class="field"  [ngClass]="{error: !isValidFormField('details')}">
             <label>Details(CSV) {{!isValidFormField('details') ? "is required and has to be a Comma Separated Value format" : ""}}</label>
-            <textarea type="text" formControlName="details" rows="5"></textarea><br/><br/>
+            <textarea type="text" formControlName="details" rows="7"></textarea>
         </div>
 
         <div class="ui centered header">

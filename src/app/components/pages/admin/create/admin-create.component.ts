@@ -5,7 +5,7 @@ import { Computer }   from './../../../../models/computer.model';
 
 import { ApiService } from './../../../../services/api.service';
 
-import { ComputerFormComponent } from './../../../common/forms/computer-form.component';
+import { ComputerFormComponent } from './../../../common/forms/computer-form/computer-form.component';
 
 //TODO Add Allow deactivation only if the form is submitted
 

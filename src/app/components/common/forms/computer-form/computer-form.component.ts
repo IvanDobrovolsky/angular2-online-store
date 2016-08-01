@@ -3,7 +3,7 @@ import {FormGroup, FormBuilder, REACTIVE_FORM_DIRECTIVES, Validators}           
 import { NgClass } from '@angular/common';
 import { Router }  from '@angular/router';
 
-import { Computer }   from './../../../models/computer.model';
+import { Computer }   from './../../../../models/computer.model';
 
 //TODO Allow deactivation only if the form is submitted
 
