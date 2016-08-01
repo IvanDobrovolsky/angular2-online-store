@@ -6,7 +6,6 @@ import { Router }                                                     from '@ang
 import { Computer }   from './../../../../models/computer.model';
 import { ApiService } from './../../../../services/api.service';
 
-//TODO Add active link to navigation component
 //TODO Add Allow deactivation only if the form is submitted
 
 @Component({
