@@ -1,0 +1,39 @@
+<div class="page_admin-form">
+    <form class="ui form" [formGroup]="computerForm" novalidate (ngSubmit)="submit()">
+
+        <div class="field"  [ngClass]="{error: !isValidFormField('title')}">
+            <label>Title: {{!isValidFormField('title') ? "is required, cannot be empty" : ""}}</label>
+            <input type="text" formControlName="title"><br/><br/>
+        </div>
+
+        <div class="field"  [ngClass]="{error: !isValidFormField('brand')}">
+            <label>Brand: {{!isValidFormField('brand') ? "is required, cannot be empty" : ""}}</label>
+            <input type="text" formControlName="brand"><br/><br/>
+        </div>
+
+        <div class="field"  [ngClass]="{error: !isValidFormField('price')}">
+            <label>Price: {{!isValidFormField('price') ? "is required and has to be a valid number from 0 to 9999" : ""}}</label>
+            <input type="number" formControlName="price"><br/><br/>
+        </div>
+
+        <div class="field"  [ngClass]="{error: !isValidFormField('image')}">
+            <label>Image url: {{!isValidFormField('image') ? "is required and has to be an image url" : ""}}</label>
+            <input type="url" formControlName="image"><br/><br/>
+        </div>
+
+        <div class="field"  [ngClass]="{error: !isValidFormField('description')}">
+            <label>Description: {{!isValidFormField('description') ? "is required, cannot be empty" : ""}}</label>
+            <textarea type="text" formControlName="description" rows="5"></textarea><br/><br/>
+        </div>
+
+        <div class="field"  [ngClass]="{error: !isValidFormField('details')}">
+            <label>Details(CSV) {{!isValidFormField('details') ? "is required and has to be a Comma Separated Value format" : ""}}</label>
+            <textarea type="text" formControlName="details" rows="5"></textarea><br/><br/>
+        </div>
+
+        <div class="ui centered header">
+            <input class="ui button page_admin-add--button-confirm" type="submit" value="Add"/>
+            <a class="ui button page_admin-add--button-cancel" (click)="cancel()">Cancel</a>
+        </div>
+    </form>
+</div>

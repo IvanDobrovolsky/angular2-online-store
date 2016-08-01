@@ -8,27 +8,3 @@
     color: #f0ad4e;
     margin-bottom: 15px;
 }
-.page_admin-add--button-confirm {
-
-}
-.page_admin-add--button-confirm:active {
-
-}
-.page_admin-add--button-cancel {
-
-}
-.page_admin-add--button-cancel:active {
-    box-shadow: none;
-}
-.page_admin-form {
-    text-align: left;
-    max-width: 480px;
-    margin: 0 auto;
-}
-.page_admin-form .field label {
-    color: #f0ad4e;
-}
-
-.page_admin-form .field.error label {
-    color: red;
-}
