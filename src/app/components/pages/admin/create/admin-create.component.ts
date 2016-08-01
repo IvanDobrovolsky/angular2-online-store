@@ -3,6 +3,11 @@ import {FormGroup, FormBuilder, REACTIVE_FORM_DIRECTIVES, Validators} from '@ang
 import { NgClass }                                                    from '@angular/common';
 import { Router }                                                     from '@angular/router';
 
+import { Computer }   from './../../../../models/computer.model';
+import { ApiService } from './../../../../services/api.service';
+
+//TODO Add active link to navigation component
+
 @Component({
     moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
@@ -26,7 +31,7 @@ export class AdminCreateComponent{
     private static pricePattern = "^([1-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9])$";
     private static imageUrlPattern = "^http?:\/\/[^\s]+(?=.(jpe?g|png|gif)).(jpe?g|png|gif)$";
     
-    constructor(private formBuilder: FormBuilder, private router: Router) {
+    constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) {
 
     }
     
@@ -53,10 +58,24 @@ export class AdminCreateComponent{
         this.isSubmitted = true;
 
         if(this.computerForm.valid) {
-            //TODO make api call here
+
+            const formData = this.computerForm.value;
+
+            const newComputer: Computer = Object.assign(formData, {details: formData.details.split(','), date: Date.now(), _id: Date.now()});
+
+            this.apiService
+                .createNewComputer(newComputer)
+                .subscribe(response => {
+                        if(response.success){
+                            //TODO add notification from NotificationService
+                            console.log(response.message);
+                            this.router.navigate(['/admin']);
+                        }
+                    },
+                    error => console.error(`An error has occurred! ${error}`));
         }
     }
-    
+
     private cancel() {
         if (this.computerForm.pristine || confirm("Are you sure that you want to quit? All the data will be lost.")) {
             this.router.navigate(['/admin']);

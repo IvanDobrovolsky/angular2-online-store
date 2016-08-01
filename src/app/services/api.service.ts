@@ -19,7 +19,7 @@ interface IComputersApiService{
   getAllBrandNames():                        Observable<IApiResponse<string>>;
   findComputers(filters: IFilters):          Observable<IApiResponse<Computer>>; //TODO add filters model
   removeComputer(id: number):                Observable<IApiResponse<Computer>>;
-  createNewComputer():                       IApiResponse <Computer>;
+  createNewComputer(newComputer: Computer):  Observable<IApiResponse<Computer>>;
   updateComputer(updatedComputer: Computer): IApiResponse<Computer>;
 }
 
@@ -89,8 +89,10 @@ export class ApiService implements IComputersApiService{
         .catch(this.handleError);
   }
   
-  createNewComputer():IApiResponse<Computer> {
-    return undefined;
+  createNewComputer(newComputer: Computer): Observable<IApiResponse<Computer>> {
+    return this.http.post(this.apiResources.getAll, JSON.stringify(newComputer),  this.options)
+        .map(this.extractData)
+        .catch(this.handleError);
   }
 
   updateComputer(updatedComputer:Computer):IApiResponse<Computer> {
