@@ -9,9 +9,11 @@
     <div class="catalog-item-preview--details">
         <strong><i>Details: </i></strong>
         <br/>
-        <div class="catalog-item-preview--details-detail" *ngFor="let detail of details">{{detail}}</div>
+        <ul>
+            <li class="catalog-item-preview--details-detail" *ngFor="let detail of details">{{detail}}</li>
+        </ul>
     </div>
     <p class="catalog-item-preview--date"><strong><i>Added: </i></strong> {{date | date}}</p>
-    <a class="catalog-item-preview--back" routerLink="/catalog" >Back to catalog</a>
+    <a class="catalog-item-preview--back ui button" routerLink="/catalog"><i class="fa fa-undo"></i> Back to catalog</a>
 </div>
 

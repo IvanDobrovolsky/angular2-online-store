@@ -68,6 +68,7 @@ export class CatalogItemPreviewComponent implements OnInit, OnDestroy, ICatalogI
 
     ngOnDestroy(): void {
         return undefined;
+        //TODO Unsubscribe from observables
     }
 
     addToCart(id: string): void {
