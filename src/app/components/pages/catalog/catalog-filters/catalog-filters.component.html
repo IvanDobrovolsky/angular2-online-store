@@ -29,6 +29,20 @@
         <div class="catalog-filters--error" [hidden]="areBrandsValid" >
             At least one brand should be chosen!
         </div>
+
+        <div class="catalog-filters-sort--by-price field">
+            <div class="ui toggle checkbox">
+                <input type="checkbox" tabindex="0" name="sortByPrice" [(ngModel)]="sorters.byPrice">
+                <label>Sort by price (from cheap to expensive)</label>
+            </div>
+        </div>
+
+        <div class="catalog-filters-sort--by-date field">
+            <div class="ui toggle checkbox">
+                <input type="checkbox" tabindex="0" name="sortByDate" [(ngModel)]="sorters.byDate">
+                <label>Sort by date (from new to old)</label>
+            </div>
+        </div>
         <button class="ui button" type="submit" [ngClass]="{disabled: !isFormValid}"><i class="fa fa-filter"></i> Apply filters</button>
     </form>
 

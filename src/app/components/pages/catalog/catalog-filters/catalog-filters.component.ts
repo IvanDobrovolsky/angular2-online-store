@@ -27,7 +27,9 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
 
     @Output() private onFilter = new EventEmitter<Computer[]>();
 
+    //Default filter/sort values
     private filters: IFilters = {price: {from: 0, to: 3000}, brands: []};
+    private sorters = {byPrice: false, byDate: false};
 
     constructor(private apiService: ApiService){
 
@@ -54,7 +56,7 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
         const {from, to} = this.filters.price;
         return from !== null && to !== null && !Number.isNaN(from * to) && (from * to) >=0 && (from < to);
     }
-    
+
     private get areBrandsValid (): boolean {
         return this.filters.brands.length >= 1;
     }
@@ -76,6 +78,16 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
 
     }
 
+    private static sortByPrice(computers): Computer[] {
+        //Immutable sort
+        return [...computers].sort((c1: Computer, c2: Computer) => c1.price - c2.price);
+    }
+
+    private static sortByDate(computers): Computer[] {
+        //Immutable sort
+        return [...computers].sort((c1: Computer, c2: Computer) => c2.date - c1.date);
+    }
+
     private filterComputers(): void{
         if (this.isFormValid) {
             this.apiService
@@ -84,7 +96,16 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
                         if(response.success){
                             let filteredComputers = response.data;
 
-                            //Firing the event to the parent component
+                            //Sorting by price
+                            if(this.sorters.byPrice) {
+                                filteredComputers = CatalogFiltersComponent.sortByPrice(filteredComputers);
+                            }
+
+                            //Sorting by date
+                            if(this.sorters.byDate) {
+                                filteredComputers = CatalogFiltersComponent.sortByDate(filteredComputers);
+                            }
+                            
                             this.onFilter.emit(filteredComputers);
                         }
                     },
