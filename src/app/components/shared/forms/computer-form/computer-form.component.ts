@@ -96,10 +96,14 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
         return this.computerForm.controls[field].valid || (this.computerForm.controls[field].pristine && !this.isSubmitted);
     }
 
+    private isFormValid(): boolean {
+        return this.computerForm.valid;
+    }
+    
     private submit(): void {
         this.isSubmitted = true;
 
-        if(this.computerForm.valid) {
+        if(this.isFormValid()) {
 
             const formData = this.computerForm.value;
 

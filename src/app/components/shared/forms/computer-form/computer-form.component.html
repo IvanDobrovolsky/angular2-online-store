@@ -1,4 +1,4 @@
-<div class="page_admin-form">
+<div class="page_admin-form" xmlns="http://www.w3.org/1999/html">
     <form class="ui form" [formGroup]="computerForm" novalidate (ngSubmit)="submit()">
 
         <div class="field"  [ngClass]="{error: !isValidFormField('title')}">
@@ -32,8 +32,12 @@
         </div>
 
         <div class="ui centered header">
-            <input class="ui button page_admin-add--button-confirm" type="submit" value="Add"/>
-            <a class="ui button page_admin-add--button-cancel" (click)="cancel()">Cancel</a>
+            <button class="ui button page_admin-add--button-confirm" type="submit" [ngClass]="{disabled: !isFormValid()}">
+                <i class="fa" [ngClass]="{'fa-plus': action === 'create', 'fa-floppy-o': action === 'update'}"></i> {{action === 'create' ? 'Add' : 'Save'}}
+            </button>
+            <a class="ui button page_admin-add--button-cancel" (click)="cancel()">
+                <i class="fa fa-undo"></i> Cancel
+            </a>
         </div>
     </form>
 </div>
