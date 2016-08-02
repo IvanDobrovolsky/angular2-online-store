@@ -1,5 +1,5 @@
 import { Injectable }                             from '@angular/core';
-import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
+import { Http, Response, Headers, RequestMethod } from '@angular/http';
 import { Observable }                             from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -7,12 +7,12 @@ import 'rxjs/add/operator/catch';
 import { Computer } from './../models/computer.model';
 import { IFilters } from './../models/filters.model';
 
-interface IApiResponse<T>{
+interface IApiResponse<T> extends Response{
   success: boolean;
   message: string;
   data: Array<T>;
 }
-//TODO Refactor api methods implementation
+
 interface IComputersApiService{
   getAllComputers():                                     Observable<IApiResponse<Computer>>;
   getComputerById(id: number):                           Observable<IApiResponse<Computer>>;
@@ -27,25 +27,22 @@ interface IComputersApiService{
 export class ApiService implements IComputersApiService{
 
   private apiResources = {
-    getAll: 'http://localhost:7777/api/computers',
-    brands: 'http://localhost:7777/api/brands',
+    getAll:  'http://localhost:7777/api/computers',
+    brands:  'http://localhost:7777/api/brands',
     filters: 'http://localhost:7777/api/computers/filter',
   };
 
-  private headers = new Headers({
-    'Content-Type': 'application/json'
-  });
-  
-  private options = new RequestOptions({headers: this.headers});
+  private headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http: Http){}
+  constructor(private http: Http){
+
+  }
 
   //Success handler
   private extractData(response: Response){
     if(response.status < 200 || response.status >= 300){
       throw new Error(`Bad response status: ${response.status}`);
     }
-
     return response.json();
   }
 
@@ -56,48 +53,38 @@ export class ApiService implements IComputersApiService{
     return Observable.throw(error.message);
   }
 
-  getAllComputers(): Observable<IApiResponse<Computer>> {
-    return this.http.get(this.apiResources.getAll)
+  private makeApiRequest(method: RequestMethod, resource: string, body: any): Observable<Response> {
+    //noinspection TypeScriptUnresolvedFunction
+    return this.http.request(resource, {body, method, headers: this.headers})
         .map(this.extractData)
         .catch(this.handleError)
   }
 
-  getComputerById(id: number): Observable<IApiResponse<Computer>> {
-    return this.http.get(this.apiResources.getAll + '/' + id)
-        .map(this.extractData)
-        .catch(this.handleError)
+  public getAllComputers(): Observable<IApiResponse<Computer>> {
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Get, this.apiResources.getAll, null);
   }
 
-
-  getAllBrandNames(): Observable<IApiResponse<string>> {
-    return this.http.get(this.apiResources.brands)
-        .map(this.extractData)
-        .catch(this.handleError)
+  public getComputerById(id: number): Observable<IApiResponse<Computer>> {
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Get, this.apiResources.getAll + '/' + id, null);
   }
 
-
-  findComputers(filters: IFilters): Observable<IApiResponse<Computer>> {
-    console.log(filters);
-    return this.http.post(this.apiResources.getAll + '/filter', JSON.stringify(filters), {headers: this.headers})
-        .map(this.extractData)
-        .catch(this.handleError)
+  public getAllBrandNames(): Observable<IApiResponse<string>> {
+    return <Observable<IApiResponse<string>>> this.makeApiRequest(RequestMethod.Get, this.apiResources.brands, null);
   }
 
-  removeComputer(id: number): Observable<IApiResponse<Computer>> {
-    return this.http.delete(this.apiResources.getAll + '/' + id, this.options)
-        .map(this.extractData)
-        .catch(this.handleError);
+  public findComputers(filters: IFilters): Observable<IApiResponse<Computer>> {
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Post, this.apiResources.getAll + '/filter', JSON.stringify(filters));
+  }
+
+  public removeComputer(id: number): Observable<IApiResponse<Computer>> {
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Delete, this.apiResources.getAll + '/' + id, null);
   }
   
-  createNewComputer(newComputer: Computer): Observable<IApiResponse<Computer>> {
-    return this.http.post(this.apiResources.getAll, JSON.stringify(newComputer),  this.options)
-        .map(this.extractData)
-        .catch(this.handleError);
+  public createNewComputer(newComputer: Computer): Observable<IApiResponse<Computer>> {
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Post, this.apiResources.getAll, JSON.stringify(newComputer));
   }
 
-  updateComputer(id: number, updatedComputer:Computer): Observable<IApiResponse<Computer>> {
-    return this.http.put(this.apiResources.getAll + '/' + id, JSON.stringify(updatedComputer),  this.options)
-        .map(this.extractData)
-        .catch(this.handleError);
+  public updateComputer(id: number, updatedComputer: Computer): Observable<IApiResponse<Computer>> {
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Put, this.apiResources.getAll + '/' + id, JSON.stringify(updatedComputer));
   }
 }
