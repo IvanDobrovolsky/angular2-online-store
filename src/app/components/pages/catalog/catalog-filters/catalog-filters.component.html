@@ -1,19 +1,35 @@
 <div class="catalog-filters">
-<form (submit)="filterComputers()">
-    <div class="catalog-filters-price">
-        <h2 class="catalog-filters--category">Filter by price:</h2>
-        From: <input type="number" name="from" [(ngModel)]="filters.price.from" required/>
-        To:   <input type="number" name="to"   [(ngModel)]="filters.price.to"   required/>
-    </div>
-    <div class="catalog-filters-brand">
-        <h2 class="catalog-filters--category">Filter by brand:</h2>
-        <ul>
-            <li *ngFor="let brand of brandNames">
-                <input type="checkbox" (click)="handleCheckBoxCheck(brand)" checked>
-                {{brand}}
-            </li>
-        </ul>
-    </div>
-    <input type="submit" value="Filter"/>
-</form>
+    <form class="ui form inverted" (ngSubmit)="filterComputers()" #filtersForm="ngForm" novalidate>
+        <div class="field" [ngClass]="{error: !arePricesValid}">
+            <label class="catalog-filters--category">Price filters:</label>
+            <div class="catalog-filters-price two fields">
+                <div class="field">
+                    <input type="number" name="from" [(ngModel)]="filters.price.from" placeholder="Price from" required/>
+                </div>
+                <div class="field">
+                    <input type="number" name="to"   [(ngModel)]="filters.price.to"   placeholder="Price to"   required/>
+                </div>
+            </div>
+        </div>
+        <div class="catalog-filters--error" [hidden]="arePricesValid" >
+            Required! Should be valid numbers (price from < price to) <br>
+        </div>
+
+        <div class="catalog-filters-brand field" [ngClass]="{error: !areBrandsValid}">
+            <label class="catalog-filters--category">Brand filters:</label>
+            <ul>
+                <li *ngFor="let brand of brandNames" class="inline field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" (click)="handleCheckBoxCheck(brand)" checked>
+                        <label>{{brand}}</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="catalog-filters--error" [hidden]="areBrandsValid" >
+            At least one brand should be chosen!
+        </div>
+        <button class="ui button" type="submit" [ngClass]="{disabled: !isFormValid}"><i class="fa fa-filter"></i> Apply filters</button>
+    </form>
+
 </div>

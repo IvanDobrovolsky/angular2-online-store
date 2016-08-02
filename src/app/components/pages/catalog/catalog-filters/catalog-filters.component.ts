@@ -1,15 +1,10 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { NgIf, NgFor, NgModel }                                                  from '@angular/common';
-import { HTTP_PROVIDERS }                                                        from '@angular/http';
+import { NgIf, NgFor, NgClass }                                                  from '@angular/common';
 
 import { ApiService } from './../../../../services/api.service';
-import { Computer } from "../../../../models/computer.model";
-import { IFilters } from "../../../../models/filters.model";
+import { Computer }   from "../../../../models/computer.model";
+import { IFilters }   from "../../../../models/filters.model";
 
-
-interface ICatalogFilters {
-    filterComputers(): void;
-}
 
 @Component({
     moduleId: module.id,
@@ -22,7 +17,7 @@ interface ICatalogFilters {
     directives: [
         NgIf,
         NgFor,
-        NgModel
+        NgClass
     ],
     providers: []
 })
@@ -32,10 +27,7 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
 
     @Output() private onFilter = new EventEmitter<Computer[]>();
 
-    private filters: IFilters = {
-        price: {from: 0, to: 3000},
-        brands: []
-    };
+    private filters: IFilters = {price: {from: 0, to: 3000}, brands: []};
 
     constructor(private apiService: ApiService){
 
@@ -58,7 +50,20 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
         this.brandNames = null;
     }
 
-    handleCheckBoxCheck(brand: string){
+    private get arePricesValid (): boolean {
+        const {from, to} = this.filters.price;
+        return from !== null && to !== null && !Number.isNaN(from * to) && (from * to) >=0 && (from < to);
+    }
+    
+    private get areBrandsValid (): boolean {
+        return this.filters.brands.length >= 1;
+    }
+    
+    private get isFormValid(): boolean {
+        return this.arePricesValid && this.areBrandsValid;
+    }
+
+    private handleCheckBoxCheck(brand: string): void{
 
         let index = this.filters.brands.indexOf(brand);
 
@@ -71,18 +76,22 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
 
     }
 
-    filterComputers(){
-        this.apiService
-            .findComputers(this.filters)
-            .subscribe(response => {
-                    if(response.success){
-                        let filteredComputers = response.data;
+    private filterComputers(): void{
+        if (this.isFormValid) {
+            this.apiService
+                .findComputers(this.filters)
+                .subscribe(response => {
+                        if(response.success){
+                            let filteredComputers = response.data;
 
-                        //Firing the event to the parent component
-                        this.onFilter.emit(filteredComputers);
-                    }
-                },
-                error => console.error(`An error has occurred! ${error}`));
+                            //Firing the event to the parent component
+                            this.onFilter.emit(filteredComputers);
+                        }
+                    },
+                    error => console.error(`An error has occurred! ${error}`));
+        } else {
+            console.log("Filters are invalid...");
+        }
     }
 }
 
