@@ -3,18 +3,25 @@
     color: white;
 }
 .page_admin-title {
-    padding-top: 15px;
+    padding: 15px 0;
     color: #f0ad4e;
 }
-.page_admin-computers-list-header {
-    padding: 15px;
+.page_admin-computers-list {
+    padding: 0 5px;
 }
+
 .page_admin-computers-list-header div:first-child {
     text-align: left;
 }
-.page_admin-computers-list-item div {
+.page_admin-computers-list-item div, .page_admin-computers-list-header div{
     outline: 1px solid #fff;
     padding: 15px;
+}
+.page_admin-computers-list-header {
+    background: #1B1C1D;
+}
+.page_admin-computers-list-header div{
+    outline: 2px solid #fff;
 }
 .page_admin-computers-list-item div:first-child {
     text-align: left;
