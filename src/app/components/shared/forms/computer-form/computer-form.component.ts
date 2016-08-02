@@ -110,7 +110,7 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
             const newComputer: Computer = Object.assign({}, formData, {
                 details: formData.details.split(','),
                 _id: this.action === 'update' ? this.itemToUpdate._id : Date.now(),
-                date: Date.now()
+                date: this.action === 'update' ? this.itemToUpdate.date :Date.now()
             });
 
             //Emitting the event in here
