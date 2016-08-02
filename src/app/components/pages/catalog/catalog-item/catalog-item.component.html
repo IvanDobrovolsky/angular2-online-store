@@ -1,9 +1,18 @@
-<div class="page_catalog-list-item">
-    <h2 class="page_catalog-list-item--title">{{brand}} {{title}} -- {{price}}</h2>
-    <div  class="page_catalog-list-item--image">
-        <img src={{image}}/>
+<div class="image page_catalog-list-item--image">
+    <img src={{image}}/>
+</div>
+<div class="content">
+    <a class="header page_catalog-list-item-header" (click)="preview(item._id)">{{brand}} {{title}}</a>
+    <div class="meta">
+        <span class="cinema page_catalog-list-item--price">{{price}} $, {{date | date}}</span>
     </div>
-    <p class="page_catalog-list-item--description">{{description.split('.').shift() + "..."}}</p>
-    <a class="page_catalog-list-item--more" (click)="preview(item._id)">View</a>
-    <a class="page_catalog-list-item--add" (click)="addToCart(item._id)">Buy</a>
+    <div class="description page_catalog-list-item--description">
+        <p>
+            {{description.split('.').shift() + "..."}}
+        </p>
+    </div>
+    <div class="extra">
+        <div class="ui label page_catalog-list-item--more" (click)="preview(item._id)">View</div>
+        <div class="ui label page_catalog-list-item--add"  (click)="addToCart(item._id)">Buy</div>
+    </div>
 </div>

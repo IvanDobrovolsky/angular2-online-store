@@ -11,6 +11,7 @@ interface ICatalogItem {
     price: number;
     image: string;
     description: string;
+    date: number;
     preview(id: number): void;
     addToCart(id: number): void;
 }
@@ -30,6 +31,7 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
     title: string;
     price: number;
     image: string;
+    date:  number;
     description: string;
 
     @Input() private item: Computer;
@@ -46,11 +48,11 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
         delete this;
     }
 
-    preview(id: number):void {
+    public preview(id: number): void {
         this.router.navigate(['/catalog', id]);
     }
 
-    addToCart(id: number):void {
+    public addToCart(id: number): void {
         this.shoppingCartService.addToCart(id);
         console.log(id + " Added to cart!");
     }
