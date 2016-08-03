@@ -6,6 +6,7 @@ import { NavigationComponent } from './shared/navigation/navigation.component';
 
 import { ApiService }          from './../services/api.service';
 import { ShoppingCartService } from './../services/shopping-cart-service';
+import { NotificationService } from './../services/notification.service';
 
 //TODO add route guards
 //TODO rewrite the code according to the styleguide
@@ -28,7 +29,8 @@ import { ShoppingCartService } from './../services/shopping-cart-service';
   providers: [
       HTTP_PROVIDERS,
       ApiService,
-      ShoppingCartService
+      ShoppingCartService,
+      NotificationService
   ]
 })
 export class AppComponent{
