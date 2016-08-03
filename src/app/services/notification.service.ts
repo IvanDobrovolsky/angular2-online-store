@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Notification } from './../models/notification.model';
+import { Notification, DirOptions } from './../models/notification.model';
 
 interface INotificationService {
     push(notification: Notification): void;
@@ -33,7 +33,7 @@ export class NotificationService implements INotificationService {
 
     public push(notification: Notification): void {
         if(this.permission == 'granted') {
-            new this.NotificationAPI(notification.title, notification.options);
+            new this.NotificationAPI(notification.title, Object.assign({}, notification.options, {dir: DirOptions[notification.options.dir]}));
             console.info(`${notification.title}: ${notification.options.body}`);
         } else if (this.permission === 'denied') {
             //Using console instead

@@ -1,16 +1,19 @@
-//TODO Restrict dir property
+export enum DirOptions{
+    auto, ltr, rtl
+}
+
 interface IOptions {
     body: string,
     icon: string,
-    dir:  string //['auto', 'ltr', 'rtl'] 1 of the array values (either auto, or ltr, or rtl)}
+    dir:  DirOptions
 }
 
 export class Notification {
     public title: string;
     public options : IOptions;
 
-    constructor(title, options) {
+    constructor(title: string, body: string, icon: string, dir: DirOptions) {
         this.title   = title;
-        this.options = options;
+        this.options = {body, icon, dir}
     }
 }
