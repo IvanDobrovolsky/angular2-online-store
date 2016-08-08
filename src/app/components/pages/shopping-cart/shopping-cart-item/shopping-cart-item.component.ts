@@ -18,6 +18,7 @@ interface IShoppingCartItem {
     changeQuantity(id: number, newQuantity: number): void;
 }
 
+//TODO Refactor the implementation
 @Component({
     moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
@@ -65,6 +66,10 @@ export class ShoppingCartItemComponent implements OnInit, OnDestroy, IShoppingCa
     changeQuantity(id:number, newQuantity): void {
         this.quantity = newQuantity;
         this.shoppingCartService.changeQuantity(id, newQuantity);
+    }
+
+    private get totalForItem(): number {
+        return this.price * this.quantity;
     }
 }
 

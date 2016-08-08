@@ -1,14 +1,21 @@
-<div class="page_cart-item" style="display: flex; justify-content: space-around">
-    <div class="page_cart-item--image">
-        <img src={{image}} alt={{description}}/>
+<div class="ui card page_cart-item">
+    <div class="content">
+        <div class="right floated meta"><i class="fa fa-remove page_cart-item--remove" (click)="removeFromCart()"></i></div>
     </div>
-    <div class="flex-container flex-direction-column">
-        <div class="page_cart-item--link" (click)="preview(_id)">{{brand}} {{title}}</div>
-    <div class="page_cart-item--price">{{price | currency:'USD'}}</div>
-</div>
-<div class="page_cart-item--quantity">
-    <input type="number" (change)="changeQuantity(_id, $event.target.value)" value={{quantity}} min="1" max="10" />
-</div>
-<div class="page_cart-item--total">{{(price * quantity) | currency:'USD'}}</div>
-<div class="page_cart-item--remove">x</div>
+    <div class="image page_cart-item--image">
+        <img src="{{image}}">
+    </div>
+    <div class="content">
+        <a class="header" (click)="preview(_id)">{{brand}} {{title}}</a>
+        <div class="meta">
+            <span class="date">{{price | currency}}</span>
+        </div>
+        <div class="description">Choose the quantity of elements</div>
+    </div>
+    <div class="extra content ui form">
+        <div class="page_cart-item--quantity left floated field">
+            <input type="number" (change)="changeQuantity(_id, $event.target.value)" [(ngModel)]="quantity" min="1" max="10" />
+        </div>
+        <div class="page_cart-item--total right floated">{{totalForItem | currency:'USD'}}</div>
+    </div>
 </div>
