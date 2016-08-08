@@ -4,4 +4,6 @@
         <shopping-cart-item *ngFor="let item of items" [item]="item"></shopping-cart-item>
     </div>
 </div>
-<div class="page_cart-total">Buy {{total | currency:'USD'}} total</div>
+<div class="page_cart-total">
+    <button class="button ui"><i class="fa fa-credit-card-alt"></i> Purchase:  {{total | currency:'USD'}} total</button>
+</div>

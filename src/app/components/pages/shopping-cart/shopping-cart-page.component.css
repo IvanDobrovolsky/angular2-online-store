@@ -5,22 +5,10 @@
 }
 .page_cart-total {
     text-align: center;
-    display: block;
-    font-size: 20px;
-    margin: 30px auto 50px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background: #f0ad4e;
-    color: #fff;
-    -webkit-box-shadow: -2px 3px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -2px 3px 5px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: -2px 3px 5px 0px rgba(0, 0, 0, 0.75);
-    transition: 0.3s ease-in;
-    width: 200px;
-    cursor: pointer;
+    margin-top: 25px;
 }
 .page_cart-total:hover {
-    box-shadow: none;
+
 }
 shopping-cart-item{
     margin: 20px;
