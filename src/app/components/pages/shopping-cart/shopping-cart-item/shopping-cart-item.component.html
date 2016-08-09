@@ -1,21 +1,18 @@
-<div class="ui card page_cart-item">
-    <div class="content">
-        <div class="right floated meta"><i class="fa fa-remove page_cart-item--remove" (click)="removeFromCart()"></i></div>
+<div class="image page_cart-item--image">
+    <img src={{image}}/>
+</div>
+<div class="content">
+    <a class="header page_cart-item--header" (click)="preview(item._id)">{{brand}} {{title}}</a>
+    <div class="meta">
+        <span class="date">{{price | currency}}</span>
     </div>
-    <div class="image page_cart-item--image">
-        <img src="{{image}}">
+    <div class="description page_cart-item--description">
+        <p>Choose the quantity of computers:</p>
     </div>
-    <div class="content">
-        <a class="header" (click)="preview(_id)">{{brand}} {{title}}</a>
-        <div class="meta">
-            <span class="date">{{price | currency}}</span>
-        </div>
-        <div class="description">Choose the quantity of elements</div>
-    </div>
-    <div class="extra content ui form">
-        <div class="page_cart-item--quantity left floated field">
+    <div class="extra content ui form page_cart-item--extra">
+        <div class="page_cart-item--quantity field">
             <input type="number" (change)="changeQuantity(_id, $event.target.value)" [(ngModel)]="quantity" min="1" max="10" />
         </div>
-        <div class="page_cart-item--total right floated">{{totalForItem | currency:'USD'}}</div>
+        <div class="page_cart-item--total">Total: {{totalForItem | currency:'USD'}}</div>
     </div>
 </div>

@@ -1,7 +1,8 @@
 <div class="page_cart">
     <h1 class="page_cart-title">Shopping cart</h1>
-    <div class="flex-container flex-wrap">
-        <shopping-cart-item *ngFor="let item of items" [item]="item"></shopping-cart-item>
+
+    <div class="page_cart--items ui divided items">
+        <shopping-cart-item class="item page_cart--item" *ngFor="let item of items" [item]="item"></shopping-cart-item>
     </div>
 </div>
 <div class="page_cart-total">

@@ -6,7 +6,7 @@
     text-align: center;
 }
 .page_catalog-list {
-    max-width: 761px;
+    max-width: 928px;
     padding-bottom: 50px;
 }
 .page_catalog-list-item{
@@ -14,4 +14,9 @@
 }
 .page_catalog-list .content a, .page_catalog-list .content span, .page_catalog-list .content p {
     color: white !important;
+}
+
+catalog-item {
+    margin-top: 20px;
+    margin-left: 10px;
 }

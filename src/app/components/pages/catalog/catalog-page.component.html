@@ -6,7 +6,7 @@
         <div class="page_catalog-list">
             <h2 *ngIf="isEmptyCatalog()">No computers in the catalog</h2>
 
-            <div class="ui divided items inverted">
+            <div class="flex-container flex-wrap">
                 <catalog-item *ngFor="let computer of computers" class="item page_catalog-list-item" [item]="computer"></catalog-item>
             </div>
         </div>

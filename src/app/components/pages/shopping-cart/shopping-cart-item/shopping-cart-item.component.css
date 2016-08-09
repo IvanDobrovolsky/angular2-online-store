@@ -16,5 +16,12 @@
     cursor: pointer;
 }
 .page_cart-item--total {
-    margin-top: 10px;
+    align-self: center;
+    margin-left: 25px !important;
+}
+.page_catalog-list-item--header:hover {
+    color: #f0ad4e !important;
+}
+.page_cart-item--extra {
+    display: flex!important;
 }

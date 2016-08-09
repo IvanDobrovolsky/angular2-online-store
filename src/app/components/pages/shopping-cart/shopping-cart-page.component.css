@@ -10,6 +10,19 @@
 .page_cart-total:hover {
 
 }
-shopping-cart-item{
-    margin: 20px;
+.page_cart--items {
+    max-width: 500px;
+    margin: 0 auto;
+}
+.page_cart--item{
+    padding: 20px !important;
+    margin: 30px 20px !important;
+    background: white !important;
+    border-radius: 10px !important;
+}
+.ui.divided.items>.item:first-child{
+    padding-top: 20px!important;
+}
+.ui.divided.items>.item:last-child{
+    padding-bottom: 20px!important;
 }

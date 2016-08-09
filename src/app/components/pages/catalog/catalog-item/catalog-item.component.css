@@ -1,17 +1,17 @@
 .page_catalog-list-item-header {
-    color: white !important;
+
 }
 .page_catalog-list-item-header:hover{
     color: #f0ad4e !important;
 }
 .page_catalog-list-item--description p{
-    color: #cdcfdd;
 }
 .page_catalog-list-item--image {
 
 }
 .page_catalog-list-item--image img {
-
+    max-width: 100%;
+    height: 180px;
 }
 .page_catalog-list-item--price{
     color: #70727F;
