@@ -13,6 +13,10 @@ import { ApiService }          from './../../../services/api.service';
 import { ShoppingCartService, IShoppingCartItem } from './../../../services/shopping-cart-service';
 
 
+interface ICartItem extends Computer {
+    quantity: number;
+}
+
 @Component({
     moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
@@ -29,47 +33,40 @@ import { ShoppingCartService, IShoppingCartItem } from './../../../services/shop
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy{
 
-    private items: Array<Computer> = [];
+    private items: Array<ICartItem> = [];
     private total = 0;
 
     constructor(private apiService: ApiService, private shoppingCartService: ShoppingCartService) {
 
     }
 
+    private isItemInCart(item: ICartItem) {
+        return this.items.indexOf(item) >= 0;
+    }
+    
     public ngOnInit(): void {
-
-        //RX, subject
-
+     let tempItemQuantityCache = {};
+        
         //noinspection TypeScriptUnresolvedFunction
         this.shoppingCartService
             .cartItems
-            //.mergeMapTo(cartItems => {
-            //    console.log(cartItems);
-            //    return this.apiService.getComputerById(cartItems[0]._id)
-            //})
+            .flatMap(item => {
+                tempItemQuantityCache[item._id] = item.quantity;
+               return this.apiService.getComputerById(item._id)
+            })
             .subscribe(response => {
-                console.log(response);
-                //if (response.success) {
-                //    const computer: Computer = response.data[0];
-                //    this.items.push(computer);
-                //}
+                if (response.success) {
+                   const computer: Computer = response.data[0];
+                   const quantity = tempItemQuantityCache[computer._id];
+                    
+                   const cartItem = Object.assign({}, computer, {quantity});
+                    if(!this.isItemInCart(cartItem)) {
+                        this.items.push(cartItem);
+                    }
+                }
             }, error => console.error(`An error has occurred! ${error}`));
         this.shoppingCartService.load();
-
-
-
-        ////TODO Think how to use RxJs methods instead, flatMap -> Reduce
-        //cartItems.forEach(item => {
-        //        this.apiService
-        //            .getComputerById(item._id)
-        //            .subscribe(response => {
-        //                if (response.success) {
-        //                    const computer: Computer = response.data[0];
-        //                    this.items.push(Object.assign(computer, {quantity: item.quantity}));
-        //                }
-        //            }, error => console.error(`An error has occurred! ${error}`));
-        //    });
-
+        
         //TODO Use Observable function instead
         setTimeout(() => this.total = this.calculateTotal(), 500);
 

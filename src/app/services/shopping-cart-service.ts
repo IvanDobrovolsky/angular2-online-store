@@ -10,7 +10,7 @@ export interface IShoppingCartItem {
 }
 
 interface IShoppingCartService {
-      cartItems: Observable<IShoppingCartItem[]>;
+      cartItems: Observable<IShoppingCartItem>;
 //    getCartSize(): number;
 //    addToCart(id: number): void;
 //    removeFromCart(id: number): void;
@@ -24,7 +24,7 @@ interface ICartStore {
 @Injectable()
 export class ShoppingCartService implements IShoppingCartService {
 
-    private cart: Subject<IShoppingCartItem[]> ;
+    private cart: Subject<IShoppingCartItem> ;
     private cartStore: ICartStore = {cart: []};
 
     constructor() {
@@ -35,17 +35,20 @@ export class ShoppingCartService implements IShoppingCartService {
         //    }
         //});
 
-        this.cart = <Subject<IShoppingCartItem[]>> new Subject();
+        this.cart = <Subject<IShoppingCartItem>> new Subject();
     }
 
-    public get cartItems(): Observable<IShoppingCartItem[]>{
+    public get cartItems(): Observable<IShoppingCartItem>{
         return this.cart.asObservable();
     }
 
     public load() {
         if(localStorage.getItem('items')){
             this.cartStore.cart = JSON.parse(localStorage.getItem('items'));
-            this.cart.next(this.cartStore.cart);
+            
+            for (let item of this.cartStore.cart) {
+                this.cart.next(item);
+            }
         }
     }
 
