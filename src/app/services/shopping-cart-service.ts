@@ -3,14 +3,11 @@ import { Http, Response, Headers } from '@angular/http';
 import { Observable }              from 'rxjs/Observable';
 import { Subject }                 from 'rxjs/Subject';
 
-//TODO add caching
-export interface IShoppingCartItem {
-    _id: number;        //unique key,
-    quantity: number;   //quantity of these computers in the cart
-}
+import { IShoppingCartItem } from './../models/shopping-cart.model';
+import { Computer }          from './../models/computer.model';
 
 interface IShoppingCartService {
-      cartItems: Observable<IShoppingCartItem>;
+    cartItems: Observable<IShoppingCartItem>;
 //    getCartSize(): number;
 //    addToCart(id: number): void;
 //    removeFromCart(id: number): void;
@@ -52,18 +49,19 @@ export class ShoppingCartService implements IShoppingCartService {
         }
     }
 
-    public addToCart(_id: number): void{
-        //if(this.cart.find(item => item._id === _id)){
+    public addToCart(computer: Computer): void{
+        //if(this.cartStore.cart.find(item => item._id === computer._id)){
         //    console.warn('The computer is already in the cart!');
         //} else {
-        //    this.cart.unshift({
-        //        _id,
-        //        quantity: 1
+        //    this.cartStore.cart.unshift({
+        //        _id: computer._id,
+        //        quantity: 1,
+        //        price: computer.price
         //    });
-        //    this.updateCart(this.cart);
+        //    this.updateCart(this.cartStore.cart);
         //    console.info('Successfully added to the cart!');
         //}
-        console.log(this.cart)
+        //console.log(this.cart)
     }
     //
     //public getCartSize(): number{
@@ -73,7 +71,7 @@ export class ShoppingCartService implements IShoppingCartService {
     //private updateCart(items: IShoppingCartItem[]): void{
     //    localStorage.setItem('items', JSON.stringify(items));
     //}
-    //
+    ////
     public changeQuantity(_id: number, newQuantity: number): void{
         //let itemIndex: number = this.cart.findIndex(item => item._id === _id);
         //this.cart[itemIndex].quantity = newQuantity;
