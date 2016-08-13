@@ -9,6 +9,7 @@ import { Computer }                                 from './../models/computer.m
 
 import { ApiService } from './api.service';
 
+//TODO add caching mechanism
 
 interface IShoppingCartService {
     //cartItems: Observable<IShoppingCartLocalStorageItem>;

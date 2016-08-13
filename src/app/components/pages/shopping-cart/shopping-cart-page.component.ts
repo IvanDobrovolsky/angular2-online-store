@@ -34,7 +34,7 @@ interface ICartItem extends Computer {
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy{
 
-    private items: any;
+    private items: Observable<ICartItem[]>;
     private total = 0;
 
     constructor(private apiService: ApiService, private shoppingCartService: ShoppingCartService) {
@@ -44,27 +44,12 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
 
 
     public ngOnInit(): void {
-
-
-
-        //TODO Refactor the implementation
-        //TODO fix caching mechanism
-
-
-
         this.shoppingCartService.loadCart();
-
-
-        this.shoppingCartService.cartItems.subscribe(items => {
-            console.log('component', items);
-            this.items = items;
-        })
-
+        this.items = this.shoppingCartService.cartItems;
     }
 
     public ngOnDestroy(): void {
         this.items = null;
-
         //TODO find out whether to remove Observables?
     }
 
