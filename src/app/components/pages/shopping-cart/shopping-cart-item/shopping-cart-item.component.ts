@@ -27,9 +27,7 @@ interface IShoppingCartItem {
     styleUrls: [
         'shopping-cart-item.component.css'
     ],
-    providers: [
-        ShoppingCartService
-    ]
+    providers: []
 })
 export class ShoppingCartItemComponent implements OnInit, OnDestroy, IShoppingCartItem{
     _id: number;

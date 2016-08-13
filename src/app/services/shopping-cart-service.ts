@@ -2,12 +2,16 @@ import { Injectable }              from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable }              from 'rxjs/Observable';
 import { Subject }                 from 'rxjs/Subject';
+import 'rxjs/Rx';
 
-import { IShoppingCartItem } from './../models/shopping-cart.model';
-import { Computer }          from './../models/computer.model';
+import { IShoppingCartLocalStorageItem, ICartItem } from './../models/shopping-cart.model';
+import { Computer }                                 from './../models/computer.model';
+
+import { ApiService } from './api.service';
+
 
 interface IShoppingCartService {
-    cartItems: Observable<IShoppingCartItem>;
+    //cartItems: Observable<IShoppingCartLocalStorageItem>;
 //    getCartSize(): number;
 //    addToCart(id: number): void;
 //    removeFromCart(id: number): void;
@@ -15,39 +19,48 @@ interface IShoppingCartService {
 }
 
 interface ICartStore {
-    cart: IShoppingCartItem[];
+    cart:  IShoppingCartLocalStorageItem[],
+    items: ICartItem[]
 }
 
 @Injectable()
 export class ShoppingCartService implements IShoppingCartService {
 
-    private cart: Subject<IShoppingCartItem> ;
-    private cartStore: ICartStore = {cart: []};
+    private cart:      Subject<any>;
+    private cartStore  = {items: []};
 
-    constructor() {
-        //this.cart = new Observable<IShoppingCartItem[]>(observer => {
-        //    if(localStorage.getItem('items')){
-        //        const data = JSON.parse(localStorage.getItem('items'));
-        //        data.forEach(item => observer.next(item));
-        //    }
-        //});
-
-        this.cart = <Subject<IShoppingCartItem>> new Subject();
+    constructor(private apiService: ApiService) {
+        this.cart = new Subject();
     }
 
-    public get cartItems(): Observable<IShoppingCartItem>{
+
+    public get cartItems(){
         return this.cart.asObservable();
     }
 
-    public load() {
-        if(localStorage.getItem('items')){
-            this.cartStore.cart = JSON.parse(localStorage.getItem('items'));
-            
-            for (let item of this.cartStore.cart) {
-                this.cart.next(item);
-            }
+    public loadCart() {
+
+
+        if(!!localStorage.getItem('items')){
+            this.cartStore.items = JSON.parse(localStorage.getItem('items'));
         }
+
+        let loadProductInfo = (item: IShoppingCartLocalStorageItem): Observable<Computer> => {
+             //noinspection TypeScriptUnresolvedFunction
+             return this.apiService.getComputerById(item._id).map(response => {
+                 let computer = response.data[0];
+                 return Object.assign(computer, {quantity: item.quantity});
+             })
+        };
+
+        //noinspection TypeScriptUnresolvedFunction
+        Observable.from(this.cartStore.items).map(loadProductInfo).combineAll().subscribe((data) => {
+            console.log('emitting data', data);
+            this.cart.next(data);
+        });
     }
+
+    //TODO Use merge for startup request stream and others!
 
     public addToCart(computer: Computer): void{
         //if(this.cartStore.cart.find(item => item._id === computer._id)){
@@ -63,6 +76,7 @@ export class ShoppingCartService implements IShoppingCartService {
         //}
         //console.log(this.cart)
     }
+
     //
     //public getCartSize(): number{
     //    return this.cart.length;
@@ -72,11 +86,29 @@ export class ShoppingCartService implements IShoppingCartService {
     //    localStorage.setItem('items', JSON.stringify(items));
     //}
     ////
-    public changeQuantity(_id: number, newQuantity: number): void{
-        //let itemIndex: number = this.cart.findIndex(item => item._id === _id);
-        //this.cart[itemIndex].quantity = newQuantity;
-        //this.updateCart(this.cart);
+
+    public changeQuantity(id: number, newQuantity: number): void{
+        let i = this.cartStore.items.findIndex(item => item._id == id);
+
+
+        if( i >= 0 ) {
+            console.log("Emitting new data!!!");
+            this.cart.next([...this.cartStore.items.concat(this.cartStore.items)])
+        }
+        //let itemIndex = this.cartStore.cart.findIndex(item => item._id === id);
+        //console.log(itemIndex);
+        //
+        //console.log(this.cartStore.cart[itemIndex]);
+        //if(itemIndex >= 0) {
+        //    console.log("Called!");
+        //    this.cartStore.cart[itemIndex]['quantity'] = newQuantity;
+        //    this.fireItems(this.cartStore.cart);
+        //}
+
+        //this.cart.next(45);
     }
+
+
     //
     public removeFromCart(_id: number): void{
         //let itemIndex: number = this.cart.findIndex(item => item._id === _id);
