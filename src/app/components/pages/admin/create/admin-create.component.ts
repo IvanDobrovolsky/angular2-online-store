@@ -1,6 +1,6 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy}              from '@angular/core';
-import { Router }                                                      from '@angular/router';
-import { Subscription }                                                from 'Rxjs'
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router }                                          from '@angular/router';
+import { Subscription }                                    from 'Rxjs'
 
 import { Computer }   from './../../../../models/index';
 

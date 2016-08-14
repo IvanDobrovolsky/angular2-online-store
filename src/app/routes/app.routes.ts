@@ -1,8 +1,8 @@
-import { RouterConfig, provideRouter } from '@angular/router';
+import { provideRouter, RouterConfig } from '@angular/router';
 
 //Application components
 import { HomePageComponent }           from './../components/pages/home/home-page.component';
-import { CatalogPageComponent }        from '../components/pages/catalog/catalog-page.component';
+import { CatalogPageComponent }        from './../components/pages/catalog/catalog-page.component';
 import { CatalogItemPreviewComponent } from './../components/pages/catalog/catalog-item-preview/catalog-item-preview.component';
 import { ShoppingCartComponent }       from './../components/pages/shopping-cart/shopping-cart-page.component';
 import { AdminPageComponent }          from './../components/pages/admin/admin-page.component';

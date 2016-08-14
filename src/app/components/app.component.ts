@@ -6,9 +6,9 @@ import { NavigationComponent } from './shared/index';
 
 import {
     ApiService,
+    NotificationService,
     ShoppingCartService,
-    SubscriptionService,
-    NotificationService
+    SubscriptionService
 }  from './../services/index';
 
 //TODO add route guards

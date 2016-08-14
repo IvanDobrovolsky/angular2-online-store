@@ -1,6 +1,14 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { NgIf, NgFor, NgClass }                                                  from '@angular/common';
-import { Subscription }                                                          from 'Rxjs'
+import {
+    Component,
+    EventEmitter,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewEncapsulation
+} from '@angular/core';
+
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { Subscription }         from 'Rxjs'
 
 import { ApiService, SubscriptionService } from './../../../../services/index';
 

@@ -1,10 +1,13 @@
-import { Component,
-    ViewEncapsulation,
+import {
+    Component,
+    EventEmitter,
     Input,
-    Output,
-    OnInit,
     OnDestroy,
-    EventEmitter} from '@angular/core';
+    OnInit,
+    Output,
+    ViewEncapsulation
+} from '@angular/core';
+
 import { Router } from '@angular/router';
 
 import { Computer } from './../../../../../models/index';

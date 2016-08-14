@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Notification, DirOptions } from './../models/index';
+import { DirOptions, Notification } from './../models/index';
 
 interface INotificationService {
     push(notification: Notification): void;

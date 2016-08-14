@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router }                                                 from '@angular/router';
 
 import { Computer } from './../../../../models/index';

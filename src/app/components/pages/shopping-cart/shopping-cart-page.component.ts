@@ -1,8 +1,8 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router }                                          from '@angular/router';
 import { HTTP_PROVIDERS }                                  from '@angular/http';
 import { NgFor }                                           from '@angular/common';
-import { Observable, Subscription }                               from 'Rxjs';
+import { Observable, Subscription }                        from 'Rxjs';
 import 'rxjs/Rx';
 
 import { ICartProductItem } from './../../../models/index';

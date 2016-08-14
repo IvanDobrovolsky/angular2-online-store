@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ROUTER_DIRECTIVES }                               from '@angular/router';
 import { Subscription }                                    from 'Rxjs'
 

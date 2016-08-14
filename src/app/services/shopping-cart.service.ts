@@ -1,10 +1,10 @@
 import { Injectable }              from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
 import { Observable }              from 'rxjs/Observable';
 import { Subject }                 from 'rxjs/Subject';
-import 'rxjs/Rx';
+import 'rxjs/Rx';   //operator polyfills
 
-import { IShoppingCartLocalStorageItem, ICartProductItem, Computer } from './../models/index';
+import { Computer, ICartProductItem, IShoppingCartLocalStorageItem } from './../models/index';
 
 import { ApiService, IApiResponse } from './api.service';
 

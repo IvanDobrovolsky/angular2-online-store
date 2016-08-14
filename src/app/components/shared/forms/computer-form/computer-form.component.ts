@@ -1,5 +1,14 @@
-import {Component, ViewEncapsulation, OnInit, OnDestroy, Input, Output, EventEmitter}   from '@angular/core';
-import {FormGroup, FormBuilder, REACTIVE_FORM_DIRECTIVES, Validators}                   from '@angular/forms';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    OnDestroy,
+    Output,
+    ViewEncapsulation
+} from '@angular/core';
+
+import { FormBuilder, FormGroup, REACTIVE_FORM_DIRECTIVES, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Router }  from '@angular/router';
 
@@ -35,7 +44,7 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
 
     @Input()  private action: string;
     @Input()  private itemToUpdate: Computer;
-    @Output() private onSubmit = new EventEmitter<Computer>();
+    @Output() private formSubmit = new EventEmitter<Computer>();
     
     private computerForm: FormGroup;
     private initialFormValues: IInitialFormValues = {
@@ -114,7 +123,7 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
             });
 
             //Emitting the event in here
-            this.onSubmit.emit(newComputer);
+            this.formSubmit.emit(newComputer);
         }
     }
 

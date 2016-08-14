@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
-import { NgIf, NgFor }                                     from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { NgFor, NgIf }                                     from '@angular/common';
 import { Subscription }                                    from 'Rxjs'
 
 //Computer model
