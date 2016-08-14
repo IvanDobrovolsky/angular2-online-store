@@ -6,7 +6,7 @@ import { Computer }     from './../../../../models/computer.model';
 import { ApiService }          from './../../../../services/api.service';
 import { SubscriptionService } from './../../../../services/subscription.service';
 
-import { ComputerFormComponent } from './../../../shared/forms/computer-form/computer-form.component';
+import { ComputerFormComponent } from './../../../shared/index';
 
 @Component({
     moduleId: module.id,

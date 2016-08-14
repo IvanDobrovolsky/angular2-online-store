@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { ROUTER_DIRECTIVES }            from '@angular/router';
 import { HTTP_PROVIDERS }               from '@angular/http';
 
-import { NavigationComponent } from './shared/navigation/navigation.component';
+import { NavigationComponent } from './shared/index';
 
 import { ApiService }          from './../services/api.service';
 import { ShoppingCartService } from './../services/shopping-cart-service';
