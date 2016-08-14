@@ -4,8 +4,8 @@ import { Observable }              from 'rxjs/Observable';
 import { Subject }                 from 'rxjs/Subject';
 import 'rxjs/Rx';
 
-import { IShoppingCartLocalStorageItem, ICartItem } from './../models/shopping-cart.model';
-import { Computer }                                 from './../models/computer.model';
+import { IShoppingCartLocalStorageItem, ICartProductItem } from './../models/shopping-cart.model';
+import { Computer }                                        from './../models/computer.model';
 
 import { ApiService } from './api.service';
 
@@ -20,23 +20,22 @@ interface IShoppingCartService {
 }
 
 interface ICartStore {
-    cart:  IShoppingCartLocalStorageItem[],
-    items: ICartItem[]
+    items:  IShoppingCartLocalStorageItem[],
 }
 
 @Injectable()
 export class ShoppingCartService implements IShoppingCartService {
 
-    private cart:      Subject<any>;
-    private cartStore  = {items: []};
+    private cartStream:  Subject<any>;
+    private cartStore: ICartStore  = {items: []};
 
     constructor(private apiService: ApiService) {
-        this.cart = new Subject();
+        this.cartStream = new Subject<ICartProductItem[]>();
     }
 
 
-    public get cartItems(){
-        return this.cart.asObservable();
+    public get cartItemsStream(){
+        return this.cartStream.asObservable();
     }
 
     public loadCart() {
@@ -57,7 +56,7 @@ export class ShoppingCartService implements IShoppingCartService {
         //noinspection TypeScriptUnresolvedFunction
         Observable.from(this.cartStore.items).map(loadProductInfo).combineAll().subscribe((data) => {
             console.log('emitting data', data);
-            this.cart.next(data);
+            this.cartStream.next(data);
         });
     }
 
@@ -94,7 +93,7 @@ export class ShoppingCartService implements IShoppingCartService {
 
         if( i >= 0 ) {
             console.log("Emitting new data!!!");
-            this.cart.next([...this.cartStore.items.concat(this.cartStore.items)])
+            this.cartStream.next([...this.cartStore.items.concat(this.cartStore.items)])
         }
         //let itemIndex = this.cartStore.cart.findIndex(item => item._id === id);
         //console.log(itemIndex);

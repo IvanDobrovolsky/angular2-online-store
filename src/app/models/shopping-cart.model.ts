@@ -7,6 +7,6 @@ export interface IShoppingCartLocalStorageItem {
 }
 
 //For values to be rendered on ShoppingCartPage
-export interface ICartItem extends Computer {
+export interface ICartProductItem extends Computer {
     quantity: number;
 }

@@ -5,18 +5,12 @@ import { NgFor }                                           from '@angular/common
 import { Observable }                                      from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-import { Computer } from './../../../models/computer.model';
-import { IShoppingCartLocalStorageItem } from './../../../models/shopping-cart.model';
+import { ICartProductItem } from './../../../models/shopping-cart.model';
 
 import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-item.component';
 
 import { ApiService }          from './../../../services/api.service';
 import { ShoppingCartService } from './../../../services/shopping-cart-service';
-
-
-interface ICartItem extends Computer {
-    quantity: number;
-}
 
 @Component({
     moduleId: module.id,
@@ -34,7 +28,7 @@ interface ICartItem extends Computer {
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy{
 
-    private items: Observable<ICartItem[]>;
+    private items: Observable<ICartProductItem[]>;
     private total = 0;
 
     constructor(private apiService: ApiService, private shoppingCartService: ShoppingCartService) {
@@ -45,7 +39,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
 
     public ngOnInit(): void {
         this.shoppingCartService.loadCart();
-        this.items = this.shoppingCartService.cartItems;
+        this.items = this.shoppingCartService.cartItemsStream;
     }
 
     public ngOnDestroy(): void {
@@ -53,6 +47,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
         //TODO find out whether to remove Observables?
     }
 
+    //TODO fix the method to calculate total sum
     //private calculateTotal(): number {
     //    let total = 0;
     //    this.items.forEach(item => {
