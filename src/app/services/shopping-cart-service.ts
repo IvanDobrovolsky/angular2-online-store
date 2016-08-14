@@ -12,11 +12,12 @@ import { ApiService } from './api.service';
 //TODO add caching mechanism
 
 interface IShoppingCartService {
+    changeQuantity(id: number, newQuantity: number): void;
     //cartItems: Observable<IShoppingCartLocalStorageItem>;
 //    getCartSize(): number;
 //    addToCart(id: number): void;
-//    removeFromCart(id: number): void;
-//    changeQuantity(id: number, newQuantity: number): void;
+//    removeFromCart(id: number): void
+
 }
 
 interface ICartStore {
@@ -33,6 +34,10 @@ export class ShoppingCartService implements IShoppingCartService {
         this.cartStream = new Subject<ICartProductItem[]>();
     }
 
+
+    private updateLocalStorage(): void {
+        localStorage.setItem('items', JSON.stringify(this.cartStore.items));
+    }
 
     public get cartItemsStream(){
         return this.cartStream.asObservable();
@@ -88,24 +93,16 @@ export class ShoppingCartService implements IShoppingCartService {
     ////
 
     public changeQuantity(id: number, newQuantity: number): void{
-        let i = this.cartStore.items.findIndex(item => item._id == id);
 
+        //NOTE The quantity property in component's template is two-way-bound to its model
+        //so we don't have to fire new items from the service to rerender the view and it is enough only to change the cart model here
 
-        if( i >= 0 ) {
-            console.log("Emitting new data!!!");
-            this.cartStream.next([...this.cartStore.items.concat(this.cartStore.items)])
+        let itemIndex = this.cartStore.items.findIndex(item => item._id == id);
+
+        if( itemIndex >= 0 ) {
+            this.cartStore.items[itemIndex]['quantity'] = newQuantity;
+            this.updateLocalStorage();
         }
-        //let itemIndex = this.cartStore.cart.findIndex(item => item._id === id);
-        //console.log(itemIndex);
-        //
-        //console.log(this.cartStore.cart[itemIndex]);
-        //if(itemIndex >= 0) {
-        //    console.log("Called!");
-        //    this.cartStore.cart[itemIndex]['quantity'] = newQuantity;
-        //    this.fireItems(this.cartStore.cart);
-        //}
-
-        //this.cart.next(45);
     }
 
 
