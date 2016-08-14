@@ -11,9 +11,10 @@ import { ApiService, IApiResponse } from './api.service';
 
 //TODO add caching mechanism
 //TODO Refactor the implementation to be more reactive and elegant
-//TODO fix the interface and deal with types
 
 interface IShoppingCartService {
+    cartItemsStream: Observable<ICartProductItem[]>;
+    cartSizeStream: Observable<number>
     addToCart(id: number): void;
     changeQuantity(id: number, newQuantity: number): void;
     removeFromCart(id: number): void
@@ -54,14 +55,7 @@ export class ShoppingCartService implements IShoppingCartService {
 
     private emitData() {
 
-        function log(e) {
-            console.log(e);
-        }
-
-        function logAndReturn(e) {
-            console.log('mapping', e);
-            return e;
-        }
+        let simpleReturn = e => e;
 
         //noinspection TypeScriptUnresolvedFunction
         let fetchFromServer = (item: IShoppingCartLocalStorageItem) => {
@@ -85,9 +79,9 @@ export class ShoppingCartService implements IShoppingCartService {
         };
 
         //noinspection TypeScriptUnresolvedFunction
-        createInitialStream()                        //Observable<IShoppingCartLocalStorageItem[]>
+        createInitialStream()
             .map(fetchFromServer)
-            .map(logAndReturn)
+            .map(simpleReturn)
             .combineAll()
             .subscribe(data => {
                 this.cartStream.next(<ICartProductItem[]>data);
