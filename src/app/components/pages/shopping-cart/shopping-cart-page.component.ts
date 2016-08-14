@@ -29,31 +29,33 @@ import { ShoppingCartService } from './../../../services/shopping-cart-service';
 export class ShoppingCartComponent implements OnInit, OnDestroy{
 
     private items: Observable<ICartProductItem[]>;
-    private total = 0;
+    private total: number;
 
-    constructor(private apiService: ApiService, private shoppingCartService: ShoppingCartService) {
-
-    }
-
+    constructor(
+        private apiService: ApiService,
+        private shoppingCartService: ShoppingCartService
+    ) {}
 
 
     public ngOnInit(): void {
         this.shoppingCartService.loadCart();
         this.items = this.shoppingCartService.cartItemsStream;
+        //noinspection TypeScriptUnresolvedFunction
+        this.shoppingCartService.cartItemsStream.subscribe(data => this.calculateTotal(data));
     }
+
+    private calculateTotal(items) {
+        let result = 0;
+        for (let item of items) {
+            result += item.price * item.quantity;
+        }
+        this.total = result;
+    }
+
 
     public ngOnDestroy(): void {
         this.items = null;
         //TODO find out whether to remove Observables?
     }
-
-    //TODO fix the method to calculate total sum
-    //private calculateTotal(): number {
-    //    let total = 0;
-    //    this.items.forEach(item => {
-    //        total += item.price * item.quantity;
-    //    });
-    //    return total;
-    //}
 }
 

@@ -143,14 +143,14 @@ export class ShoppingCartService implements IShoppingCartService {
 
     public changeQuantity(id: number, newQuantity: number): void{
 
-        //NOTE The quantity property in component's template is two-way-bound to its model
-        //so we don't have to fire new items from the service to rerender the view and it is enough only to change the cart model here
-
         let itemIndex = this.cartStore.items.findIndex(item => item._id == id);
 
         if( itemIndex >= 0 ) {
             this.cartStore.items[itemIndex]['quantity'] = newQuantity;
             this.updateLocalStorage();
+
+            //We have to fire the data to rerender the ShoppingCartPageComponent view
+            this.emitData();
         }
     }
 }
