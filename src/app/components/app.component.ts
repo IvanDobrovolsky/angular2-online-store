@@ -12,7 +12,7 @@ import { NotificationService } from './../services/notification.service';
 //TODO rewrite the code according to the styleguide
 //TODO Think how to optimize the code using ChangeDetectionStrategy.OnPush
 //TODO Use ngAnimate for
-//TODO Refactor the app to serve assets automatically
+//TODO add notification from NotificationService
 
 @Component({
   moduleId: module.id,

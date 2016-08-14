@@ -56,7 +56,6 @@ export class AdminEditComponent implements OnInit, OnDestroy{
              .updateComputer(id, computer)
              .subscribe(response => {
                      if(response.success){
-                         //TODO add notification from NotificationService
                          console.log(response.message);
                          this.router.navigate(['/admin']);
                      }
