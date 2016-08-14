@@ -82,3 +82,12 @@ The back end part is done with Node.js stack.
 | GET           | /api/brands             | Retrieve all computer brand names   |
 
 
+### What next? Adding new features, refactoring and improving performance...
+- Authentication
+- Maximum test coverage
+- Pagination
+- Peformance enhacement
+- Animation
+- Caching
+- Server-side/Web-worker rendering
+- Security
