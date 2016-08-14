@@ -26,9 +26,8 @@ interface IComputersApiService{
 export class ApiService implements IComputersApiService{
 
   private apiResources = {
-    getAll:  'http://localhost:7777/api/computers',
-    brands:  'http://localhost:7777/api/brands',
-    filters: 'http://localhost:7777/api/computers/filter',
+      baseUrl: 'http://localhost:7777/api/computers',
+      brands:  'http://localhost:7777/api/brands',
   };
 
   private headers = new Headers({'Content-Type': 'application/json'});
@@ -38,11 +37,11 @@ export class ApiService implements IComputersApiService{
   }
 
   public getAllComputers(): Observable<IApiResponse<Computer>> {
-    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Get, this.apiResources.getAll, null);
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Get, this.apiResources.baseUrl, null);
   }
 
   public getComputerById(id: number): Observable<IApiResponse<Computer>> {
-    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Get, this.apiResources.getAll + '/' + id, null);
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Get, this.apiResources.baseUrl + '/' + id, null);
   }
 
   public getAllBrandNames(): Observable<IApiResponse<string>> {
@@ -50,19 +49,19 @@ export class ApiService implements IComputersApiService{
   }
 
   public findComputers(filters: IFilters): Observable<IApiResponse<Computer>> {
-    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Post, this.apiResources.getAll + '/filter', JSON.stringify(filters));
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Post, this.apiResources.baseUrl + '/filter', JSON.stringify(filters));
   }
 
   public removeComputer(id: number): Observable<IApiResponse<Computer>> {
-    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Delete, this.apiResources.getAll + '/' + id, null);
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Delete, this.apiResources.baseUrl + '/' + id, null);
   }
   
   public createNewComputer(newComputer: Computer): Observable<IApiResponse<Computer>> {
-    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Post, this.apiResources.getAll, JSON.stringify(newComputer));
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Post, this.apiResources.baseUrl, JSON.stringify(newComputer));
   }
 
   public updateComputer(id: number, updatedComputer: Computer): Observable<IApiResponse<Computer>> {
-    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Put, this.apiResources.getAll + '/' + id, JSON.stringify(updatedComputer));
+    return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Put, this.apiResources.baseUrl + '/' + id, JSON.stringify(updatedComputer));
   }
 
   //Success handler
