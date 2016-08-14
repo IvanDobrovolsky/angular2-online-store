@@ -4,10 +4,12 @@ import { HTTP_PROVIDERS }               from '@angular/http';
 
 import { NavigationComponent } from './shared/index';
 
-import { ApiService }          from './../services/api.service';
-import { ShoppingCartService } from './../services/shopping-cart-service';
-import { NotificationService } from './../services/notification.service';
-import { SubscriptionService } from './../services/subscription.service';
+import {
+    ApiService,
+    ShoppingCartService,
+    SubscriptionService,
+    NotificationService
+}  from './../services/index';
 
 //TODO add route guards
 //TODO rewrite the code according to the styleguide

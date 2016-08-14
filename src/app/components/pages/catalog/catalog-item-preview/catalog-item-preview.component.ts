@@ -5,8 +5,7 @@ import { Subscription }                                    from 'Rxjs'
 
 import { Computer } from './../../../../models/index';
 
-import { ApiService }          from './../../../../services/api.service';
-import { SubscriptionService } from './../../../../services/subscription.service';
+import { ApiService, SubscriptionService } from './../../../../services/index';
 
 //TODO remove interfaces and make the props and methods private
 interface ICatalogItemPreview {

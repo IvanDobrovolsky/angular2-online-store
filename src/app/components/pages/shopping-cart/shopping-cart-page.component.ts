@@ -9,9 +9,7 @@ import { ICartProductItem } from './../../../models/index';
 
 import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-item.component';
 
-import { ApiService }          from './../../../services/api.service';
-import { ShoppingCartService } from './../../../services/shopping-cart-service';
-import { SubscriptionService } from './../../../services/subscription.service';
+import { ApiService, ShoppingCartService, SubscriptionService } from './../../../services/index';
 
 @Component({
     moduleId: module.id,

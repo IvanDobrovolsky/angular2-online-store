@@ -4,8 +4,7 @@ import { Subscription }                                                from 'Rxj
 
 import { Computer }   from './../../../../models/index';
 
-import { ApiService }          from './../../../../services/api.service';
-import { SubscriptionService } from './../../../../services/subscription.service';
+import { ApiService, SubscriptionService } from './../../../../services/index';
 
 import { ComputerFormComponent } from './../../../shared/index';
 

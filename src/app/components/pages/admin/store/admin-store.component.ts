@@ -7,8 +7,7 @@ import { Subscription }                                    from 'Rxjs'
 import { Computer } from './../../../../models/index';
 
 //Api service
-import { ApiService } from './../../../../services/api.service';
-import { SubscriptionService } from './../../../../services/subscription.service';
+import { ApiService, SubscriptionService } from './../../../../services/index';
 
 //Application components
 import { StoreItemComponent } from './store-item/store-item.component';

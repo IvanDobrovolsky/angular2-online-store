@@ -3,7 +3,7 @@ import { Router }                                                 from '@angular
 
 import { Computer } from './../../../../models/index';
 
-import { ShoppingCartService } from "../../../../services/shopping-cart-service";
+import { ShoppingCartService } from "../../../../services/index";
 
 //TODO Remove interface and make the properties private
 interface ICatalogItem {

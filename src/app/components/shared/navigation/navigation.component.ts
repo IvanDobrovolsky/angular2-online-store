@@ -2,8 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { ROUTER_DIRECTIVES }                               from '@angular/router';
 import { Subscription }                                    from 'Rxjs'
 
-import { ShoppingCartService } from './../../../services/shopping-cart-service';
-import { SubscriptionService } from './../../../services/subscription.service';
+import { ShoppingCartService, SubscriptionService } from './../../../services/index';
 
 @Component({
     moduleId: module.id,

@@ -2,10 +2,9 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy, Output, EventEmitter }
 import { NgIf, NgFor, NgClass }                                                  from '@angular/common';
 import { Subscription }                                                          from 'Rxjs'
 
-import { ApiService }          from './../../../../services/api.service';
-import { SubscriptionService } from './../../../../services/subscription.service';
+import { ApiService, SubscriptionService } from './../../../../services/index';
 
-import { Computer, IFilters }   from "../../../../models/index";
+import { Computer, IFilters } from "../../../../models/index";
 
 @Component({
     moduleId: module.id,
