@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Router }                                          from '@angular/router';
 import { HTTP_PROVIDERS }                                  from '@angular/http';
 import { NgFor }                                           from '@angular/common';
-import { Observable }                                      from 'rxjs/Observable';
+import { Observable, Subscription }                               from 'Rxjs';
 import 'rxjs/Rx';
 
 import { ICartProductItem } from './../../../models/shopping-cart.model';
@@ -11,6 +11,7 @@ import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-it
 
 import { ApiService }          from './../../../services/api.service';
 import { ShoppingCartService } from './../../../services/shopping-cart-service';
+import { SubscriptionService } from './../../../services/subscription.service';
 
 @Component({
     moduleId: module.id,
@@ -31,8 +32,11 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
     private items: Observable<ICartProductItem[]>;
     private total: number;
 
+    private subscriptions: Array<Subscription> = [];
+
     constructor(
         private apiService: ApiService,
+        private subscriptionService: SubscriptionService,
         private shoppingCartService: ShoppingCartService
     ) {}
 
@@ -41,7 +45,11 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
         this.shoppingCartService.loadCart();
         this.items = this.shoppingCartService.cartItemsStream;
         //noinspection TypeScriptUnresolvedFunction
-        this.shoppingCartService.cartItemsStream.subscribe(data => this.calculateTotal(data));
+        const cartItemsStreamSubscription = this.shoppingCartService
+            .cartItemsStream
+            .subscribe(data => this.calculateTotal(data));
+
+        this.subscriptions.push(cartItemsStreamSubscription);
     }
 
     private calculateTotal(items) {
@@ -54,8 +62,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
 
 
     public ngOnDestroy(): void {
-        this.items = null;
-        //TODO find out whether to remove Observables?
+        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 }
 

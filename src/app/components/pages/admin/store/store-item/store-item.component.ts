@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 
 import { Computer } from './../../../../../models/computer.model';
 
+//TODO Make all the properties private - remove the interface no one else will be using it
 interface IStoreItem {
     _id:   number;
     brand: string;

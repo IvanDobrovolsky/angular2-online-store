@@ -1,13 +1,14 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { ROUTER_DIRECTIVES }                               from '@angular/router';
 import { NgIf, NgFor }                                     from '@angular/common';
-import { HTTP_PROVIDERS }                                  from '@angular/http';
+import { Subscription }                                    from 'Rxjs'
 
 //Computer model
 import { Computer } from './../../../../models/computer.model';
 
 //Api service
 import { ApiService } from './../../../../services/api.service';
+import { SubscriptionService } from './../../../../services/subscription.service';
 
 //Application components
 import { StoreItemComponent } from './store-item/store-item.component';
@@ -26,18 +27,20 @@ import { StoreItemComponent } from './store-item/store-item.component';
         NgFor,
         StoreItemComponent
     ],
-    providers: [
-        HTTP_PROVIDERS
-    ]
+    providers: []
 })
 export class AdminStoreComponent implements OnInit, OnDestroy{
 
-    private storeItems: Array<Computer>;
+    private storeItems:    Computer[];
+    private subscriptions: Array<Subscription> = [];
 
-    constructor(private apiService: ApiService){}
+    constructor(
+        private apiService: ApiService,
+        private subscriptionService: SubscriptionService
+    ){}
 
     ngOnInit(): void {
-        this.apiService
+        const apiServiceSubscription = this.apiService
             .getAllComputers()
             .subscribe(response => {
                     if(response.success){
@@ -45,10 +48,12 @@ export class AdminStoreComponent implements OnInit, OnDestroy{
                     }
                 },
                 error => console.error(`An error has occurred! ${error}`));
+
+        this.subscriptions.push(apiServiceSubscription);
     }
 
     ngOnDestroy(): void {
-        this.storeItems = [];
+        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 
     private isEmptyStore(): boolean {
@@ -62,12 +67,15 @@ export class AdminStoreComponent implements OnInit, OnDestroy{
         this.storeItems = [...this.storeItems.slice(0, index), ...this.storeItems.slice(index+1)];
 
         //Removing from backend
-        this.apiService.removeComputer(storeItem._id)
+        const apiServiceSubscription = this.apiService
+            .removeComputer(storeItem._id)
             .subscribe(response => {
                     if(response.success){
                         console.log("Removed from DB!");
                     }
                 },
                 error => console.error(`An error has occurred! ${error}`));
+
+        this.subscriptions.push(apiServiceSubscription);
     }
 }

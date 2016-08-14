@@ -1,9 +1,10 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute }                          from '@angular/router';
+import { Subscription } from 'Rxjs'
+import { Computer }     from './../../../../models/computer.model';
 
-import { Computer }   from './../../../../models/computer.model';
-
-import { ApiService } from './../../../../services/api.service';
+import { ApiService }          from './../../../../services/api.service';
+import { SubscriptionService } from './../../../../services/subscription.service';
 
 import { ComputerFormComponent } from './../../../shared/forms/computer-form/computer-form.component';
 
@@ -25,34 +26,40 @@ export class AdminEditComponent implements OnInit, OnDestroy{
     private itemToUpdate: any;
     private title: string;
 
-    constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute, private router: Router) {
+    private subscriptions: Array<Subscription> = [];
 
-    }
+    constructor(
+        private apiService: ApiService,
+        private activatedRoute: ActivatedRoute,
+        private subscriptionService: SubscriptionService,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
-        console.log('ngOnInit in parent');
-        this.activatedRoute.params.subscribe(params => {
+        const routerSubscription = this.activatedRoute.params.subscribe(params => {
 
             let id = params['id'];
 
-            this.apiService.getComputerById(id)
+            const apiServiceSubscription = this.apiService.getComputerById(id)
                 .subscribe(response => {
-                        if(response.success){
-
+                        if (response.success) {
                             this.itemToUpdate = response.data[0];
                         }
                     },
                     error => console.error(`An error has occurred! ${error}`));
+            this.subscriptions.push(apiServiceSubscription);
         });
+
+        this.subscriptions.push(routerSubscription);
     }
 
     ngOnDestroy(): void {
-       //TODO Unsubscribe from all observables!
+        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 
     private updateComputer(id: number, computer: Computer) {
 
-         this.apiService
+         const apiServiceSubscription = this.apiService
              .updateComputer(id, computer)
              .subscribe(response => {
                      if(response.success){
@@ -61,5 +68,7 @@ export class AdminEditComponent implements OnInit, OnDestroy{
                      }
                  },
                  error => console.error(`An error has occurred! ${error}`));
+
+         this.subscriptions.push(apiServiceSubscription);
     }
 }

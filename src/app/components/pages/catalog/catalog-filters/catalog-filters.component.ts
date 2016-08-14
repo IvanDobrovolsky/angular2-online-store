@@ -1,7 +1,10 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { NgIf, NgFor, NgClass }                                                  from '@angular/common';
+import { Subscription }                                                          from 'Rxjs'
 
-import { ApiService } from './../../../../services/api.service';
+import { ApiService }          from './../../../../services/api.service';
+import { SubscriptionService } from './../../../../services/subscription.service';
+
 import { Computer }   from "../../../../models/computer.model";
 import { IFilters }   from "../../../../models/filters.model";
 
@@ -25,18 +28,22 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
 
     private brandNames: Array<string> = [];
 
+    private subscriptions: Array<Subscription> = [];
+
     @Output() private onFilter = new EventEmitter<Computer[]>();
 
     //Default filter/sort values
     private filters: IFilters = {price: {from: 0, to: 3000}, brands: []};
     private sorters = {byPrice: false, byDate: false};
 
-    constructor(private apiService: ApiService){
-
-    }
+    constructor(
+        private apiService: ApiService,
+        private subscriptionService: SubscriptionService
+    ){}
 
     ngOnInit(): void {
-        this.apiService.getAllBrandNames()
+        const apiServiceSubscription = this.apiService
+            .getAllBrandNames()
             .subscribe(response => {
                     if(response.success){
                         this.brandNames = response.data;
@@ -44,12 +51,12 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
                     }
                 },
                 error => console.error(`An error has occurred! ${error}`));
+
+        this.subscriptions.push(apiServiceSubscription);
     }
 
     ngOnDestroy(): void {
-        //Destroying the component's data
-        this.filters = null;
-        this.brandNames = null;
+        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 
     private get arePricesValid (): boolean {
@@ -90,7 +97,8 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
 
     private filterComputers(): void{
         if (this.isFormValid) {
-            this.apiService
+
+            const apiServiceSubscription = this.apiService
                 .findComputers(this.filters)
                 .subscribe(response => {
                         if(response.success){
@@ -110,6 +118,8 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
                         }
                     },
                     error => console.error(`An error has occurred! ${error}`));
+
+            this.subscriptions.push(apiServiceSubscription);
         } else {
             console.log("Filters are invalid...");
         }

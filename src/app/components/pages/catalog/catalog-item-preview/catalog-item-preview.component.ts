@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ROUTER_DIRECTIVES }               from '@angular/router';
-import { HTTP_PROVIDERS }                                  from '@angular/http';
 import { NgFor }                                           from '@angular/common';
+import { Subscription }                                    from 'Rxjs'
 
 import { Computer } from './../../../../models/computer.model';
 
-import { ApiService } from './../../../../services/api.service';
+import { ApiService }          from './../../../../services/api.service';
+import { SubscriptionService } from './../../../../services/subscription.service';
 
 //TODO remove interfaces and make the props and methods private
 interface ICatalogItemPreview {
@@ -42,17 +43,21 @@ export class CatalogItemPreviewComponent implements OnInit, OnDestroy, ICatalogI
     date: number;
 
     private previewItem: Computer;
+    private subscriptions: Array<Subscription> = [];
 
-    constructor(private apiService: ApiService, private route: ActivatedRoute){
-
-    }
+    constructor(
+        private apiService: ApiService,
+        private subscriptionService: SubscriptionService,
+        private route: ActivatedRoute
+    ){}
 
     ngOnInit(): void {
-        this.route.params.subscribe(params => {
+        const routerSubscription = this.route.params.subscribe(params => {
 
             let id = params['id'];
 
-            this.apiService.getComputerById(id)
+            const apiServiceSubscription = this.apiService
+                .getComputerById(id)
                 .subscribe(response => {
                         if(response.success){
 
@@ -62,13 +67,14 @@ export class CatalogItemPreviewComponent implements OnInit, OnDestroy, ICatalogI
                         }
                     },
                     error => console.error(`An error has occurred! ${error}`));
+            this.subscriptions.push(apiServiceSubscription);
         });
 
+        this.subscriptions.push(routerSubscription);
     }
 
     ngOnDestroy(): void {
-        return undefined;
-        //TODO Unsubscribe from observables
+        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 }
 

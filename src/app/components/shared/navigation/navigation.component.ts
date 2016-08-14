@@ -1,7 +1,9 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { ROUTER_DIRECTIVES }                               from '@angular/router';
+import { Subscription }                                    from 'Rxjs'
 
-import { ShoppingCartService} from './../../../services/shopping-cart-service';
+import { ShoppingCartService } from './../../../services/shopping-cart-service';
+import { SubscriptionService } from './../../../services/subscription.service';
 
 @Component({
     moduleId: module.id,
@@ -20,17 +22,22 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     private cartSize: number;
 
-    constructor(private shoppingCartService: ShoppingCartService) {
+    private subscriptions: Array<Subscription> = [];
 
-    }
+    constructor(
+        private shoppingCartService: ShoppingCartService,
+        private subscriptionService: SubscriptionService
+    ) {}
 
     ngOnInit(): void {
-        this.shoppingCartService.cartSizeStream.subscribe(newSize => this.cartSize = newSize);
+        const subscriptionToCartSizeStream: Subscription = this.shoppingCartService.cartSizeStream.subscribe(newSize => this.cartSize = newSize);
         this.shoppingCartService.loadCartSizeValue();
+
+        this.subscriptions.push(subscriptionToCartSizeStream);
     }
 
     ngOnDestroy(): void {
-        return undefined;
+        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 
 }

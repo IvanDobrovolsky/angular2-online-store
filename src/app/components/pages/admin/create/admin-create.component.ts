@@ -1,13 +1,16 @@
-import {Component, ViewEncapsulation, OnInit, OnDestroy}              from '@angular/core';
-import { Router }                                                     from '@angular/router';
+import { Component, ViewEncapsulation, OnInit, OnDestroy}              from '@angular/core';
+import { Router }                                                      from '@angular/router';
+import { Subscription }                                                from 'Rxjs'
 
 import { Computer }   from './../../../../models/computer.model';
 
-import { ApiService } from './../../../../services/api.service';
+import { ApiService }          from './../../../../services/api.service';
+import { SubscriptionService } from './../../../../services/subscription.service';
 
 import { ComputerFormComponent } from './../../../shared/forms/computer-form/computer-form.component';
 
 //TODO Add Allow deactivation only if the form is submitted
+//TODO Add authentication
 
 @Component({
     moduleId: module.id,
@@ -22,14 +25,27 @@ import { ComputerFormComponent } from './../../../shared/forms/computer-form/com
     ],
     providers: []
 })
-export class AdminCreateComponent{
-    
-    constructor(private apiService: ApiService, private router: Router) {
-        
+export class AdminCreateComponent implements OnInit, OnDestroy {
+
+    private subscriptions: Array<Subscription> = [];
+
+    constructor(
+        private apiService: ApiService,
+        private subscriptionService: SubscriptionService,
+        private router: Router
+    ) {}
+
+    ngOnInit(): void {
+
     }
+
+    ngOnDestroy(): void {
+        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
+    }
+
     private createComputer(computer: Computer) {
 
-        this.apiService
+        const apiServiceSubscription = this.apiService
             .createNewComputer(computer)
             .subscribe(response => {
                     if(response.success){
@@ -39,5 +55,6 @@ export class AdminCreateComponent{
                     }
                 },
                 error => console.error(`An error has occurred! ${error}`));
+        this.subscriptions.push(apiServiceSubscription);
     }
 }
