@@ -46,7 +46,7 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
         private subscriptionService: SubscriptionService
     ){}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         const apiServiceSubscription = this.apiService
             .getAllBrandNames()
             .subscribe(response => {
@@ -60,8 +60,12 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
         this.subscriptions.push(apiServiceSubscription);
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
+    }
+
+    private get areBrandsValid (): boolean {
+        return this.filters.brands.length >= 1;
     }
 
     private get arePricesValid (): boolean {
@@ -69,12 +73,38 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
         return from !== null && to !== null && !Number.isNaN(from * to) && (from * to) >=0 && (from < to);
     }
 
-    private get areBrandsValid (): boolean {
-        return this.filters.brands.length >= 1;
-    }
-    
     private get isFormValid(): boolean {
         return this.arePricesValid && this.areBrandsValid;
+    }
+
+    private filterComputers(): void{
+        if (this.isFormValid) {
+
+            const apiServiceSubscription = this.apiService
+                .findComputers(this.filters)
+                .subscribe(response => {
+                        if(response.success){
+                            let filteredComputers = response.data;
+
+                            //Sorting by price
+                            if(this.sorters.byPrice) {
+                                filteredComputers = CatalogFiltersComponent.sortByPrice(filteredComputers);
+                            }
+
+                            //Sorting by date
+                            if(this.sorters.byDate) {
+                                filteredComputers = CatalogFiltersComponent.sortByDate(filteredComputers);
+                            }
+
+                            this.filter.emit(filteredComputers);
+                        }
+                    },
+                    error => console.error(`An error has occurred! ${error}`));
+
+            this.subscriptions.push(apiServiceSubscription);
+        } else {
+            console.log("Filters are invalid...");
+        }
     }
 
     private handleCheckBoxCheck(brand: string): void{
@@ -98,36 +128,6 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
     private static sortByDate(computers): Computer[] {
         //Immutable sort
         return [...computers].sort((c1: Computer, c2: Computer) => c2.date - c1.date);
-    }
-
-    private filterComputers(): void{
-        if (this.isFormValid) {
-
-            const apiServiceSubscription = this.apiService
-                .findComputers(this.filters)
-                .subscribe(response => {
-                        if(response.success){
-                            let filteredComputers = response.data;
-
-                            //Sorting by price
-                            if(this.sorters.byPrice) {
-                                filteredComputers = CatalogFiltersComponent.sortByPrice(filteredComputers);
-                            }
-
-                            //Sorting by date
-                            if(this.sorters.byDate) {
-                                filteredComputers = CatalogFiltersComponent.sortByDate(filteredComputers);
-                            }
-                            
-                            this.filter.emit(filteredComputers);
-                        }
-                    },
-                    error => console.error(`An error has occurred! ${error}`));
-
-            this.subscriptions.push(apiServiceSubscription);
-        } else {
-            console.log("Filters are invalid...");
-        }
     }
 }
 

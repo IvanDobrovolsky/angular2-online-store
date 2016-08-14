@@ -50,17 +50,16 @@ export class ShoppingCartComponent implements OnInit, OnDestroy{
         this.subscriptions.push(cartItemsStreamSubscription);
     }
 
+    public ngOnDestroy(): void {
+        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
+    }
+
     private calculateTotal(items) {
         let result = 0;
         for (let item of items) {
             result += item.price * item.quantity;
         }
         this.total = result;
-    }
-
-
-    public ngOnDestroy(): void {
-        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 }
 

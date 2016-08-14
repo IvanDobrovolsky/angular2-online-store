@@ -28,14 +28,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
         private subscriptionService: SubscriptionService
     ) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         const subscriptionToCartSizeStream: Subscription = this.shoppingCartService.cartSizeStream.subscribe(newSize => this.cartSize = newSize);
         this.shoppingCartService.loadCartSizeValue();
 
         this.subscriptions.push(subscriptionToCartSizeStream);
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 

@@ -57,10 +57,6 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
     };
     private isSubmitted = false;
 
-    private static pricePattern = "^([1-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9])$";
-    private static imageUrlPattern = "(https?:\/\/.*\.(?:png|jpg|jpeg|gif))";
-    private static CSVPattern = `(?:'[^']*')|(?:[^, ]+)`;
-
     constructor(private formBuilder: FormBuilder, private router: Router) {
 
     }
@@ -100,6 +96,11 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
     ngOnDestroy(): void {
         this.computerForm = null;
     }
+
+
+    private static pricePattern = "^([1-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9])$";
+    private static imageUrlPattern = "(https?:\/\/.*\.(?:png|jpg|jpeg|gif))";
+    private static CSVPattern = `(?:'[^']*')|(?:[^, ]+)`;
 
     private isValidFormField(field): boolean {
         return this.computerForm.controls[field].valid || (this.computerForm.controls[field].pristine && !this.isSubmitted);

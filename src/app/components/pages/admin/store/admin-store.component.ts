@@ -38,7 +38,7 @@ export class AdminStoreComponent implements OnInit, OnDestroy{
         private subscriptionService: SubscriptionService
     ){}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         const apiServiceSubscription = this.apiService
             .getAllComputers()
             .subscribe(response => {
@@ -51,7 +51,7 @@ export class AdminStoreComponent implements OnInit, OnDestroy{
         this.subscriptions.push(apiServiceSubscription);
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 

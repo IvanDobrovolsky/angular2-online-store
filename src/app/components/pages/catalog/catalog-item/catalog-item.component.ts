@@ -28,12 +28,12 @@ interface ICatalogItem {
     providers: []
 })
 export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
-    brand: string;
-    title: string;
-    price: number;
-    image: string;
-    date:  number;
-    description: string;
+    public brand: string;
+    public title: string;
+    public price: number;
+    public image: string;
+    public date:  number;
+    public description: string;
 
     @Input() private item: Computer;
 
@@ -41,20 +41,20 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
 
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         Object.assign(this, this.item);
     }
 
-    ngOnDestroy():any {
+    public ngOnDestroy():any {
         delete this;
-    }
-
-    public preview(id: number): void {
-        this.router.navigate(['/catalog', id]);
     }
 
     public addToCart(id: number): void {
         this.shoppingCartService.addToCart(id);
+    }
+
+    public preview(id: number): void {
+        this.router.navigate(['/catalog', id]);
     }
 }
 

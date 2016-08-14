@@ -5,20 +5,6 @@ import { Computer } from './../../../../models/index';
 
 import { ShoppingCartService } from './../../../../services/index';
 
-interface IShoppingCartItem {
-    _id: number;
-    brand: string;
-    title: string;
-    price: number;
-    image: string;
-    description: string;
-    quantity: number;
-    preview(id: number): void;
-    removeFromCart(id: number): void;
-    changeQuantity(id: number, newQuantity: number): void;
-}
-
-//TODO Refactor the implementation
 @Component({
     moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
@@ -29,14 +15,14 @@ interface IShoppingCartItem {
     ],
     providers: []
 })
-export class ShoppingCartItemComponent implements OnInit, OnDestroy, IShoppingCartItem{
-    _id: number;
-    brand: string;
-    title: string;
-    price: number;
-    image: string;
-    description: string;
-    quantity = 1;
+export class ShoppingCartItemComponent implements OnInit, OnDestroy{
+    private _id: number;
+    private brand: string;
+    private title: string;
+    private price: number;
+    private image: string;
+    private description: string;
+    private quantity = 1;
 
     @Input() private item: Computer;
 
@@ -44,26 +30,26 @@ export class ShoppingCartItemComponent implements OnInit, OnDestroy, IShoppingCa
 
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         Object.assign(this, this.item);
     }
 
-    ngOnDestroy(): any {
+    public ngOnDestroy(): any {
         return undefined;
     }
 
-    removeFromCart(id: number): void {
+    private removeFromCart(id: number): void {
         if (confirm("Are you sure that you want to remove it from cart?")) {
             this.shoppingCartService.removeFromCart(id);
         }
     }
 
-    preview(id: number): void {
+    private preview(id: number): void {
         this.router.navigate(['/catalog', id]);
         console.log("Toggled preview for " + id);
     }
 
-    changeQuantity(id:number, newQuantity): void {
+    private changeQuantity(id:number, newQuantity): void {
         this.quantity = newQuantity;
         this.shoppingCartService.changeQuantity(id, newQuantity);
     }

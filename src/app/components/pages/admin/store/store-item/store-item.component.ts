@@ -18,7 +18,6 @@ interface IStoreItem {
     brand: string;
     title: string;
     price: number;
-    navigateTo(route: string, id: number): void;
 }
 
 @Component({
@@ -32,10 +31,10 @@ interface IStoreItem {
     providers: []
 })
 export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
-    _id: number;
-    brand: string;
-    title: string;
-    price: number;
+    public _id: number;
+    public brand: string;
+    public title: string;
+    public price: number;
     
     @Input()  private item: Computer;
     @Output() private remove = new EventEmitter<Computer>();
@@ -44,11 +43,11 @@ export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
         
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         Object.assign(this, this.item);
     }
 
-    ngOnDestroy():any {
+    public ngOnDestroy():any {
         delete this;
     }
 
@@ -58,7 +57,7 @@ export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
         }
     }
 
-    public navigateTo(route: string, id): void {
+    private navigateTo(route: string, id): void {
         this.router.navigate([`/${route}`, id]);
     }
 }

@@ -34,11 +34,11 @@ export class AdminCreateComponent implements OnInit, OnDestroy {
         private router: Router
     ) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
 
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 

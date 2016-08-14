@@ -39,11 +39,7 @@ export class CatalogPageComponent implements OnInit, OnDestroy{
         private subscriptionService: SubscriptionService
     ){}
 
-    isEmptyCatalog(): boolean{
-        return !!this.computers && this.computers.length === 0;
-    }
-
-    ngOnInit(): void {
+    public ngOnInit(): void {
         const apiServiceSubscription = this.apiService
             .getAllComputers()
             .subscribe(response => {
@@ -56,13 +52,16 @@ export class CatalogPageComponent implements OnInit, OnDestroy{
         this.subscriptions.push(apiServiceSubscription);
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 
-    filterCatalogItems(updatedData){
+    private filterCatalogItems(updatedData){
         this.computers = updatedData;
     }
 
+    private isEmptyCatalog(): boolean{
+        return !!this.computers && this.computers.length === 0;
+    }
 }
 

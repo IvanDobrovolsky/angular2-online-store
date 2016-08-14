@@ -14,6 +14,6 @@ import { ROUTER_DIRECTIVES }            from '@angular/router';
     ]
 })
 export class PageNotFoundComponent {
-    private message = "The page you requested is not found!";
     private imageUrl = "http://72gpf1za5iq428ekh3r7qjc1.wpengine.netdna-cdn.com/wp-content/uploads/2015/11/error.jpg";
+    private message = "The page you requested is not found!";
 }

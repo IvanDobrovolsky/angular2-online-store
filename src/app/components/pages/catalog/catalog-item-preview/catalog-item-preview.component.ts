@@ -33,13 +33,13 @@ interface ICatalogItemPreview {
     providers: []
 })
 export class CatalogItemPreviewComponent implements OnInit, OnDestroy, ICatalogItemPreview{
-    brand: string;
-    title: string;
-    price: number;
-    image: string;
-    description: string;
-    details: Array<string>;
-    date: number;
+    public brand: string;
+    public title: string;
+    public price: number;
+    public image: string;
+    public description: string;
+    public details: Array<string>;
+    public date: number;
 
     private previewItem: Computer;
     private subscriptions: Array<Subscription> = [];
@@ -50,7 +50,7 @@ export class CatalogItemPreviewComponent implements OnInit, OnDestroy, ICatalogI
         private route: ActivatedRoute
     ){}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         const routerSubscription = this.route.params.subscribe(params => {
 
             let id = params['id'];
@@ -72,7 +72,7 @@ export class CatalogItemPreviewComponent implements OnInit, OnDestroy, ICatalogI
         this.subscriptions.push(routerSubscription);
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 }

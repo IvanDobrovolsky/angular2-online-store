@@ -48,50 +48,6 @@ export class ShoppingCartService implements IShoppingCartService {
         return this.cartSizeValueStream.asObservable();
     }
 
-    private updateLocalStorage(): void {
-        localStorage.setItem('items', JSON.stringify(this.cartStore.items));
-    }
-
-    private emitData() {
-
-        let simpleReturn = e => e;
-
-        //noinspection TypeScriptUnresolvedFunction
-        let fetchFromServer = (item: IShoppingCartLocalStorageItem) => {
-            //noinspection TypeScriptUnresolvedFunction
-            return this.apiService.getComputerById(item._id).map(getDataFromResponse);
-        };
-
-        let getDataFromResponse = (response: IApiResponse<Computer>): ICartProductItem => {
-            let computer = response.data[0];
-            let i = this.cartStore.items.findIndex(i => i._id == computer._id);
-            return Object.assign(computer, {quantity: this.cartStore.items[i]['quantity']});
-        };
-
-        //TODO Use merge for startup request stream and others!
-        let initialRequestStream = () => {};
-
-
-        let createInitialStream = () => {
-            //noinspection TypeScriptUnresolvedFunction
-            return Observable.from(this.cartStore.items)
-        };
-
-        //noinspection TypeScriptUnresolvedFunction
-        createInitialStream()
-            .map(fetchFromServer)
-            .map(simpleReturn)
-            .combineAll()
-            .subscribe(data => {
-                this.cartStream.next(<ICartProductItem[]>data);
-            });
-    }
-
-    private emitCartSizeValue(): void {
-        console.log("Emitting cartSize value", this.cartStore.items.length);
-        this.cartSizeValueStream.next(this.cartStore.items.length);
-    }
-
     public loadCart() {
         this.emitData();
     }
@@ -145,6 +101,50 @@ export class ShoppingCartService implements IShoppingCartService {
             //We have to fire the data to rerender the ShoppingCartPageComponent view
             this.emitData();
         }
+    }
+
+    private updateLocalStorage(): void {
+        localStorage.setItem('items', JSON.stringify(this.cartStore.items));
+    }
+
+    private emitData() {
+
+        let simpleReturn = e => e;
+
+        //noinspection TypeScriptUnresolvedFunction
+        let fetchFromServer = (item: IShoppingCartLocalStorageItem) => {
+            //noinspection TypeScriptUnresolvedFunction
+            return this.apiService.getComputerById(item._id).map(getDataFromResponse);
+        };
+
+        let getDataFromResponse = (response: IApiResponse<Computer>): ICartProductItem => {
+            let computer = response.data[0];
+            let i = this.cartStore.items.findIndex(i => i._id == computer._id);
+            return Object.assign(computer, {quantity: this.cartStore.items[i]['quantity']});
+        };
+
+        //TODO Use merge for startup request stream and others!
+        let initialRequestStream = () => {};
+
+
+        let createInitialStream = () => {
+            //noinspection TypeScriptUnresolvedFunction
+            return Observable.from(this.cartStore.items)
+        };
+
+        //noinspection TypeScriptUnresolvedFunction
+        createInitialStream()
+            .map(fetchFromServer)
+            .map(simpleReturn)
+            .combineAll()
+            .subscribe(data => {
+                this.cartStream.next(<ICartProductItem[]>data);
+            });
+    }
+
+    private emitCartSizeValue(): void {
+        console.log("Emitting cartSize value", this.cartStore.items.length);
+        this.cartSizeValueStream.next(this.cartStore.items.length);
     }
 }
 

@@ -37,28 +37,6 @@ export class ApiService implements IComputersApiService{
 
   }
 
-  //Success handler
-  private extractData(response: Response){
-    if(response.status < 200 || response.status >= 300){
-      throw new Error(`Bad response status: ${response.status}`);
-    }
-    return response.json();
-  }
-
-  //Error handler
-  private handleError(error: any = 'Server Error'){
-    console.error(error.message);
-    console.log("Something went wrong while trying to access the url provided");
-    return Observable.throw(error.message);
-  }
-
-  private makeApiRequest(method: RequestMethod, resource: string, body: any): Observable<Response> {
-    //noinspection TypeScriptUnresolvedFunction
-    return this.http.request(resource, {body, method, headers: this.headers})
-        .map(this.extractData)
-        .catch(this.handleError)
-  }
-
   public getAllComputers(): Observable<IApiResponse<Computer>> {
     return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Get, this.apiResources.getAll, null);
   }
@@ -85,5 +63,27 @@ export class ApiService implements IComputersApiService{
 
   public updateComputer(id: number, updatedComputer: Computer): Observable<IApiResponse<Computer>> {
     return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Put, this.apiResources.getAll + '/' + id, JSON.stringify(updatedComputer));
+  }
+
+  //Success handler
+  private extractData(response: Response){
+    if(response.status < 200 || response.status >= 300){
+      throw new Error(`Bad response status: ${response.status}`);
+    }
+    return response.json();
+  }
+
+  //Error handler
+  private handleError(error: any = 'Server Error'){
+    console.error(error.message);
+    console.log("Something went wrong while trying to access the url provided");
+    return Observable.throw(error.message);
+  }
+
+  private makeApiRequest(method: RequestMethod, resource: string, body: any): Observable<Response> {
+    //noinspection TypeScriptUnresolvedFunction
+    return this.http.request(resource, {body, method, headers: this.headers})
+        .map(this.extractData)
+        .catch(this.handleError)
   }
 }

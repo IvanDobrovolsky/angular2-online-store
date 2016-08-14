@@ -35,7 +35,7 @@ export class AdminEditComponent implements OnInit, OnDestroy{
         private router: Router
     ) {}
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         const routerSubscription = this.activatedRoute.params.subscribe(params => {
 
             let id = params['id'];
@@ -53,7 +53,7 @@ export class AdminEditComponent implements OnInit, OnDestroy{
         this.subscriptions.push(routerSubscription);
     }
 
-    ngOnDestroy(): void {
+    public ngOnDestroy(): void {
         this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
     }
 
