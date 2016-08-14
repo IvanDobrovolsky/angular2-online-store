@@ -11,15 +11,12 @@ import { ApiService } from './api.service';
 
 //TODO add caching mechanism
 //TODO Refactor the implementation to be more reactive and elegant
+//TODO fix the interface and deal with types
 
 interface IShoppingCartService {
     addToCart(id: number): void;
     changeQuantity(id: number, newQuantity: number): void;
     removeFromCart(id: number): void
-
-    //cartItems: Observable<IShoppingCartLocalStorageItem>;
-//    getCartSize(): number;
-
 }
 
 interface ICartStore {
@@ -29,13 +26,27 @@ interface ICartStore {
 @Injectable()
 export class ShoppingCartService implements IShoppingCartService {
 
-    private cartStream:  Subject<any>;
+    private cartStream:           Subject<any>;
+    private cartSizeValueStream:  Subject<number>;
     private cartStore: ICartStore  = {items: []};
 
     constructor(private apiService: ApiService) {
         this.cartStream = new Subject<ICartProductItem[]>();
+        this.cartSizeValueStream = new Subject<number>();
+
+        //Reading the data stored in localStorage
+        if(!!localStorage.getItem('items')){
+            this.cartStore.items = JSON.parse(localStorage.getItem('items'));
+        }
     }
 
+    public get cartItemsStream() {
+        return this.cartStream.asObservable();
+    }
+
+    public get cartSizeStream(): Observable<number> {
+        return this.cartSizeValueStream.asObservable();
+    }
 
     private updateLocalStorage(): void {
         localStorage.setItem('items', JSON.stringify(this.cartStore.items));
@@ -58,17 +69,19 @@ export class ShoppingCartService implements IShoppingCartService {
         });
     }
 
-    public get cartItemsStream(){
-        return this.cartStream.asObservable();
+    private emitCartSizeValue(): void {
+        console.log("Emitting cartSize value", this.cartStore.items.length);
+        this.cartSizeValueStream.next(this.cartStore.items.length);
     }
 
     public loadCart() {
-        if(!!localStorage.getItem('items')){
-            this.cartStore.items = JSON.parse(localStorage.getItem('items'));
-        }
-
         this.emitData();
     }
+
+    public loadCartSizeValue (){
+        this.emitCartSizeValue();
+    }
+
 
     //TODO Use merge for startup request stream and others!
 
@@ -87,6 +100,10 @@ export class ShoppingCartService implements IShoppingCartService {
                 quantity: 1
             });
             this.updateLocalStorage();
+
+            //Increasing cartSize and notifying the listeners
+            this.emitCartSizeValue();
+
             console.info('Successfully added to the cart!');
         }
     }
@@ -98,6 +115,9 @@ export class ShoppingCartService implements IShoppingCartService {
 
         //Emitting new data(ShoppingCartPageComponent's view has to be rerendered)
         this.emitData();
+
+        //Decreasing cartSize and notifying the listeners
+        this.emitCartSizeValue();
     }
 
     public changeQuantity(id: number, newQuantity: number): void{
@@ -113,10 +133,8 @@ export class ShoppingCartService implements IShoppingCartService {
         }
     }
 
-    //
-    //public getCartSize(): number{
-    //    return this.cart.length;
-    //}
+
+
     //
     //private updateCart(items: IShoppingCartItem[]): void{
     //    localStorage.setItem('items', JSON.stringify(items));
