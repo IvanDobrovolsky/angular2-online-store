@@ -4,9 +4,15 @@ import { Observable }              from 'rxjs/Observable';
 import { Subject }                 from 'rxjs/Subject';
 import 'rxjs/Rx';   //operator polyfills
 
-import { Computer, ICartProductItem, IShoppingCartLocalStorageItem } from './../models/index';
+import {
+    Computer,
+    DirOptions,
+    ICartProductItem,
+    IShoppingCartLocalStorageItem,
+    Notification
+} from './../models/index';
 
-import { ApiService, IApiResponse } from './api.service';
+import { ApiService, IApiResponse, NotificationService } from './index';
 
 //TODO add caching mechanism
 //TODO Refactor the implementation to be more reactive and elegant
@@ -30,7 +36,8 @@ export class ShoppingCartService implements IShoppingCartService {
     private cartSizeValueStream:  Subject<number>;
     private cartStore: ICartStore  = {items: []};
 
-    constructor(private apiService: ApiService) {
+    constructor(private apiService: ApiService, private notificationService: NotificationService) {
+
         this.cartStream = new Subject<ICartProductItem[]>();
         this.cartSizeValueStream = new Subject<number>();
 
@@ -56,14 +63,19 @@ export class ShoppingCartService implements IShoppingCartService {
         this.emitCartSizeValue();
     }
 
-    //TODO add notification calls
     public addToCart(id: number): void{
 
         //NOTE: Emitting new data from cartStream Observable is not necessary
         //because it will fetch and render the data on ShoppingCartComponent's initialization
 
         if (this.cartStore.items.find(item => item._id === id)) {
-            console.warn('The computer is already in the cart!');
+            //If the item is already in the cart
+            this.notificationService.push(new Notification(
+                'The computer is already in the cart!',
+                'Visit ShoppingCart page to to purchase',
+                'assets/images/notifications/warn.gif',
+                DirOptions.auto
+            ));
         } else {
             this.cartStore.items.unshift({
                 _id: id,
@@ -74,7 +86,13 @@ export class ShoppingCartService implements IShoppingCartService {
             //Increasing cartSize and notifying the listeners
             this.emitCartSizeValue();
 
-            console.info('Successfully added to the cart!');
+            //Notify users about the result
+            this.notificationService.push(new Notification(
+                'Successfully added to the cart!',
+                'Visit ShoppingCart page to to purchase',
+                'assets/images/notifications/success.png',
+                DirOptions.auto
+            ))
         }
     }
 
@@ -88,6 +106,14 @@ export class ShoppingCartService implements IShoppingCartService {
 
         //Decreasing cartSize and notifying the listeners
         this.emitCartSizeValue();
+
+        //Notifying the users about it
+        this.notificationService.push(new Notification(
+            'Item was removed from the cart!',
+            'Go to catalog page to add more items',
+            'assets/images/notifications/warn.gif',
+            DirOptions.auto
+        ));
     }
 
     public changeQuantity(id: number, newQuantity: number): void{

@@ -15,7 +15,6 @@ import {
 //TODO rewrite the code according to the styleguide
 //TODO Think how to optimize the code using ChangeDetectionStrategy.OnPush
 //TODO Use ngAnimate for
-//TODO add notification from NotificationService
 //TODO create RouterService in order to let angular inject 1 instance into all components instead of creating multiple ones by ourselves
 
 @Component({

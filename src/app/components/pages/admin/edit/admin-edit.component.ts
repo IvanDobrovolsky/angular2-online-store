@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router }                          from '@angular/router';
 import { Subscription } from 'Rxjs'
 
-import { Computer }     from './../../../../models/index';
+import { Computer, DirOptions, Notification }  from './../../../../models/index';
 
-import { ApiService, SubscriptionService } from './../../../../services/index';
+import { ApiService, NotificationService, SubscriptionService } from './../../../../services/index';
 
 import { ComputerFormComponent } from './../../../shared/index';
 
@@ -31,6 +31,7 @@ export class AdminEditComponent implements OnInit, OnDestroy{
     constructor(
         private apiService: ApiService,
         private activatedRoute: ActivatedRoute,
+        private notificationService: NotificationService,
         private subscriptionService: SubscriptionService,
         private router: Router
     ) {}
@@ -63,7 +64,14 @@ export class AdminEditComponent implements OnInit, OnDestroy{
              .updateComputer(id, computer)
              .subscribe(response => {
                      if(response.success){
-                         console.log(response.message);
+                         //Notifying the users about the action status
+                         this.notificationService.push(new Notification(
+                             'The item was successfully updated!',
+                             '',
+                             'assets/images/notifications/success.png',
+                             DirOptions.auto
+                         ));
+
                          this.router.navigate(['/admin']);
                      }
                  },

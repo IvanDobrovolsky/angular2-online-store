@@ -4,10 +4,10 @@ import { NgIf, NgFor }                                     from '@angular/common
 import { Subscription }                                    from 'Rxjs'
 
 //Computer model
-import { Computer } from './../../../../models/index';
+import { Computer, DirOptions, Notification } from './../../../../models/index';
 
 //Api service
-import { ApiService, SubscriptionService } from './../../../../services/index';
+import { ApiService, NotificationService, SubscriptionService } from './../../../../services/index';
 
 //Application components
 import { StoreItemComponent } from './store-item/store-item.component';
@@ -35,6 +35,7 @@ export class AdminStoreComponent implements OnInit, OnDestroy{
 
     constructor(
         private apiService: ApiService,
+        private notificationService: NotificationService,
         private subscriptionService: SubscriptionService
     ){}
 
@@ -70,7 +71,15 @@ export class AdminStoreComponent implements OnInit, OnDestroy{
             .removeComputer(storeItem._id)
             .subscribe(response => {
                     if(response.success){
-                        console.log("Removed from DB!");
+
+                        //Notifying the users about the action status
+                        this.notificationService.push(new Notification(
+                            'The item was successfully removed!',
+                            '',
+                            'assets/images/notifications/success.png',
+                            DirOptions.auto
+                        ));
+
                     }
                 },
                 error => console.error(`An error has occurred! ${error}`));
