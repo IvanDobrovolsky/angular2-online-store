@@ -10,7 +10,7 @@
         </div>
         <div>
             <h1 *ngIf="isEmptyStore()">There are no computers in the store!</h1>
-            <store-item *ngFor="let storeItem of storeItems" (onRemove)="removeFromStore($event)" [item]="storeItem"></store-item>
+            <store-item *ngFor="let storeItem of storeItems" (remove)="removeFromStore($event)" [item]="storeItem"></store-item>
         </div>
         <button class="page_admin--add-new-button ui button" routerLink="/admin/create"><i class="fa fa-plus"></i> Add new</button>
     </div>

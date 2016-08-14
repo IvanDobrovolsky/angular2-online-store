@@ -35,7 +35,7 @@ export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
     price: number;
     
     @Input()  private item: Computer;
-    @Output() private onRemove = new EventEmitter<Computer>();
+    @Output() private remove = new EventEmitter<Computer>();
 
     constructor(private router: Router){
         
@@ -51,7 +51,7 @@ export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
 
     private removeStoreItem() {
         if(confirm("Do you want to delete the item from store?")) {
-            this.onRemove.emit(this.item);
+            this.remove.emit(this.item);
         }
     }
 

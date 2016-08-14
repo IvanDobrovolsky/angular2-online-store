@@ -2,7 +2,7 @@
     <h1 class="page_catalog-title">Computers catalog</h1>
 
     <div style="display: flex; justify-content: space-around">
-        <catalog-filters (onFilter)="filterCatalogItems($event)"></catalog-filters>
+        <catalog-filters (filter)="filterCatalogItems($event)"></catalog-filters>
         <div class="page_catalog-list">
             <h2 *ngIf="isEmptyCatalog()">No computers in the catalog</h2>
 

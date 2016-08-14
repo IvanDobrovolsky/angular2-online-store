@@ -27,7 +27,7 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
 
     private subscriptions: Array<Subscription> = [];
 
-    @Output() private onFilter = new EventEmitter<Computer[]>();
+    @Output() private filter = new EventEmitter<Computer[]>();
 
     //Default filter/sort values
     private filters: IFilters = {price: {from: 0, to: 3000}, brands: []};
@@ -111,7 +111,7 @@ export class CatalogFiltersComponent implements OnInit, OnDestroy{
                                 filteredComputers = CatalogFiltersComponent.sortByDate(filteredComputers);
                             }
                             
-                            this.onFilter.emit(filteredComputers);
+                            this.filter.emit(filteredComputers);
                         }
                     },
                     error => console.error(`An error has occurred! ${error}`));
