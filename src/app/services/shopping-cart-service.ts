@@ -12,10 +12,10 @@ import { ApiService } from './api.service';
 //TODO add caching mechanism
 
 interface IShoppingCartService {
+    addToCart(id: number): void;
     changeQuantity(id: number, newQuantity: number): void;
     //cartItems: Observable<IShoppingCartLocalStorageItem>;
 //    getCartSize(): number;
-//    addToCart(id: number): void;
 //    removeFromCart(id: number): void
 
 }
@@ -67,19 +67,23 @@ export class ShoppingCartService implements IShoppingCartService {
 
     //TODO Use merge for startup request stream and others!
 
-    public addToCart(computer: Computer): void{
-        //if(this.cartStore.cart.find(item => item._id === computer._id)){
-        //    console.warn('The computer is already in the cart!');
-        //} else {
-        //    this.cartStore.cart.unshift({
-        //        _id: computer._id,
-        //        quantity: 1,
-        //        price: computer.price
-        //    });
-        //    this.updateCart(this.cartStore.cart);
-        //    console.info('Successfully added to the cart!');
-        //}
-        //console.log(this.cart)
+
+    //TODO add notification calls
+    public addToCart(id: number): void{
+
+        //NOTE: Emitting new data from cartStream Observable is not necessary
+        //because it will fetch and render the data on ShoppingCartComponent's initialization
+
+        if (this.cartStore.items.find(item => item._id === id)) {
+            console.warn('The computer is already in the cart!');
+        } else {
+            this.cartStore.items.unshift({
+                _id: id,
+                quantity: 1
+            });
+            this.updateLocalStorage();
+            console.info('Successfully added to the cart!');
+        }
     }
 
     //

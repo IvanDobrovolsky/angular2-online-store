@@ -7,6 +7,7 @@ import { Computer } from './../../../../models/computer.model';
 
 import { ApiService } from './../../../../services/api.service';
 
+//TODO remove interfaces and make the props and methods private
 interface ICatalogItemPreview {
     brand: string;
     title: string;
@@ -15,7 +16,6 @@ interface ICatalogItemPreview {
     description: string;
     details: Array<string>;
     date: number;
-    addToCart(id: string): void;
 }
 
 @Component({
@@ -70,10 +70,5 @@ export class CatalogItemPreviewComponent implements OnInit, OnDestroy, ICatalogI
         return undefined;
         //TODO Unsubscribe from observables
     }
-
-    addToCart(id: string): void {
-        console.log(`Adding ${id} to the cart!`);
-    }
-
 }
 
