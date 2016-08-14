@@ -5,7 +5,7 @@ import { NgFor }                                           from '@angular/common
 import { Observable, Subscription }                               from 'Rxjs';
 import 'rxjs/Rx';
 
-import { ICartProductItem } from './../../../models/shopping-cart.model';
+import { ICartProductItem } from './../../../models/index';
 
 import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-item.component';
 

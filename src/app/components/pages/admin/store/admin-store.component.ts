@@ -4,7 +4,7 @@ import { NgIf, NgFor }                                     from '@angular/common
 import { Subscription }                                    from 'Rxjs'
 
 //Computer model
-import { Computer } from './../../../../models/computer.model';
+import { Computer } from './../../../../models/index';
 
 //Api service
 import { ApiService } from './../../../../services/api.service';

@@ -4,8 +4,7 @@ import { Observable }              from 'rxjs/Observable';
 import { Subject }                 from 'rxjs/Subject';
 import 'rxjs/Rx';
 
-import { IShoppingCartLocalStorageItem, ICartProductItem } from './../models/shopping-cart.model';
-import { Computer }                                        from './../models/computer.model';
+import { IShoppingCartLocalStorageItem, ICartProductItem, Computer } from './../models/index';
 
 import { ApiService, IApiResponse } from './api.service';
 

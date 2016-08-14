@@ -5,9 +5,7 @@ import { Subscription }                                                         
 import { ApiService }          from './../../../../services/api.service';
 import { SubscriptionService } from './../../../../services/subscription.service';
 
-import { Computer }   from "../../../../models/computer.model";
-import { IFilters }   from "../../../../models/filters.model";
-
+import { Computer, IFilters }   from "../../../../models/index";
 
 @Component({
     moduleId: module.id,

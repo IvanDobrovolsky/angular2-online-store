@@ -7,7 +7,7 @@ import { Component,
     EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Computer } from './../../../../../models/computer.model';
+import { Computer } from './../../../../../models/index';
 
 //TODO Make all the properties private - remove the interface no one else will be using it
 interface IStoreItem {

@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy}              from '@an
 import { Router }                                                      from '@angular/router';
 import { Subscription }                                                from 'Rxjs'
 
-import { Computer }   from './../../../../models/computer.model';
+import { Computer }   from './../../../../models/index';
 
 import { ApiService }          from './../../../../services/api.service';
 import { SubscriptionService } from './../../../../services/subscription.service';

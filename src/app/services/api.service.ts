@@ -4,8 +4,7 @@ import { Observable }                             from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Computer } from './../models/computer.model';
-import { IFilters } from './../models/filters.model';
+import { Computer, IFilters } from './../models/index';
 
 export interface IApiResponse<T> extends Response{
   success: boolean;
