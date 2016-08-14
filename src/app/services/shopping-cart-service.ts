@@ -10,13 +10,15 @@ import { Computer }                                        from './../models/com
 import { ApiService } from './api.service';
 
 //TODO add caching mechanism
+//TODO Refactor the implementation to be more reactive and elegant
 
 interface IShoppingCartService {
     addToCart(id: number): void;
     changeQuantity(id: number, newQuantity: number): void;
+    removeFromCart(id: number): void
+
     //cartItems: Observable<IShoppingCartLocalStorageItem>;
 //    getCartSize(): number;
-//    removeFromCart(id: number): void
 
 }
 
@@ -39,23 +41,14 @@ export class ShoppingCartService implements IShoppingCartService {
         localStorage.setItem('items', JSON.stringify(this.cartStore.items));
     }
 
-    public get cartItemsStream(){
-        return this.cartStream.asObservable();
-    }
-
-    public loadCart() {
-
-
-        if(!!localStorage.getItem('items')){
-            this.cartStore.items = JSON.parse(localStorage.getItem('items'));
-        }
+    private emitData() {
 
         let loadProductInfo = (item: IShoppingCartLocalStorageItem): Observable<Computer> => {
-             //noinspection TypeScriptUnresolvedFunction
-             return this.apiService.getComputerById(item._id).map(response => {
-                 let computer = response.data[0];
-                 return Object.assign(computer, {quantity: item.quantity});
-             })
+            //noinspection TypeScriptUnresolvedFunction
+            return this.apiService.getComputerById(item._id).map(response => {
+                let computer = response.data[0];
+                return Object.assign(computer, {quantity: item.quantity});
+            })
         };
 
         //noinspection TypeScriptUnresolvedFunction
@@ -63,6 +56,18 @@ export class ShoppingCartService implements IShoppingCartService {
             console.log('emitting data', data);
             this.cartStream.next(data);
         });
+    }
+
+    public get cartItemsStream(){
+        return this.cartStream.asObservable();
+    }
+
+    public loadCart() {
+        if(!!localStorage.getItem('items')){
+            this.cartStore.items = JSON.parse(localStorage.getItem('items'));
+        }
+
+        this.emitData();
     }
 
     //TODO Use merge for startup request stream and others!
@@ -86,15 +91,14 @@ export class ShoppingCartService implements IShoppingCartService {
         }
     }
 
-    //
-    //public getCartSize(): number{
-    //    return this.cart.length;
-    //}
-    //
-    //private updateCart(items: IShoppingCartItem[]): void{
-    //    localStorage.setItem('items', JSON.stringify(items));
-    //}
-    ////
+    public removeFromCart(id: number): void{
+        let itemIndex = this.cartStore.items.findIndex(item => item._id === id);
+        this.cartStore.items.splice(itemIndex, 1);
+        this.updateLocalStorage();
+
+        //Emitting new data(ShoppingCartPageComponent's view has to be rerendered)
+        this.emitData();
+    }
 
     public changeQuantity(id: number, newQuantity: number): void{
 
@@ -109,13 +113,15 @@ export class ShoppingCartService implements IShoppingCartService {
         }
     }
 
-
     //
-    public removeFromCart(_id: number): void{
-        //let itemIndex: number = this.cart.findIndex(item => item._id === _id);
-        //this.cart.splice(itemIndex, 1);
-        //this.updateCart(this.cart);
-    }
+    //public getCartSize(): number{
+    //    return this.cart.length;
+    //}
+    //
+    //private updateCart(items: IShoppingCartItem[]): void{
+    //    localStorage.setItem('items', JSON.stringify(items));
+    //}
+    ////
     //
     //getTotal() {
     //

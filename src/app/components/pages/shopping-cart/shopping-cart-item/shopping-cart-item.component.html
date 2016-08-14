@@ -14,5 +14,6 @@
             <input type="number" (change)="changeQuantity(_id, $event.target.value)" [(ngModel)]="quantity" min="1" max="10" />
         </div>
         <div class="page_cart-item--total">Total: {{totalForItem | currency:'USD'}}</div>
+        <span class="ui button" (click)="removeFromCart(item._id)"><i class="fa fa-remove"></i></span>
     </div>
 </div>

@@ -53,7 +53,9 @@ export class ShoppingCartItemComponent implements OnInit, OnDestroy, IShoppingCa
     }
 
     removeFromCart(id: number): void {
-        this.shoppingCartService.removeFromCart(id);
+        if (confirm("Are you sure that you want to remove it from cart?")) {
+            this.shoppingCartService.removeFromCart(id);
+        }
     }
 
     preview(id: number): void {

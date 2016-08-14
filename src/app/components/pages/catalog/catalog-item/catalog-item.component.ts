@@ -5,6 +5,7 @@ import { Computer } from './../../../../models/computer.model';
 
 import { ShoppingCartService } from "../../../../services/shopping-cart-service";
 
+//TODO Remove interface and make the properties private
 interface ICatalogItem {
     brand: string;
     title: string;
@@ -54,7 +55,6 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
 
     public addToCart(id: number): void {
         this.shoppingCartService.addToCart(id);
-        console.log(id + " Added to cart!");
     }
 }
 
