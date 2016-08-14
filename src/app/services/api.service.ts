@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { Computer } from './../models/computer.model';
 import { IFilters } from './../models/filters.model';
 
-interface IApiResponse<T> extends Response{
+export interface IApiResponse<T> extends Response{
   success: boolean;
   message: string;
   data: Array<T>;

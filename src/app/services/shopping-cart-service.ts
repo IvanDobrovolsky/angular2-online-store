@@ -7,7 +7,7 @@ import 'rxjs/Rx';
 import { IShoppingCartLocalStorageItem, ICartProductItem } from './../models/shopping-cart.model';
 import { Computer }                                        from './../models/computer.model';
 
-import { ApiService } from './api.service';
+import { ApiService, IApiResponse } from './api.service';
 
 //TODO add caching mechanism
 //TODO Refactor the implementation to be more reactive and elegant
@@ -26,7 +26,7 @@ interface ICartStore {
 @Injectable()
 export class ShoppingCartService implements IShoppingCartService {
 
-    private cartStream:           Subject<any>;
+    private cartStream:           Subject<ICartProductItem[]>;
     private cartSizeValueStream:  Subject<number>;
     private cartStore: ICartStore  = {items: []};
 
@@ -40,7 +40,7 @@ export class ShoppingCartService implements IShoppingCartService {
         }
     }
 
-    public get cartItemsStream() {
+    public get cartItemsStream(): Observable<ICartProductItem[]> {
         return this.cartStream.asObservable();
     }
 
@@ -54,19 +54,44 @@ export class ShoppingCartService implements IShoppingCartService {
 
     private emitData() {
 
-        let loadProductInfo = (item: IShoppingCartLocalStorageItem): Observable<Computer> => {
+        function log(e) {
+            console.log(e);
+        }
+
+        function logAndReturn(e) {
+            console.log('mapping', e);
+            return e;
+        }
+
+        //noinspection TypeScriptUnresolvedFunction
+        let fetchFromServer = (item: IShoppingCartLocalStorageItem) => {
             //noinspection TypeScriptUnresolvedFunction
-            return this.apiService.getComputerById(item._id).map(response => {
-                let computer = response.data[0];
-                return Object.assign(computer, {quantity: item.quantity});
-            })
+            return this.apiService.getComputerById(item._id).map(getDataFromResponse);
+        };
+
+        let getDataFromResponse = (response: IApiResponse<Computer>): ICartProductItem => {
+            let computer = response.data[0];
+            let i = this.cartStore.items.findIndex(i => i._id == computer._id);
+            return Object.assign(computer, {quantity: this.cartStore.items[i]['quantity']});
+        };
+
+        //TODO Use merge for startup request stream and others!
+        let initialRequestStream = () => {};
+
+
+        let createInitialStream = () => {
+            //noinspection TypeScriptUnresolvedFunction
+            return Observable.from(this.cartStore.items)
         };
 
         //noinspection TypeScriptUnresolvedFunction
-        Observable.from(this.cartStore.items).map(loadProductInfo).combineAll().subscribe((data) => {
-            console.log('emitting data', data);
-            this.cartStream.next(data);
-        });
+        createInitialStream()                        //Observable<IShoppingCartLocalStorageItem[]>
+            .map(fetchFromServer)
+            .map(logAndReturn)
+            .combineAll()
+            .subscribe(data => {
+                this.cartStream.next(<ICartProductItem[]>data);
+            });
     }
 
     private emitCartSizeValue(): void {
@@ -81,10 +106,6 @@ export class ShoppingCartService implements IShoppingCartService {
     public loadCartSizeValue (){
         this.emitCartSizeValue();
     }
-
-
-    //TODO Use merge for startup request stream and others!
-
 
     //TODO add notification calls
     public addToCart(id: number): void{
@@ -132,16 +153,6 @@ export class ShoppingCartService implements IShoppingCartService {
             this.updateLocalStorage();
         }
     }
-
-
-
-    //
-    //private updateCart(items: IShoppingCartItem[]): void{
-    //    localStorage.setItem('items', JSON.stringify(items));
-    //}
-    ////
-    //
-    //getTotal() {
-    //
-    //}
 }
+
+
