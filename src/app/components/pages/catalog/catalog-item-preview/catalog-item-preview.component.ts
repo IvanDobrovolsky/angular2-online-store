@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, ROUTER_DIRECTIVES }               from '@angular/router';
+import { ActivatedRoute }               from '@angular/router';
 import { NgFor }                                           from '@angular/common';
 import { Subscription }                                    from 'Rxjs'
 
@@ -19,18 +19,12 @@ interface ICatalogItemPreview {
 }
 
 @Component({
-    moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'catalog-item-preview',
     templateUrl: 'catalog-item-preview.component.html',
     styleUrls: [
         'catalog-item-preview.component.css'
-    ],
-    directives: [
-        ROUTER_DIRECTIVES,
-        NgFor
-    ],
-    providers: []
+    ]
 })
 export class CatalogItemPreviewComponent implements OnInit, OnDestroy, ICatalogItemPreview{
     public brand: string;

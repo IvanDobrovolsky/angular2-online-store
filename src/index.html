@@ -5,8 +5,6 @@
   <title>Angular2OnlineStore</title>
   <base href="/">
 
-  <link rel="stylesheet" href="assets/stylesheets/font-awesome.min.css">
-  <link rel="stylesheet" href="assets/stylesheets/semantic.min.css">
   <style>
     /*reset styles*/
     html, body{
@@ -68,21 +66,11 @@
       flex-basis: 100%;
     }
   </style>
-  {{#unless environment.production}}
-  <script src="/ember-cli-live-reload.js" type="text/javascript"></script>
-  {{/unless}}
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+  <!--TODO Add favicon-->
+  <!--<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">-->
 </head>
 <body>
-  <app>Loading...</app>
-
-    {{#each scripts.polyfills}}<script src="{{.}}"></script>{{/each}}
-    <script>
-      System.import('system-config.js').then(function () {
-        System.import('main');
-      }).catch(console.error.bind(console));
-    </script>
-
+  <app> Loading... </app>
 </body>
 </html>

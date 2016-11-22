@@ -1,9 +1,11 @@
-export class Angular2OnlineStorePage {
+import { browser, element, by } from 'protractor';
+
+export class Ng2OnlineStorePage {
   navigateTo() {
     return browser.get('/');
   }
 
   getParagraphText() {
-    return element(by.css('angular2-online-store-app h1')).getText();
+    return element(by.css('app-root h1')).getText();
   }
 }

@@ -12,17 +12,12 @@ import { ComputerFormComponent } from './../../../shared/index';
 //TODO Add authentication
 
 @Component({
-    moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'admin-create',
     templateUrl: 'admin-create.component.html',
     styleUrls: [
         'admin-create.component.css'
-    ],
-    directives: [
-        ComputerFormComponent
-    ],
-    providers: []
+    ]
 })
 export class AdminCreateComponent implements OnInit, OnDestroy {
 

@@ -15,19 +15,12 @@ import { ApiService, SubscriptionService } from './../../../../services/index';
 import { Computer, IFilters } from "../../../../models/index";
 
 @Component({
-    moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'catalog-filters',
     templateUrl: 'catalog-filters.component.html',
     styleUrls: [
         'catalog-filters.component.css'
-    ],
-    directives: [
-        NgIf,
-        NgFor,
-        NgClass
-    ],
-    providers: []
+    ]
 })
 export class CatalogFiltersComponent implements OnInit, OnDestroy{
 

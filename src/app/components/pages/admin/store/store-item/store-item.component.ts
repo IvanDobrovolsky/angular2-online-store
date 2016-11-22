@@ -21,7 +21,6 @@ interface IStoreItem {
 }
 
 @Component({
-    moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'store-item',
     templateUrl: 'store-item.component.html',

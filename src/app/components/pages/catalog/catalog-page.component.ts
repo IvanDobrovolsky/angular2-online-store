@@ -13,20 +13,12 @@ import { CatalogItemComponent }    from './catalog-item/catalog-item.component';
 import { CatalogFiltersComponent } from './catalog-filters/catalog-filters.component';
 
 @Component({
-    moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'catalog-page',
     templateUrl: 'catalog-page.component.html',
     styleUrls: [
         'catalog-page.component.css'
-    ],
-    directives: [
-        NgIf,
-        NgFor,
-        CatalogItemComponent,
-        CatalogFiltersComponent
-    ],
-    providers: []
+    ]
 })
 export class CatalogPageComponent implements OnInit, OnDestroy{
 

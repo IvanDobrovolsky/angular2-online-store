@@ -1,15 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ROUTER_DIRECTIVES }            from '@angular/router';
-import { HTTP_PROVIDERS }               from '@angular/http';
 
 import { NavigationComponent } from './shared/index';
 
-import {
-    ApiService,
-    NotificationService,
-    ShoppingCartService,
-    SubscriptionService
-}  from './../services/index';
 
 //TODO add route guards
 //TODO rewrite the code according to the styleguide
@@ -18,27 +10,15 @@ import {
 //TODO create RouterService in order to let angular inject 1 instance into all components instead of creating multiple ones by ourselves
 
 @Component({
-  moduleId: module.id,
-  encapsulation: ViewEncapsulation.Emulated,
-  selector: 'app',
-  templateUrl: 'app.component.html',
-  styleUrls: [
-    'app.component.css'
-  ],
-  directives: [
-    ROUTER_DIRECTIVES,
-    NavigationComponent
-  ],
-  providers: [
-      HTTP_PROVIDERS,
-      ApiService,
-      ShoppingCartService,
-      NotificationService,
-      SubscriptionService
-  ]
+    encapsulation: ViewEncapsulation.Emulated,
+    selector: 'app',
+    templateUrl: 'app.component.html',
+    styleUrls: [
+        'app.component.css'
+    ]
 })
-export class AppComponent{
-  constructor(){
+export class AppComponent {
+    constructor() {
 
-  }
+    }
 }

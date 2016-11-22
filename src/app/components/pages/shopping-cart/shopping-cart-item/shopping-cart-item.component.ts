@@ -6,7 +6,6 @@ import { Computer } from './../../../../models/index';
 import { ShoppingCartService } from './../../../../services/index';
 
 @Component({
-    moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'shopping-cart-item',
     templateUrl: 'shopping-cart-item.component.html',

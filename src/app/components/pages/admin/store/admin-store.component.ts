@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ROUTER_DIRECTIVES }                               from '@angular/router';
 import { NgIf, NgFor }                                     from '@angular/common';
 import { Subscription }                                    from 'Rxjs'
 
@@ -13,20 +12,12 @@ import { ApiService, NotificationService, SubscriptionService } from './../../..
 import { StoreItemComponent } from './store-item/store-item.component';
 
 @Component({
-    moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'admin-store',
     templateUrl: 'admin-store.component.html',
     styleUrls: [
         'admin-store.component.css'
-    ],
-    directives: [
-        ROUTER_DIRECTIVES,
-        NgIf,
-        NgFor,
-        StoreItemComponent
-    ],
-    providers: []
+    ]
 })
 export class AdminStoreComponent implements OnInit, OnDestroy{
 

@@ -9,17 +9,12 @@ import { ApiService, NotificationService, SubscriptionService } from './../../..
 import { ComputerFormComponent } from './../../../shared/index';
 
 @Component({
-    moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'admin-edit',
     templateUrl: 'admin-edit.component.html',
     styleUrls: [
         'admin-edit.component.css'
-    ],
-    directives: [
-        ComputerFormComponent
-    ],
-    providers: []
+    ]
 })
 export class AdminEditComponent implements OnInit, OnDestroy{
 

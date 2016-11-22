@@ -18,7 +18,6 @@ interface ICatalogItem {
 }
 
 @Component({
-    moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'catalog-item',
     templateUrl: 'catalog-item.component.html',

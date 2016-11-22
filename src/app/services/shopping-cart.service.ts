@@ -12,7 +12,8 @@ import {
     Notification
 } from './../models/index';
 
-import { ApiService, IApiResponse, NotificationService } from './index';
+import { ApiService, IApiResponse } from './api.service';
+import { NotificationService } from './notification.service';
 
 //TODO add caching mechanism
 //TODO Refactor the implementation to be more reactive and elegant

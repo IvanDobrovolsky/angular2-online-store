@@ -8,7 +8,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { FormBuilder, FormGroup, REACTIVE_FORM_DIRECTIVES, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { Router }  from '@angular/router';
 
@@ -27,18 +27,12 @@ interface IInitialFormValues {
 }
 
 @Component({
-    moduleId: module.id,
     encapsulation: ViewEncapsulation.Emulated,
     selector: 'computer-form',
     templateUrl: 'computer-form.component.html',
     styleUrls: [
         'computer-form.component.css'
-    ],
-    directives: [
-        REACTIVE_FORM_DIRECTIVES,
-        NgClass
-    ],
-    providers: []
+    ]
 })
 export class ComputerFormComponent implements OnInit, OnDestroy{
 
