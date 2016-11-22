@@ -1,5 +1,5 @@
 import { ModuleWithProviders }  from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, Route, RouterModule } from '@angular/router';
 
 //Application components
 import { HomePageComponent }           from './components/pages/home/home-page.component';
@@ -14,12 +14,15 @@ import { PageNotFoundComponent }       from './components/pages/404/404-page.com
 
 //TODO Use '**' route to handle 404 error. Why don't we create a route for each specific page? Let's angularize it!
 
-const appRoutes: Routes = [
-    { path: '',            component: HomePageComponent },
+const appRoutes = [
+    {
+        path: '',            component: HomePageComponent
+    },
     { path: 'catalog',     component: CatalogPageComponent },
     { path: 'catalog/:id', component: CatalogItemPreviewComponent },
     { path: 'cart',        component: ShoppingCartComponent },
-    { path: 'admin',
+    {
+        path: 'admin',
         component: AdminPageComponent,
         children: [
             { path: '',         component: AdminStoreComponent },
@@ -27,7 +30,7 @@ const appRoutes: Routes = [
             { path: 'edit/:id', component: AdminEditComponent },
         ]},
     { path: '**',          component: PageNotFoundComponent }
-];
+] as Routes;
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
 
