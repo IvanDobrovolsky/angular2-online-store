@@ -1,20 +1,40 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
+import * as components from './components';
 
 @NgModule({
   declarations: [
-    AppComponent
+    //app
+    components.AppComponent,
+
+    //pages
+    components.AdminCreateComponent,
+    components.AdminEditComponent,
+    components.AdminPageComponent,
+    components.AdminStoreComponent,
+    components.CatalogFiltersComponent,
+    components.CatalogItemComponent,
+    components.CatalogItemPreviewComponent,
+    components.CatalogPageComponent,
+    components.PageNotFoundComponent,
+    components.HomePageComponent,
+    components.ShoppingCartComponent,
+    components.ShoppingCartItemComponent,
+
+    //shared
+    components.NavigationComponent,
+    components.ComputerFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [components.AppComponent]
 })
 export class AppModule { }
