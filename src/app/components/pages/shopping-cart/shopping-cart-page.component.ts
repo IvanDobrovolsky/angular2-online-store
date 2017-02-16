@@ -4,11 +4,11 @@ import { NgFor }                                           from '@angular/common
 import { Observable, Subscription }                        from 'Rxjs';
 import 'rxjs/Rx';
 
-import { ICartProductItem } from './../../../models/index';
+import { ICartProductItem } from '../../../../../angular2-online-store/src/app/models/index';
 
 import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-item.component';
 
-import { ApiService, ShoppingCartService, SubscriptionService } from './../../../services/index';
+import { ApiService, ShoppingCartService, SubscriptionService } from '../../../../../angular2-online-store/src/app/services/index';
 
 @Component({
     encapsulation: ViewEncapsulation.Emulated,

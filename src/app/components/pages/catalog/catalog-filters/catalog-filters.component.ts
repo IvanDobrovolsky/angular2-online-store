@@ -10,9 +10,9 @@ import {
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { Subscription }         from 'Rxjs'
 
-import { ApiService, SubscriptionService } from './../../../../services/index';
+import { ApiService, SubscriptionService } from '../../../../../../angular2-online-store/src/app/services/index';
 
-import { Computer, IFilters } from "../../../../models/index";
+import { Computer, IFilters } from "../../../../../../angular2-online-store/src/app/models/index";
 
 @Component({
     encapsulation: ViewEncapsulation.Emulated,

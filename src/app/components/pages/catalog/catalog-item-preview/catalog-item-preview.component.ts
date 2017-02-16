@@ -3,9 +3,9 @@ import { ActivatedRoute }               from '@angular/router';
 import { NgFor }                                           from '@angular/common';
 import { Subscription }                                    from 'Rxjs'
 
-import { Computer } from './../../../../models/index';
+import { Computer } from '../../../../../../angular2-online-store/src/app/models/index';
 
-import { ApiService, SubscriptionService } from './../../../../services/index';
+import { ApiService, SubscriptionService } from '../../../../../../angular2-online-store/src/app/services/index';
 
 //TODO remove interfaces and make the props and methods private
 interface ICatalogItemPreview {

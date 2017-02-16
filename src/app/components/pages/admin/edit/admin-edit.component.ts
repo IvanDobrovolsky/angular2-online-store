@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router }                          from '@angular/router';
 import { Subscription } from 'Rxjs'
 
-import { Computer, DirOptions, Notification }  from './../../../../models/index';
+import { Computer, DirOptions, Notification }  from '../../../../../../angular2-online-store/src/app/models/index';
 
-import { ApiService, NotificationService, SubscriptionService } from './../../../../services/index';
+import { ApiService, NotificationService, SubscriptionService } from '../../../../../../angular2-online-store/src/app/services/index';
 
 import { ComputerFormComponent } from './../../../shared/index';
 

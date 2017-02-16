@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router }                                                 from '@angular/router';
 
-import { Computer } from './../../../../models/index';
+import { Computer } from '../../../../../../angular2-online-store/src/app/models/index';
 
-import { ShoppingCartService } from './../../../../services/index';
+import { ShoppingCartService } from '../../../../../../angular2-online-store/src/app/services/index';
 
 @Component({
     encapsulation: ViewEncapsulation.Emulated,

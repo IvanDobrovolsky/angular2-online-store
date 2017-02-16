@@ -34,7 +34,7 @@ import {
     NotificationService,
     ShoppingCartService,
     SubscriptionService
-}  from './services/index';
+}  from '../../angular2-online-store/src/app/services/index';
 
 @NgModule({
     declarations: [

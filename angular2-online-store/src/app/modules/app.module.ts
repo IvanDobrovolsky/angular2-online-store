@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import * as components from './components';
+import { appRoutes } from './app-routing.module';
+import * as components from '../components';
+import * as services from '../services';
 
 @NgModule({
   declarations: [
@@ -32,9 +35,15 @@ import * as components from './components';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    services.ApiService,
+    services.NotificationService,
+    services.ShoppingCartService,
+    services.SubscriptionService
+  ],
   bootstrap: [components.AppComponent]
 })
 export class AppModule { }

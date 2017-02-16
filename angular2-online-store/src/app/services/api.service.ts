@@ -4,7 +4,7 @@ import { Observable }                             from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Computer, IFilters } from './../models/index';
+import { Computer, IFilters } from '../models/index';
 
 export interface IApiResponse<T> extends Response{
   success: boolean;
@@ -55,7 +55,7 @@ export class ApiService implements IComputersApiService{
   public removeComputer(id: number): Observable<IApiResponse<Computer>> {
     return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Delete, this.apiResources.baseUrl + '/' + id, null);
   }
-  
+
   public createNewComputer(newComputer: Computer): Observable<IApiResponse<Computer>> {
     return <Observable<IApiResponse<Computer>>> this.makeApiRequest(RequestMethod.Post, this.apiResources.baseUrl, JSON.stringify(newComputer));
   }

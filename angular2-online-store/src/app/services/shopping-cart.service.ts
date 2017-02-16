@@ -10,7 +10,7 @@ import {
     ICartProductItem,
     IShoppingCartLocalStorageItem,
     Notification
-} from './../models/index';
+} from '../models/index';
 
 import { ApiService, IApiResponse } from './api.service';
 import { NotificationService } from './notification.service';
