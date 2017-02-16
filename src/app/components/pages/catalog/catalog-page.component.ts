@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Subscription }                                    from 'Rxjs'
 
 //Computer model
-import { Computer } from '../../.';
+import { Computer } from '../../../models';
 
 //Api service
-import { ApiService, SubscriptionService } from '../../.';
+import { ApiService, SubscriptionService } from '../../../services';
 
 @Component({
     encapsulation: ViewEncapsulation.Emulated,

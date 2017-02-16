@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute }               from '@angular/router';
 import { Subscription }                                    from 'Rxjs'
 
-import { Computer } from '../../../.';
+import { Computer } from '../../../../models';
 
-import { ApiService, SubscriptionService } from '../../../.';
+import { ApiService, SubscriptionService } from '../../../../services';
 
 //TODO remove interfaces and make the props and methods private
 interface ICatalogItemPreview {

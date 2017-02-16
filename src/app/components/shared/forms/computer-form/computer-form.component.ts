@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 
 import { Router }  from '@angular/router';
 
-import { Computer }   from '../../../.';
+import { Computer }   from '../../../../models';
 
 //TODO Allow deactivation only if the form is submitted
 

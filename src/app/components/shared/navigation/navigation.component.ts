@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Subscription }                                    from 'Rxjs'
 
-import { ShoppingCartService, SubscriptionService } from '../../.';
+import { ShoppingCartService, SubscriptionService } from '../../../services';
 
 @Component({
     encapsulation: ViewEncapsulation.Emulated,

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgIf, NgFor }                                     from '@angular/common';
 import { Subscription }                                    from 'Rxjs'
 
 //Computer model
@@ -7,9 +6,6 @@ import { Computer, DirOptions, Notification } from '../../../../models/index';
 
 //Api service
 import { ApiService, NotificationService, SubscriptionService } from '../../../../services/index';
-
-//Application components
-import { StoreItemComponent } from './store-item/store-item.component';
 
 @Component({
     encapsulation: ViewEncapsulation.Emulated,

@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable, Subscription }                        from 'Rxjs';
 import 'rxjs/Rx';
 
-import { ICartProductItem } from '../../.';
+import { ICartProductItem } from '../../../models';
 
-import { ApiService, ShoppingCartService, SubscriptionService } from '../../.';
+import { ApiService, ShoppingCartService, SubscriptionService } from '../../../services';
 
 @Component({
     encapsulation: ViewEncapsulation.Emulated,

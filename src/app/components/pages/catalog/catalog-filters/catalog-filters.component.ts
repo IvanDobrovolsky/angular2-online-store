@@ -9,9 +9,9 @@ import {
 
 import { Subscription }         from 'Rxjs'
 
-import { ApiService, SubscriptionService } from '../../../.';
+import { ApiService, SubscriptionService } from '../../../../services';
 
-import { Computer, IFilters } from "../../../.";
+import { Computer, IFilters } from "../../../../models";
 
 @Component({
     encapsulation: ViewEncapsulation.Emulated,
