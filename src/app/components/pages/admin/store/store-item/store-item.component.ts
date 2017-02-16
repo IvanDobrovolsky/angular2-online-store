@@ -1,62 +1,18 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    ViewEncapsulation
-} from '@angular/core';
-
-import { Router } from '@angular/router';
-
-import { Computer } from '../../../../../models/index';
-
-//TODO Make all the properties private - remove the interface no one else will be using it
-interface IStoreItem {
-    _id:   number;
-    brand: string;
-    title: string;
-    price: number;
-}
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Computer }                               from '../../../../../models/index';
 
 @Component({
-    encapsulation: ViewEncapsulation.Emulated,
     selector: 'store-item',
     templateUrl: 'store-item.component.html',
-    styleUrls: [
-        'store-item.component.css'
-    ],
-    providers: []
+    styleUrls: ['store-item.component.css']
 })
-export class StoreItemComponent implements OnInit, OnDestroy, IStoreItem{
-    public _id: number;
-    public brand: string;
-    public title: string;
-    public price: number;
-    
-    @Input()  private item: Computer;
-    @Output() private remove = new EventEmitter<Computer>();
+export class StoreItemComponent {
+    @Input()  public item: Computer;
+    @Output() public remove = new EventEmitter<Computer>();
 
-    constructor(private router: Router){
-        
-    }
-
-    public ngOnInit(): void {
-        Object.assign(this, this.item);
-    }
-
-    public ngOnDestroy():any {
-        delete this;
-    }
-
-    private removeStoreItem() {
+    public removeStoreItem() {
         if(confirm("Do you want to delete the item from store?")) {
             this.remove.emit(this.item);
         }
-    }
-
-    private navigateTo(route: string, id): void {
-        this.router.navigate([`/${route}`, id]);
     }
 }
