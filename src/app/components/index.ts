@@ -4,6 +4,7 @@ export * from './pages/admin/admin-page.component';
 export * from './pages/admin/create/admin-create.component';
 export * from './pages/admin/edit/admin-edit.component';
 export * from './pages/admin/store/admin-store.component';
+export * from './pages/admin/store/store-item/store-item.component';
 export * from './pages/catalog/catalog-filters/catalog-filters.component';
 export * from './pages/catalog/catalog-item/catalog-item.component';
 export * from './pages/catalog/catalog-item-preview/catalog-item-preview.component';

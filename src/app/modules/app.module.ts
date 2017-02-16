@@ -18,6 +18,7 @@ import * as services from '../services';
     components.AdminEditComponent,
     components.AdminPageComponent,
     components.AdminStoreComponent,
+    components.StoreItemComponent,
     components.CatalogFiltersComponent,
     components.CatalogItemComponent,
     components.CatalogItemPreviewComponent,
