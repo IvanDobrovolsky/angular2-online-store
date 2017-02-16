@@ -86,7 +86,7 @@ The back end part is done with Node.js stack.
 - Authentication
 - Maximum test coverage
 - Pagination
-- Peformance enhacement
+- Performance enhancement
 - Animation
 - Caching
 - Server-side/Web-worker rendering

@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
-import { NgClass } from '@angular/common';
+
 import { Router }  from '@angular/router';
 
-import { Computer }   from '../../../../../../angular2-online-store/src/app/models/index';
+import { Computer }   from '../../../.';
 
 //TODO Allow deactivation only if the form is submitted
 
@@ -39,7 +39,7 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
     @Input()  private action: string;
     @Input()  private itemToUpdate: Computer;
     @Output() private formSubmit = new EventEmitter<Computer>();
-    
+
     private computerForm: FormGroup;
     private initialFormValues: IInitialFormValues = {
         title: '',
@@ -103,7 +103,7 @@ export class ComputerFormComponent implements OnInit, OnDestroy{
     private isFormValid(): boolean {
         return this.computerForm.valid;
     }
-    
+
     private submit(): void {
         this.isSubmitted = true;
 

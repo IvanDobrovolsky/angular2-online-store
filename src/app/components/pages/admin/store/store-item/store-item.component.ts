@@ -10,7 +10,7 @@ import {
 
 import { Router } from '@angular/router';
 
-import { Computer } from '../../../../../../../angular2-online-store/src/app/models/index';
+import { Computer } from '../../../../../models/index';
 
 //TODO Make all the properties private - remove the interface no one else will be using it
 interface IStoreItem {

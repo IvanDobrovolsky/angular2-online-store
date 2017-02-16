@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class Ng2OnlineStorePage {
+export class Angular2OnlineStorePage {
   navigateTo() {
     return browser.get('/');
   }

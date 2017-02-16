@@ -1,10 +1,10 @@
-import { Ng2OnlineStorePage } from './app.po.ts';
+import { Angular2OnlineStorePage } from './app.po';
 
-describe('ng2-online-store App', function() {
-  let page: Ng2OnlineStorePage;
+describe('angular2-online-store App', function() {
+  let page: Angular2OnlineStorePage;
 
   beforeEach(() => {
-    page = new Ng2OnlineStorePage();
+    page = new Angular2OnlineStorePage();
   });
 
   it('should display message saying app works', () => {

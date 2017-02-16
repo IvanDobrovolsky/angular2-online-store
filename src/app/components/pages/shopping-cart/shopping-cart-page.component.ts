@@ -1,14 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router }                                          from '@angular/router';
-import { NgFor }                                           from '@angular/common';
 import { Observable, Subscription }                        from 'Rxjs';
 import 'rxjs/Rx';
 
-import { ICartProductItem } from '../../../../../angular2-online-store/src/app/models/index';
+import { ICartProductItem } from '../../.';
 
-import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-item.component';
-
-import { ApiService, ShoppingCartService, SubscriptionService } from '../../../../../angular2-online-store/src/app/services/index';
+import { ApiService, ShoppingCartService, SubscriptionService } from '../../.';
 
 @Component({
     encapsulation: ViewEncapsulation.Emulated,

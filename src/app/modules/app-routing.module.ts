@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import * as components from '../components';
+import * as components from './.';
 
 export const appRoutes = [
   {
