@@ -1,13 +1,27 @@
 import * as shoppingCart from '../actions/shopping-cart.action';
 
-export interface State {
+import { IShoppingCartItem } from '../models';
 
-}
+export type State = Array<IShoppingCartItem>;
 
-const initialState = {};
+const initialState = [];
 
 export function reducer(state = initialState, action: shoppingCart.Actions): State {
     switch (action.type) {
+        case shoppingCart.ActionTypes.ADD_TO_CART: {
+
+            const isAlreadyInCart = state.find(
+                (item: IShoppingCartItem) => item.product._id == action.payload.product._id
+            );
+
+            if (isAlreadyInCart) {
+                console.warn('Already in the cart!');
+                return state;
+            }
+
+            console.info("Successfully added!");
+            return [...state, action.payload]
+        }
         default:
             return state;
     }

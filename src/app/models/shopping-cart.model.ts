@@ -10,3 +10,9 @@ export interface IShoppingCartLocalStorageItem {
 export interface ICartProductItem extends Computer {
     quantity: number;
 }
+
+
+export interface IShoppingCartItem {
+    quantity: number;
+    product: Computer;
+}

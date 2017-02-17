@@ -1,9 +1,13 @@
-import { Component,Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import { Router }                                                 from '@angular/router';
+import { Component,Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router }                                                from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { Computer } from '../../../../models';
 
 import { ShoppingCartService } from "../../../../services";
+
+import * as fromRoot from '../../../../reducers';
+import * as shoppingCart from '../../../../actions/shopping-cart.action';
 
 //TODO Remove interface and make the properties private
 interface ICatalogItem {
@@ -36,7 +40,11 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
 
     @Input() private item: Computer;
 
-    constructor(private router: Router, private shoppingCartService: ShoppingCartService){
+    constructor(
+        private router: Router,
+        private shoppingCartService: ShoppingCartService,
+        private store: Store<fromRoot.State>
+    ){
 
     }
 
@@ -49,7 +57,12 @@ export class CatalogItemComponent implements OnInit, OnDestroy, ICatalogItem{
     }
 
     public addToCart(id: number): void {
-        this.shoppingCartService.addToCart(id);
+        //Deprecated
+        //this.shoppingCartService.addToCart(id);
+
+        this.store.dispatch(
+            new shoppingCart.AddToCartAction(Object.assign({product: this.item, quantity: 0}))
+        )
     }
 
     public preview(id: number): void {
