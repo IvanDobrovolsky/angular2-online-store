@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input,  Output } from '@angular/core';
-import { Router }                                  from '@angular/router';
 
 import { IShoppingCartItem } from '../../../../models';
 
@@ -8,8 +7,7 @@ import { IShoppingCartItem } from '../../../../models';
     templateUrl: 'shopping-cart-item.component.html',
     styleUrls: [
         'shopping-cart-item.component.css'
-    ],
-    providers: []
+    ]
 })
 export class ShoppingCartItemComponent {
 
@@ -17,10 +15,6 @@ export class ShoppingCartItemComponent {
 
     @Output() public remove = new EventEmitter<IShoppingCartItem>();
     @Output() public quantityChange = new EventEmitter<IShoppingCartItem>();
-
-    constructor(private router: Router){
-
-    }
 
     public removeFromCart(): void {
         if (confirm("Are you sure that you want to remove it from cart?")) {
@@ -30,10 +24,6 @@ export class ShoppingCartItemComponent {
 
     public changeQuantity(newQuantity: number): void {
         this.quantityChange.emit({product: this.item.product, quantity: newQuantity});
-    }
-
-    public preview(id: number): void {
-        this.router.navigate(['/catalog', id]);
     }
 }
 

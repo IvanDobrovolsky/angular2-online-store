@@ -2,7 +2,7 @@
     <img src={{item.product.image}}/>
 </div>
 <div class="content">
-    <a class="header page_cart-item--header" (click)="preview(item.product._id)">{{item.product.brand}} {{item.product.title}}</a>
+    <a class="header page_cart-item--header" routerLink="/catalog/{{item.product._id}}">{{item.product.brand}} {{item.product.title}}</a>
     <div class="meta">
         <span class="date">{{item.product.price | currency}}</span>
     </div>
