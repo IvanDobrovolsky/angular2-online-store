@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router }           from '@angular/router';
 
 import { Computer } from '../../../../models';
@@ -14,6 +14,7 @@ import { Computer } from '../../../../models';
 export class ShoppingCartItemComponent implements OnInit {
 
     @Input() public item: Computer;
+    @Output() public remove = new EventEmitter<Computer>();
 
     constructor(private router: Router){
 
@@ -23,9 +24,9 @@ export class ShoppingCartItemComponent implements OnInit {
         console.log(this.item.title);
     }
 
-    public removeFromCart(id: number): void {
+    public removeFromCart(): void {
         if (confirm("Are you sure that you want to remove it from cart?")) {
-            // this.shoppingCartService.removeFromCart(id);
+            this.remove.emit(this.item);
         }
     }
 

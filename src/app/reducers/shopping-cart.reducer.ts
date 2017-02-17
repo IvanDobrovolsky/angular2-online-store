@@ -22,6 +22,14 @@ export function reducer(state = initialState, action: shoppingCart.Actions): Sta
             console.info("Successfully added!");
             return [...state, action.payload]
         }
+        case shoppingCart.ActionTypes.REMOVE_FROM_CART: {
+            const itemToRemoveIndex = state.findIndex((item: IShoppingCartItem): boolean => {
+                return item.product._id === action.payload.product._id;
+            });
+
+            return [...state.slice(0, itemToRemoveIndex), ...state.slice(itemToRemoveIndex + 1)];
+        }
+
         default:
             return state;
     }

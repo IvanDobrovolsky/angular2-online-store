@@ -3,6 +3,7 @@ import { Observable }        from 'Rxjs';
 import { Store }             from '@ngrx/store';
 
 import { IShoppingCartItem, Computer } from '../../../models';
+import * as shoppingCart from '../../../actions/shopping-cart.action';
 import * as fromRoot from '../../../reducers';
 
 @Component({
@@ -30,6 +31,10 @@ export class ShoppingCartComponent implements OnInit {
 
         this.total$ = shoppingCartStore$
             .map((items: IShoppingCartItem[]) => this.calculateTotal(items));
+    }
+
+    public removeFromCart(item: Computer): void {
+        this.store.dispatch(new shoppingCart.RemoveFromCartAction({product: item, quantity: 0}))
     }
 
     private calculateTotal(items: IShoppingCartItem[]): number {

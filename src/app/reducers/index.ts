@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 
 import * as fromRouter from '@ngrx/router-store';
 
-import * as fromShoppingCart from './shoppin-cart.reducer';
+import * as fromShoppingCart from './shopping-cart.reducer';
 
 import { compose } from '@ngrx/core';
 
