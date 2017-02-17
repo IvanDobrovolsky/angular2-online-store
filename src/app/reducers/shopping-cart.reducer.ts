@@ -29,6 +29,13 @@ export function reducer(state = initialState, action: shoppingCart.Actions): Sta
 
             return [...state.slice(0, itemToRemoveIndex), ...state.slice(itemToRemoveIndex + 1)];
         }
+        case shoppingCart.ActionTypes.CHANGE_QUANTITY: {
+            const itemToChangeIndex = state.findIndex((item: IShoppingCartItem): boolean => {
+                return item.product._id === action.payload.product._id;
+            });
+
+            return [...state.slice(0, itemToChangeIndex), action.payload, ...state.slice(itemToChangeIndex + 1)];
+        }
 
         default:
             return state;

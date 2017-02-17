@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router }           from '@angular/router';
+import { Component, EventEmitter, Input,  Output } from '@angular/core';
+import { Router }                                  from '@angular/router';
 
-import { Computer } from '../../../../models';
+import { IShoppingCartItem } from '../../../../models';
 
 @Component({
     selector: 'shopping-cart-item',
@@ -11,17 +11,15 @@ import { Computer } from '../../../../models';
     ],
     providers: []
 })
-export class ShoppingCartItemComponent implements OnInit {
+export class ShoppingCartItemComponent {
 
-    @Input() public item: Computer;
-    @Output() public remove = new EventEmitter<Computer>();
+    @Input() public item: IShoppingCartItem;
+
+    @Output() public remove = new EventEmitter<IShoppingCartItem>();
+    @Output() public quantityChange = new EventEmitter<IShoppingCartItem>();
 
     constructor(private router: Router){
 
-    }
-
-    public ngOnInit (): void {
-        console.log(this.item.title);
     }
 
     public removeFromCart(): void {
@@ -30,13 +28,12 @@ export class ShoppingCartItemComponent implements OnInit {
         }
     }
 
-    public preview(id: number): void {
-        this.router.navigate(['/catalog', id]);
+    public changeQuantity(newQuantity: number): void {
+        this.quantityChange.emit({product: this.item.product, quantity: newQuantity});
     }
 
-    public changeQuantity(id:number, newQuantity): void {
-        // this.quantity = newQuantity;
-        // this.shoppingCartService.changeQuantity(id, newQuantity);
+    public preview(id: number): void {
+        this.router.navigate(['/catalog', id]);
     }
 }
 

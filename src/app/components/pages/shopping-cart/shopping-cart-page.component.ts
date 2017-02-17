@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable }        from 'Rxjs';
 import { Store }             from '@ngrx/store';
 
-import { IShoppingCartItem, Computer } from '../../../models';
+import { IShoppingCartItem } from '../../../models';
 import * as shoppingCart from '../../../actions/shopping-cart.action';
 import * as fromRoot from '../../../reducers';
 
@@ -15,7 +15,7 @@ import * as fromRoot from '../../../reducers';
 })
 export class ShoppingCartComponent implements OnInit {
 
-    private items$: Observable<Computer[]>;
+    private items$: Observable<IShoppingCartItem[]>;
     private total$: Observable<number>;
 
     constructor(
@@ -26,15 +26,18 @@ export class ShoppingCartComponent implements OnInit {
     public ngOnInit(): void {
         const shoppingCartStore$ = this.store.select('shoppingCart');
 
-        this.items$ = shoppingCartStore$
-            .map((items: IShoppingCartItem[]) => this.retrieveProductsFromCartItems(items));
+        this.items$ = shoppingCartStore$;
 
         this.total$ = shoppingCartStore$
             .map((items: IShoppingCartItem[]) => this.calculateTotal(items));
     }
 
-    public removeFromCart(item: Computer): void {
-        this.store.dispatch(new shoppingCart.RemoveFromCartAction({product: item, quantity: 0}))
+    public removeFromCart(item: IShoppingCartItem): void {
+        this.store.dispatch(new shoppingCart.RemoveFromCartAction(item))
+    }
+
+    public changeQuantity(item: IShoppingCartItem): void {
+        this.store.dispatch(new shoppingCart.ChangeQuantityAction(item));
     }
 
     private calculateTotal(items: IShoppingCartItem[]): number {
@@ -45,10 +48,6 @@ export class ShoppingCartComponent implements OnInit {
         }
 
         return result;
-    }
-
-    private retrieveProductsFromCartItems (items: IShoppingCartItem[]): Computer[] {
-        return items.map((i: IShoppingCartItem) => i.product);
     }
 }
 

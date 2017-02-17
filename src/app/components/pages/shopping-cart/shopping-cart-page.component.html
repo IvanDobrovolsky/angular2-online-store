@@ -5,6 +5,7 @@
         <shopping-cart-item class="item page_cart--item"
                             *ngFor="let item of items$ | async"
                             [item]="item"
+                            (quantityChange)="changeQuantity($event)"
                             (remove)="removeFromCart($event)"></shopping-cart-item>
     </div>
 </div>

@@ -4,7 +4,8 @@ import { IShoppingCartItem, Computer } from '../models';
 
 export const ActionTypes = {
     ADD_TO_CART: '[Cart] Add new item to cart',
-    REMOVE_FROM_CART: '[Cart] Remove from cart'
+    REMOVE_FROM_CART: '[Cart] Remove from cart',
+    CHANGE_QUANTITY: '[Cart] Change quantity'
 };
 
 export class AddToCartAction implements Action {
@@ -21,4 +22,11 @@ export class RemoveFromCartAction implements Action {
     }
 }
 
-export type Actions = AddToCartAction | RemoveFromCartAction;
+export class ChangeQuantityAction implements Action {
+    public type = ActionTypes.CHANGE_QUANTITY;
+
+    constructor (public payload: IShoppingCartItem) {
+    }
+}
+
+export type Actions = AddToCartAction | RemoveFromCartAction | ChangeQuantityAction;

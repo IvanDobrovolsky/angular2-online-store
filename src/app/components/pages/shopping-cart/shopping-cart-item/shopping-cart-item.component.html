@@ -1,19 +1,19 @@
 <div class="image page_cart-item--image">
-    <img src={{item.image}}/>
+    <img src={{item.product.image}}/>
 </div>
 <div class="content">
-    <a class="header page_cart-item--header" (click)="preview(item._id)">{{item.brand}} {{item.title}}</a>
+    <a class="header page_cart-item--header" (click)="preview(item.product._id)">{{item.product.brand}} {{item.product.title}}</a>
     <div class="meta">
-        <span class="date">{{item.price | currency}}</span>
+        <span class="date">{{item.product.price | currency}}</span>
     </div>
     <div class="description page_cart-item--description">
         <p>Choose the quantity of computers:</p>
     </div>
     <div class="extra content ui form page_cart-item--extra">
         <div class="page_cart-item--quantity field">
-            <input type="number" value="1" (change)="changeQuantity(_id, $event.target.value)" min="1" max="10" />
+            <input type="number" value="{{item.quantity}}" (change)="changeQuantity($event.target.value)" min="1" max="10" />
         </div>
-        <!--<div class="page_cart-item&#45;&#45;total">Total: {{totalForItem | currency:'USD'}}</div>-->
-        <span class="ui button" (click)="removeFromCart(item._id)"><i class="fa fa-remove"></i></span>
+        <div class="page_cart-item--total">Total: {{(item.product.price*item.quantity)| currency:'USD'}}</div>
+        <span class="ui button" (click)="removeFromCart()"><i class="fa fa-remove"></i></span>
     </div>
 </div>
