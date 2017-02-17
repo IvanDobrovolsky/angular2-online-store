@@ -25,7 +25,7 @@ export class CatalogItemComponent {
 
     public addToCart(): void {
         this.store.dispatch(
-            new shoppingCart.AddToCartAction(Object.assign({product: this.item, quantity: 0}))
+            new shoppingCart.AddToCartAction(Object.assign({product: this.item, quantity: 1}))
         )
     }
 

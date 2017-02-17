@@ -1,54 +1,49 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Observable, Subscription }                        from 'Rxjs';
-import 'rxjs/Rx';
+import { Component, OnInit } from '@angular/core';
+import { Observable }        from 'Rxjs';
+import { Store }             from '@ngrx/store';
 
-import { ICartProductItem } from '../../../models';
-
-import { ApiService, ShoppingCartService, SubscriptionService } from '../../../services';
+import { IShoppingCartItem, Computer } from '../../../models';
+import * as fromRoot from '../../../reducers';
 
 @Component({
-    encapsulation: ViewEncapsulation.Emulated,
     selector: 'shopping-cart',
     templateUrl: 'shopping-cart-page.component.html',
     styleUrls: [
         'shopping-cart-page.component.css'
     ]
 })
-export class ShoppingCartComponent implements OnInit, OnDestroy{
+export class ShoppingCartComponent implements OnInit {
 
-    private items: Observable<ICartProductItem[]>;
-    private total: number;
-
-    private subscriptions: Array<Subscription> = [];
+    private items$: Observable<Computer[]>;
+    private total$: Observable<number>;
 
     constructor(
-        private apiService: ApiService,
-        private subscriptionService: SubscriptionService,
-        private shoppingCartService: ShoppingCartService
+        private store: Store<fromRoot.State>
     ) {}
 
 
     public ngOnInit(): void {
-        this.shoppingCartService.loadCart();
-        this.items = this.shoppingCartService.cartItemsStream;
-        //noinspection TypeScriptUnresolvedFunction
-        const cartItemsStreamSubscription = this.shoppingCartService
-            .cartItemsStream
-            .subscribe(data => this.calculateTotal(data));
+        const shoppingCartStore$ = this.store.select('shoppingCart');
 
-        this.subscriptions.push(cartItemsStreamSubscription);
+        this.items$ = shoppingCartStore$
+            .map((items: IShoppingCartItem[]) => this.retrieveProductsFromCartItems(items));
+
+        this.total$ = shoppingCartStore$
+            .map((items: IShoppingCartItem[]) => this.calculateTotal(items));
     }
 
-    public ngOnDestroy(): void {
-        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
-    }
-
-    private calculateTotal(items) {
+    private calculateTotal(items: IShoppingCartItem[]): number {
         let result = 0;
+
         for (let item of items) {
-            result += item.price * item.quantity;
+            result += item.product.price * item.quantity;
         }
-        this.total = result;
+
+        return result;
+    }
+
+    private retrieveProductsFromCartItems (items: IShoppingCartItem[]): Computer[] {
+        return items.map((i: IShoppingCartItem) => i.product);
     }
 }
 
