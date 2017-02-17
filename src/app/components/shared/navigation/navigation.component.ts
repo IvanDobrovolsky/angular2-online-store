@@ -1,36 +1,29 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Subscription }                                    from 'Rxjs'
+import { Component, OnInit } from '@angular/core';
+import { Observable }        from 'Rxjs'
+import { Store}              from '@ngrx/store';
 
-import { ShoppingCartService, SubscriptionService } from '../../../services';
+import * as fromRoot from '../../../reducers';
+import { IShoppingCartItem } from '../../../models';
 
 @Component({
-    encapsulation: ViewEncapsulation.Emulated,
     selector: 'navigation',
     templateUrl: 'navigation.component.html',
     styleUrls: [
         'navigation.component.css'
     ]
 })
-export class NavigationComponent implements OnInit, OnDestroy {
+export class NavigationComponent implements OnInit {
 
-    private cartSize: number;
+    public cartSize$: Observable<number>;
 
-    private subscriptions: Array<Subscription> = [];
 
-    constructor(
-        private shoppingCartService: ShoppingCartService,
-        private subscriptionService: SubscriptionService
-    ) {}
+    constructor(private store: Store<fromRoot.State>) {
+
+    }
 
     public ngOnInit(): void {
-        const subscriptionToCartSizeStream: Subscription = this.shoppingCartService.cartSizeStream.subscribe(newSize => this.cartSize = newSize);
-        this.shoppingCartService.loadCartSizeValue();
-
-        this.subscriptions.push(subscriptionToCartSizeStream);
+        this.cartSize$ = this.store
+            .select('shoppingCart')
+            .map((items: IShoppingCartItem[]) => items.length)
     }
-
-    public ngOnDestroy(): void {
-        this.subscriptionService.unsubscribeFromAllObservables(this.subscriptions);
-    }
-
 }
