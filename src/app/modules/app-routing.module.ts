@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import * as components from '../components';
 
-export const appRoutes = [
+export const appRoutes: Routes = [
   {
     path: '',            component: components.HomePageComponent
   },
@@ -18,4 +18,4 @@ export const appRoutes = [
       { path: 'edit/:id', component: components.AdminEditComponent },
     ]},
   { path: '**',          component: components.PageNotFoundComponent }
-] as Routes;
+];
